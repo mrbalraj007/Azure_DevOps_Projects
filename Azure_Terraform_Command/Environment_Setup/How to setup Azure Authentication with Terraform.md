@@ -37,6 +37,39 @@ $env:ARM_SUBSCRIPTION_ID="2fc598a4-6a52-44b9-b476-xxxxxxxxxxxxx"
 Terraform will automatically read these variables without the need to specify them in the provider block.
 ```
 
+To remove or unset environment variables in PowerShell, you can use the Remove-Item cmdlet. Here's how you can remove the environment variables you previously set:
+
+```powershell
+Remove-Item -Path Env:ARM_CLIENT_ID
+Remove-Item -Path Env:ARM_CLIENT_SECRET
+Remove-Item -Path Env:ARM_TENANT_ID
+Remove-Item -Path Env:ARM_SUBSCRIPTION_ID
+```
+
+
+```sh
+Option 2: Using a Service Principal File
+You can also create a service principal file (JSON) that contains your credentials. Here's how:
+
+Create a file, e.g., azurerm-credentials.json, with the following structure:
+json
+Copy code
+{
+  "client_id": "40bbf41d-b165-4ef2-xxxxx",
+  "client_secret": "xxxxxxxxxx",
+  "tenant_id": "d504922d-ac26-4aa9-xxxxxxxxxxx",
+  "subscription_id": "2fc598a4-6a52-44b9-xxxxxxxxxxxxxxx"
+}
+Reference the file in your provider block like this:
+hcl
+Copy code
+provider "azurerm" {
+  features {}
+
+  credentials = "path/to/azurerm-credentials.json"
+}
+This will allow Terraform to read the credentials from the file, keeping your sensitive information out of the main Terraform configuration.
+```
 
 [Azure Provider](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs)
 
