@@ -53,6 +53,10 @@ https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/guides/ser
 
 https://www.youtube.com/watch?v=Un2l16hFIpw&list=PLJcpyd04zn7rxl0X8mBdysb5NjUGIsJ7W&index=4
 
+https://learn.microsoft.com/en-us/azure/virtual-machines/linux/quick-create-terraform?tabs=azure-cli
+https://learn.microsoft.com/en-us/azure/developer/terraform/create-vm-scaleset-network-disks-hcl
+https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/virtual_machine
+
 https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/resource_group
 
 https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/subnet
