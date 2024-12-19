@@ -47,30 +47,6 @@ Remove-Item -Path Env:ARM_SUBSCRIPTION_ID
 ```
 
 
-```sh
-Option 2: Using a Service Principal File
-You can also create a service principal file (JSON) that contains your credentials. Here's how:
-
-Create a file, e.g., azurerm-credentials.json, with the following structure:
-json
-Copy code
-{
-  "client_id": "40bbf41d-b165-4ef2-xxxxx",
-  "client_secret": "xxxxxxxxxx",
-  "tenant_id": "d504922d-ac26-4aa9-xxxxxxxxxxx",
-  "subscription_id": "2fc598a4-6a52-44b9-xxxxxxxxxxxxxxx"
-}
-Reference the file in your provider block like this:
-hcl
-Copy code
-provider "azurerm" {
-  features {}
-
-  credentials = "path/to/azurerm-credentials.json"
-}
-This will allow Terraform to read the credentials from the file, keeping your sensitive information out of the main Terraform configuration.
-```
-
 [Azure Provider](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs)
 
 https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/guides/service_principal_client_secret
@@ -83,4 +59,12 @@ https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/
 
 https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/virtual_network
 
-https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/linux_virtual_machine
+[Azure linux_virtual_machine](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/linux_virtual_machine)
+
+[network_security_group](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/network_security_group)
+
+[Azure Public_ip](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/public_ip)
+
+[Azure Network interface security_group association](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/network_interface_security_group_association)
+
+[Azure CLI conceptual article list](https://learn.microsoft.com/en-us/cli/azure/reference-docs-index)
