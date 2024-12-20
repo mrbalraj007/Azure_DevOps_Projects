@@ -1,3 +1,11 @@
+provider "azurerm" {
+  features {
+    resource_group {
+      prevent_deletion_if_contains_resources = false
+    }
+  }
+}
+
 resource "azurerm_resource_group" "example" {
   name     = var.resource_group_name
   location = var.resource_group_location
@@ -17,13 +25,16 @@ resource "azurerm_subnet" "example" {
   address_prefixes     = ["10.0.2.0/24"]
 }
 
-resource "azurerm_public_ip" "example" {
-  name                = "acceptanceTestPublicIp1"
-  resource_group_name = azurerm_resource_group.example.name
+resource "azurerm_network_interface" "example" {
+  name                = "example-nic"
   location            = azurerm_resource_group.example.location
-  allocation_method   = "Static"
-  tags = {
-    environment = "test"
+  resource_group_name = azurerm_resource_group.example.name
+
+  ip_configuration {
+    name                          = "internal"
+    subnet_id                     = azurerm_subnet.example.id
+    private_ip_address_allocation = "Dynamic"
+    public_ip_address_id          = azurerm_public_ip.example.id
   }
 }
 
@@ -49,16 +60,14 @@ resource "azurerm_network_security_group" "example" {
   }
 }
 
-resource "azurerm_network_interface" "example" {
-  name                = "example-nic"
-  location            = azurerm_resource_group.example.location
+resource "azurerm_public_ip" "example" {
+  name                = "acceptanceTestPublicIp1"
   resource_group_name = azurerm_resource_group.example.name
+  location            = azurerm_resource_group.example.location
+  allocation_method   = "Static"
 
-  ip_configuration {
-    name                          = "internal"
-    subnet_id                     = azurerm_subnet.example.id
-    private_ip_address_allocation = "Dynamic"  # Change to "Static" if needed
-    public_ip_address_id          = azurerm_public_ip.example.id
+  tags = {
+    environment = "test"
   }
 }
 
@@ -73,10 +82,7 @@ resource "azurerm_linux_virtual_machine" "example" {
   location                        = azurerm_resource_group.example.location
   size                            = "Standard_A2_V2"
   admin_username                  = "azureuser"
-  user_data                       = base64encode(templatefile("./scripts/user_data_docker.sh", {}))  # Base64 encode the user data script
-
   disable_password_authentication = true
-
   network_interface_ids = [
     azurerm_network_interface.example.id,
   ]
@@ -90,7 +96,7 @@ resource "azurerm_linux_virtual_machine" "example" {
   source_image_reference {
     publisher = "Canonical"
     offer     = "0001-com-ubuntu-server-jammy"
-    sku       = "22_04-lts"   #"22_04-lts"
+    sku       = "22_04-lts"
     version   = "latest"
   }
 
@@ -99,30 +105,72 @@ resource "azurerm_linux_virtual_machine" "example" {
     public_key = file("id_ed25519.pub")
   }
 
-  provisioner "file" {
-    source      = "./scripts"
-    destination = "/tmp/scripts"
-
-    connection {
-      host        = self.public_ip_address
-      user        = "azureuser"
-      private_key = file("id_ed25519")
-      type        = "ssh"
-    }
+  connection {
+    host        = self.public_ip_address
+    user        = "azureuser"
+    private_key = file("id_ed25519")
+    type        = "ssh"
   }
 
   provisioner "remote-exec" {
     inline = [
-      "sudo chown -R $USER:$USER /tmp/scripts",
-      "chmod +x /tmp/scripts/user_data_docker.sh",
-      "sudo /tmp/scripts/user_data_docker.sh"
+       "echo 'Updating package list...'",
+        "sudo apt-get update",
+        "echo 'Installing required packages...'",
+        "sudo apt-get install -y curl wget apt-transport-https ca-certificates software-properties-common gnupg lsb-release",
+        "echo 'Adding Docker GPG key...'",
+        "curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /usr/share/keyrings/docker-archive-keyring.gpg",
+        "echo 'Adding Docker repository...'",
+        "echo \"deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/docker-archive-keyring.gpg] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable\" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null",
+        "echo 'Updating package list again...'",
+        "sudo apt-get update -y",
+        "echo 'Installing Docker...'",
+        "sudo apt-get install -y docker-ce docker-ce-cli containerd.io",
+        "echo 'Starting Docker service...'",
+        "sudo systemctl start docker",
+        "sudo systemctl enable docker",
+        "echo 'Adding user to Docker group...'",
+        "sudo usermod -aG docker $USER",
+        "echo 'Verifying Docker installation...'",
+        "sudo docker --version",
+        "echo 'Configuring containerd...'",
+        "sudo mkdir -p /etc/containerd",
+        "containerd config default | sudo tee /etc/containerd/config.toml",
+        "sudo systemctl restart containerd",
+        "echo 'Downloading Minikube...'",
+        "wget https://storage.googleapis.com/minikube/releases/latest/minikube-linux-amd64",
+        "chmod +x minikube-linux-amd64",
+        "sudo mv minikube-linux-amd64 /usr/local/bin/minikube",
+        "echo 'Installing conntrack and crictl...'",
+        "sudo apt-get install -y conntrack",
+        "curl -LO https://github.com/kubernetes-sigs/cri-tools/releases/download/v1.24.0/crictl-v1.24.0-linux-amd64.tar.gz",
+        "sudo tar zxvf crictl-v1.24.0-linux-amd64.tar.gz -C /usr/local/bin",
+        "echo 'Installing containernetworking-plugins...'",
+        "wget https://github.com/containernetworking/plugins/releases/download/v1.1.1/cni-plugins-linux-amd64-v1.1.1.tgz",
+        "sudo mkdir -p /opt/cni/bin",
+        "sudo tar -xzf cni-plugins-linux-amd64-v1.1.1.tgz -C /opt/cni/bin",
+        "echo 'Installing kubectl...'",
+        "curl -LO \"https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl\"",
+        "chmod +x kubectl",
+        "sudo mv kubectl /usr/local/bin/",
+        "echo 'Creating .kube and .minikube directories...'",
+        "mkdir -p $HOME/.kube $HOME/.minikube",
+        "echo 'Changing ownership of .kube and .minikube directories...'",
+        "sudo chown -R $USER $HOME/.kube $HOME/.minikube",
+        "echo 'Creating /etc/cni/net.d directory...'",
+        "sudo mkdir -p /etc/cni/net.d",
+        "echo 'Starting Minikube...'",
+        "sudo sysctl fs.protected_regular=0",
+        "sudo minikube start --driver=none --container-runtime=containerd --kubernetes-version=v1.31.0",
+        "echo 'Provisioning complete.'"
     ]
 
     connection {
-      host        = self.public_ip_address
+      host        = azurerm_public_ip.example.ip_address
       user        = "azureuser"
       private_key = file("id_ed25519")
       type        = "ssh"
+      timeout     = "30m"
     }
   }
 }

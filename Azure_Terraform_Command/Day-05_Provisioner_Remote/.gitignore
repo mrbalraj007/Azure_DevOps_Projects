@@ -21,7 +21,6 @@ Universal_Terraform_EC2_Create/.terraform/providers/registry.terraform.io/hashic
 *.exe
 *.bak
 *.txt
-*.tfvars
 *azurerm-credentials.json
 *.json
 *id_ed25519*
