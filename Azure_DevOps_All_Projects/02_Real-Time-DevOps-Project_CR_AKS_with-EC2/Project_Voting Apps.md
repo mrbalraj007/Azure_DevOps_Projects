@@ -770,3 +770,4 @@ https://learn.microsoft.com/en-us/azure/aks/learn/quick-kubernetes-deploy-terraf
 https://developer.hashicorp.com/terraform/tutorials/kubernetes/aks
 
 https://stacksimplify.com/azure-aks/create-aks-cluster-using-terraform/
+

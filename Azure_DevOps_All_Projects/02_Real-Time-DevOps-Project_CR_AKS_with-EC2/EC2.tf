@@ -72,7 +72,7 @@ resource "azurerm_linux_virtual_machine" "example" {
   name                            = "devops-demo_vm"
   resource_group_name             = azurerm_resource_group.example.name
   location                        = azurerm_resource_group.example.location
-  size                            = "Standard_A2_V2"  #"Standard_A2_V2" "Standard_B2ms"
+  size                            = "Standard_A2_V2" #"Standard_A2_V2" "Standard_B2ms"
   admin_username                  = "azureuser"
   disable_password_authentication = true
   network_interface_ids           = [azurerm_network_interface.example.id]
@@ -98,31 +98,31 @@ resource "azurerm_linux_virtual_machine" "example" {
 
   provisioner "remote-exec" {
     inline = [
-        "echo 'Updating package list...'",
-        "sudo apt-get update",
-        "echo 'Installing required packages...'",
-        "sudo apt-get install -y curl wget apt-transport-https ca-certificates software-properties-common gnupg lsb-release",
-        "echo 'Adding Docker GPG key...'",
-        "curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /usr/share/keyrings/docker-archive-keyring.gpg",
-        "echo 'Adding Docker repository...'",
-        "echo \"deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/docker-archive-keyring.gpg] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable\" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null",
-        "echo 'Updating package list again...'",
-        "sudo apt-get update -y",
-        "echo 'Installing Docker...'",
-        "sudo apt-get install -y docker-ce docker-ce-cli containerd.io",
-        "echo 'Starting Docker service...'",
-        "sudo systemctl start docker",
-        "sudo systemctl enable docker",
-        "echo 'Adding user to Docker group...'",
-        "sudo usermod -aG docker $USER",
-        "echo 'Installing kubectl...'",
-        "curl -LO \"https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl\"",
-        "sudo install -o root -g root -m 0755 kubectl /usr/local/bin/kubectl",
-        "echo 'Installing Azure CLI...'",
-        "curl -sL https://aka.ms/InstallAzureCLIDeb | sudo bash",
-        "echo 'Show Azure CLI version...'",
-        "sudo az version",
-        "echo 'Script is completed...'",
+      "echo 'Updating package list...'",
+      "sudo apt-get update",
+      "echo 'Installing required packages...'",
+      "sudo apt-get install -y curl wget apt-transport-https ca-certificates software-properties-common gnupg lsb-release",
+      "echo 'Adding Docker GPG key...'",
+      "curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /usr/share/keyrings/docker-archive-keyring.gpg",
+      "echo 'Adding Docker repository...'",
+      "echo \"deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/docker-archive-keyring.gpg] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable\" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null",
+      "echo 'Updating package list again...'",
+      "sudo apt-get update -y",
+      "echo 'Installing Docker...'",
+      "sudo apt-get install -y docker-ce docker-ce-cli containerd.io",
+      "echo 'Starting Docker service...'",
+      "sudo systemctl start docker",
+      "sudo systemctl enable docker",
+      "echo 'Adding user to Docker group...'",
+      "sudo usermod -aG docker $USER",
+      "echo 'Installing kubectl...'",
+      "curl -LO \"https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl\"",
+      "sudo install -o root -g root -m 0755 kubectl /usr/local/bin/kubectl",
+      "echo 'Installing Azure CLI...'",
+      "curl -sL https://aka.ms/InstallAzureCLIDeb | sudo bash",
+      "echo 'Show Azure CLI version...'",
+      "sudo az version",
+      "echo 'Script is completed...'",
     ]
 
     connection {

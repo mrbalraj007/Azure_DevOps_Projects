@@ -10,7 +10,7 @@ resource "azapi_resource_action" "ssh_public_key_gen" {
   method      = "POST"
 
   response_export_values = ["publicKey", "privateKey"]
-  depends_on = [azapi_resource.ssh_public_key]
+  depends_on             = [azapi_resource.ssh_public_key]
 }
 
 resource "azapi_resource" "ssh_public_key" {

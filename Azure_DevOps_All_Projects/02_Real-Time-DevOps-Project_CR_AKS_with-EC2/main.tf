@@ -17,7 +17,7 @@ resource "random_pet" "azurerm_kubernetes_cluster_dns_prefix" {
 }
 
 resource "azurerm_kubernetes_cluster" "k8s" {
-  depends_on = [azapi_resource_action.ssh_public_key_gen]
+  depends_on          = [azapi_resource_action.ssh_public_key_gen]
   location            = azurerm_resource_group.rg.location
   name                = random_pet.azurerm_kubernetes_cluster_name.id
   resource_group_name = azurerm_resource_group.rg.name
