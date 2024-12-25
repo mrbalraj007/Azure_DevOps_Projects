@@ -1,27 +1,40 @@
-resource "azurerm_resource_group" "example" {
-  name     = var.resource_group_name_prefix
-  location = var.resource_group_location
+# resource "azurerm_resource_group" "example" {
+#   name     = var.resource_group_name_prefix
+#   location = var.resource_group_location
+# }
+
+resource "local_file" "public_key" {
+  filename = "${path.module}/id_rsa.pub"
+  content  = file("${path.module}/id_rsa.pub")
+}
+
+resource "local_file" "private_key" {
+  filename = "${path.module}/id_rsa"
+  content  = file("${path.module}/id_rsa")
 }
 
 resource "azurerm_virtual_network" "example" {
   name                = "example-vnet"
   address_space       = ["10.0.0.0/16"]
-  location            = azurerm_resource_group.example.location
-  resource_group_name = azurerm_resource_group.example.name
+  location            = var.location
+  resource_group_name = var.resource_group_name
+  depends_on          = [azurerm_resource_group.rg]
 }
 
 resource "azurerm_subnet" "example" {
   name                 = "internal"
-  resource_group_name  = azurerm_resource_group.example.name
+  resource_group_name  = var.resource_group_name
   virtual_network_name = azurerm_virtual_network.example.name
   address_prefixes     = ["10.0.2.0/24"]
+  depends_on           = [azurerm_virtual_network.example]
 }
 
 resource "azurerm_public_ip" "example" {
   name                = "acceptanceTestPublicIp1"
-  resource_group_name = azurerm_resource_group.example.name
-  location            = azurerm_resource_group.example.location
+  resource_group_name = var.resource_group_name
+  location            = var.location
   allocation_method   = "Static"
+  depends_on          = [azurerm_resource_group.rg]
 
   tags = {
     environment = "test"
@@ -30,8 +43,9 @@ resource "azurerm_public_ip" "example" {
 
 resource "azurerm_network_interface" "example" {
   name                = "example-nic"
-  location            = azurerm_resource_group.example.location
-  resource_group_name = azurerm_resource_group.example.name
+  location            = var.location
+  resource_group_name = var.resource_group_name
+  depends_on          = [azurerm_resource_group.rg]
 
   ip_configuration {
     name                          = "internal"
@@ -43,8 +57,9 @@ resource "azurerm_network_interface" "example" {
 
 resource "azurerm_network_security_group" "example" {
   name                = "example-nsg"
-  location            = azurerm_resource_group.example.location
-  resource_group_name = azurerm_resource_group.example.name
+  location            = var.location
+  resource_group_name = var.resource_group_name
+  depends_on          = [azurerm_resource_group.rg]
 
   security_rule {
     name                       = "allow-ssh-http-https"
@@ -58,6 +73,18 @@ resource "azurerm_network_security_group" "example" {
     destination_address_prefix = "*"
   }
 
+  security_rule {
+    name                       = "allow-port-range"
+    priority                   = 200
+    direction                  = "Inbound"
+    access                     = "Allow"
+    protocol                   = "Tcp"
+    source_port_range          = "*"
+    destination_port_ranges    = ["30000-33000"]
+    source_address_prefix      = "*"
+    destination_address_prefix = "*"
+  }
+
   tags = {
     environment = "test"
   }
@@ -66,17 +93,19 @@ resource "azurerm_network_security_group" "example" {
 resource "azurerm_network_interface_security_group_association" "example" {
   network_interface_id      = azurerm_network_interface.example.id
   network_security_group_id = azurerm_network_security_group.example.id
+  depends_on                = [azurerm_network_interface.example, azurerm_network_security_group.example]
 }
 
 resource "azurerm_linux_virtual_machine" "example" {
   name                            = "devops-demo_vm"
-  resource_group_name             = azurerm_resource_group.example.name
-  location                        = azurerm_resource_group.example.location
-  size                            = "Standard_A2_V2" #"Standard_A2_V2" "Standard_B2ms"
+  resource_group_name             = var.resource_group_name
+  location                        = var.location
+  size                            = "Standard_B1ms" # Reduced VM size to use fewer cores
   admin_username                  = "azureuser"
   disable_password_authentication = true
   network_interface_ids           = [azurerm_network_interface.example.id]
   computer_name                   = "devopsdemovm"
+  depends_on                      = [azurerm_network_interface.example]
 
   os_disk {
     name                 = "myOsDisk"
@@ -137,7 +166,7 @@ resource "azurerm_linux_virtual_machine" "example" {
 resource "random_id" "acr" {
   keepers = {
     # Generate a new id each time the resource group name changes
-    resource_group_name = azurerm_resource_group.example.name
+    resource_group_name = var.resource_group_name
   }
 
   byte_length = 4
@@ -145,8 +174,8 @@ resource "random_id" "acr" {
 
 resource "azurerm_container_registry" "example" {
   name                = "aconreg${random_id.acr.hex}"
-  resource_group_name = azurerm_resource_group.example.name
-  location            = azurerm_resource_group.example.location
+  resource_group_name = var.resource_group_name
+  location            = var.location
   sku                 = "Standard"
   admin_enabled       = true
 

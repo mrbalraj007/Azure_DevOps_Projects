@@ -328,49 +328,317 @@ rerun the pipeline and it works.
 
 ![alt text](image-29.png)
 
+Next Steps:
+
+- K8s Cluster login
+- Argocd install
+- Configure Argocd 
+- Update shell - (Repo)
+
+Take putty session of Azure VM and perform the following instruction to login into auzre and K8s
+
+### Azure login
+Missing Browser on Headless Servers, Use the --use-device-code flag to authenticate without a browser:
+```
+az login --use-device-code
+```
+![alt text](image-30.png)
+
+- https://microsoft.com/devicelogin access this URL in a new browser and type the code which you see in console.
+- ![alt text](image-31.png)
+
+![alt text](image-32.png)
+
+```sh
+az account list --output table
+```
+![alt text](image-33.png)
+
+- To get resource details
+```sh
+az aks list --resource-group "resourceGroupName" --output table
+```
+![alt text](image-34.png)
+
+![alt text](image-35.png)
+
+- To get credentails for AKS
+```sh
+az aks get-credentials --name "Clustername" --resource-group "ResourceGroupName" --overwrite-existing
+
+kubectl config current-context
+kubectl get nodes
+kubectl get nodes -o wide
+```
+![alt text](image-36.png)
+
+- Install ArgoCD
+```sh
+kubectl create namespace argocd
+
+kubectl apply -n argocd -f https://raw.githubusercontent.com/argoproj/argo-cd/stable/manifests/install.yaml
+```
+- To get details of Pods in namespace "argocd"
+```sh
+kubectl get pods -n argocd
+```
+![alt text](image-37.png)
+
+- To get the secrets for argoCd
+```sh
+kubectl get secrets -n argocd
+```
+![alt text](image-38.png)
+
+- To retrive the password for argocd
+```sh
+kubectl -n argocd get secret argocd-initial-admin-secret -o jsonpath="{.data.password}" | base64 -d; echo
+```
+![alt text](image-39.png)
+
+- To get service details in argocd
+```sh
+kubectl get svc -n argocd
+```
+```sh
+azureuser@devopsdemovm:~/myagent$ kubectl get svc -n argocd
+NAME                                      TYPE        CLUSTER-IP     EXTERNAL-IP   PORT(S)                      AGE
+argocd-applicationset-controller          ClusterIP   10.0.199.83    <none>        7000/TCP,8080/TCP            6m17s
+argocd-dex-server                         ClusterIP   10.0.236.32    <none>        5556/TCP,5557/TCP,5558/TCP   6m17s
+argocd-metrics                            ClusterIP   10.0.231.144   <none>        8082/TCP                     6m17s
+argocd-notifications-controller-metrics   ClusterIP   10.0.54.255    <none>        9001/TCP                     6m16s
+argocd-redis                              ClusterIP   10.0.38.40     <none>        6379/TCP                     6m16s
+argocd-repo-server                        ClusterIP   10.0.29.153    <none>        8081/TCP,8084/TCP            6m16s
+argocd-server                             ClusterIP   10.0.216.42    <none>        80/TCP,443/TCP               6m16s
+argocd-server-metrics                     ClusterIP   10.0.201.27    <none>        8083/TCP                     6m16s
+
+```
+![alt text](image-40.png)
+
+- Currently, it is set to ```clusterIP``` and we will change it to ```NodePort```
+- Expose Argo CD server using NodePort:
+```sh
+kubectl patch svc argocd-server -n argocd -p '{"spec": {"type": "NodePort"}}'
+```
+- Review the service again
+```sh
+kubectl get svc -n argocd
+```
+```sh
+azureuser@devopsdemovm:~/myagent$ kubectl get svc -n argocd
+NAME                                      TYPE        CLUSTER-IP     EXTERNAL-IP   PORT(S)                      AGE
+argocd-applicationset-controller          ClusterIP   10.0.199.83    <none>        7000/TCP,8080/TCP            9m19s
+argocd-dex-server                         ClusterIP   10.0.236.32    <none>        5556/TCP,5557/TCP,5558/TCP   9m19s
+argocd-metrics                            ClusterIP   10.0.231.144   <none>        8082/TCP                     9m19s
+argocd-notifications-controller-metrics   ClusterIP   10.0.54.255    <none>        9001/TCP                     9m18s
+argocd-redis                              ClusterIP   10.0.38.40     <none>        6379/TCP                     9m18s
+argocd-repo-server                        ClusterIP   10.0.29.153    <none>        8081/TCP,8084/TCP            9m18s
+argocd-server                             NodePort    10.0.216.42    <none>        80:31324/TCP,443:31061/TCP   9m18s
+argocd-server-metrics                     ClusterIP   10.0.201.27    <none>        8083/TCP                     9m18s
+```
+![alt text](image-41.png)
+
+- To get URL/IP address details
+```sh
+kubectl get nodes -o wide
+```
+```sh
+azureuser@devopsdemovm:~/myagent$ kubectl get nodes -o wide
+NAME                                STATUS   ROLES    AGE   VERSION   INTERNAL-IP   EXTERNAL-IP   OS-IMAGE             KERNEL-VERSION      CONTAINER-RUNTIME
+aks-agentpool-23873620-vmss000000   Ready    <none>   54m   v1.30.6   10.224.0.4    <none>        Ubuntu 22.04.5 LTS   5.15.0-1075-azure   containerd://1.7.23-1
+```
+
+![alt text](image-42.png)
+
+- Currently, it is set to ```clusterIP``` and we will change it to ```LoadBalancer```
+- Expose Argo CD server using NodePort:
+```sh
+kubectl patch svc argocd-server -n argocd -p '{"spec": {"type": "LoadBalancer"}}'
+```
+
+Verify Kubernetes Config: Confirm that the argocd-server service has the correct NodePort and is not misconfigured:
+
+bash
+Copy code
+kubectl describe svc argocd-server -n argocd
+Use Port-Forwarding (Temporary Solution): If you only need temporary access, you can use port-forwarding:
+
+bash
+Copy code
+kubectl port-forward svc/argocd-server -n argocd 8080:80
+Then access it at http://localhost:8080.
+
+![alt text](image-43.png)
+
+- To configure repo in argocd with token base.
+```sh
+s
+```
+![alt text](image-44.png)
+
+
+Go to azure pipeline and select 
+![alt text](image-45.png)
+![alt text](image-46.png)
+
+readOnly- token
+5vm6sS6s9O3JCB68OG55rQNUqCNK8F9wAz5FWFPBfmcYcYvTuJNsJQQJ99ALACAAAAAAAAAAAAASAZDODfBe
+![alt text](image-47.png)
+![alt text](image-48.png)
+
+```sh
+https://5vm6sS6s9O3JCB68OG55rQNUqCNK8F9wAz5FWFPBfmcYcYvTuJNsJQQJ99ALACAAAAAAAAAAAAASAZDODfBe@dev.azure.com/mrbalraj/balraj-devops/_git/balraj-devops
+```
+![alt text](image-49.png)
+
+- To create a application in argocd
+![alt text](image-50.png)
+![alt text](image-51.png)
+
+by default 3 min to sync with argocd but it can be changed.
+
+![alt text](image-52.png)
+
+![alt text](image-53.png)
+
+- Now, we will create a shell script to get an updated image tag in case if it is creating new image.
+
+- First we will create a folder in repo called 'scripts' and update the sh file as below.
+![alt text](image-54.png)
+![alt text](image-55.png)
+![alt text](image-56.png)
+
+Now, we will update our pipeline as below- 
+
+
+- Now, we will change the argocd default time (3 min) to 10 sec.
+
+```sh
+kubectl edit cm argocd-cm -n argocd
+```
+edit as below
+```sh
+
+```
+![alt text](image-57.png)
+
+
+```sh
+kubectl get all
+```
+I am getting below error message.
+![alt text](image-58.png)
+![alt text](image-59.png)
+
+Solution: As we are using private registory and we need to use 'imagepullsecrets'
+
+Go to azure registory and get the password which will be used in below command
+![alt text](image-60.png)
+
+
+- command to create ACRImagePullSecret
+```sh
+kubectl create secret docker-registry <secret-name> \
+    --namespace <namespace> \
+    --docker-server=<container-registry-name>.azurecr.io \
+    --docker-username=<service-principal-ID> \
+    --docker-password=<service-principal-password>
+```
+```sh
+Explanation of the Command:
+kubectl create secret docker-registry:
+
+This creates a new Kubernetes secret of type docker-registry.
+<secret-name>:
+
+The name of the secret being created. For example, acr-credentials.
+--namespace <namespace>:
+
+Specifies the namespace in which the secret will be created. If omitted, it defaults to the default namespace.
+Replace <namespace> with the desired namespace name.
+--docker-server=<container-registry-name>.azurecr.io:
+
+The URL of your container registry. For Azure Container Registry (ACR), the format is <container-registry-name>.azurecr.io.
+Replace <container-registry-name> with your ACR name.
+--docker-username=<service-principal-ID>:
+
+The username to authenticate with the container registry. For Azure, this is typically a service principal's application (client) ID.
+--docker-password=<service-principal-password>:
+
+The password (or secret) associated with the service principal used for authentication.
+```
+
+```sh
+kubectl create secret docker-registry acr-credentials \
+    --namespace default \
+    --docker-server=aconregee7b05ba.azurecr.io \
+    --docker-username=aconregee7b05ba \
+    --docker-password=8C8k3eJnVSZtgqLvMKQr9idPg16YOiODPUTAdeK4fj+ACRC07FH7
+```
+![alt text](image-61.png)
+
+now, we will update the vote-deployment.yaml as below:
+![alt text](image-62.png)
+
+here is the updated stats
+
+![alt text](image-63.png)
+
+Try to update anything at vote folder in "app.py" as below and pipeline should be auto triggered.
+
+![alt text](image-64.png)
+![alt text](image-65.png)
+
+To check the deployment
+```sh
+kubectl get deploy vote -o yaml
+```
+
+- Verify services and try to access the application
+```sh
+kubectl get svc
+kubectl get node -o wide
+```
+- port need to opened in VMSS
+![alt text](image-66.png)
+
+test@123
+
+kubectl describe svc argocd-server -n argocd
 
 
 
+![alt text](image-67.png)
 
 
 
+```sh
+azureuser@devopsdemovm:~$ kubectl delete service/db
+service "db" deleted
+azureuser@devopsdemovm:~$ kubectl delete service/redis
+service "redis" deleted
+azureuser@devopsdemovm:~$ kubectl delete service/resut
+Error from server (NotFound): services "resut" not found
+azureuser@devopsdemovm:~$ kubectl delete service/result
+service "result" deleted
+azureuser@devopsdemovm:~$ kubectl delete service/vote
+service "vote" deleted
+azureuser@devopsdemovm:~$ kubectl delete deployment.apps/db
+deployment.apps "db" deleted
+azureuser@devopsdemovm:~$ kubectl delete deployment.apps/redis
+deployment.apps "redis" deleted
+azureuser@devopsdemovm:~$ kubectl delete deployment.apps/vote
+deployment.apps "vote" deleted
+azureuser@devopsdemovm:~$ kubectl delete deployment.apps/worker
+deployment.apps "worker" deleted
+azureuser@devopsdemovm:~$ kubectl delete deployment.apps/db
+Error from server (NotFound): deployments.apps "db" not found
+azureuser@devopsdemovm:~$ kubectl delete deployment.apps/result
+deployment.apps "result" deleted
+azureuser@devopsdemovm:~$ kubectl delete service/db
+service "db" deleted
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+```
 
 
 
@@ -771,3 +1039,8 @@ https://developer.hashicorp.com/terraform/tutorials/kubernetes/aks
 
 https://stacksimplify.com/azure-aks/create-aks-cluster-using-terraform/
 
+https://argo-cd.readthedocs.io/en/stable/operator-manual/upgrading/2.0-2.1/#replacing-app-resync-flag-with-timeoutreconciliation-setting
+
+https://argo-cd.readthedocs.io/en/stable/
+
+https://kubernetes.io/docs/tasks/configure-pod-container/pull-image-private-registry/

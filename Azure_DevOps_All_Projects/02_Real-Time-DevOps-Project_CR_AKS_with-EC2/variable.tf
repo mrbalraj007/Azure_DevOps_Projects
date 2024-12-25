@@ -1,29 +1,29 @@
-variable "resource_group_location" {
+variable "resource_group_name" {
   type        = string
-  default     = "West US 2"
-  description = "Location of the resource group."
+  description = "RG name in Azure"
 }
 
-variable "resource_group_name_prefix" {
+variable "location" {
   type        = string
-  default     = "rg"
-  description = "Prefix of the resource group name that's combined with a random ID so name is unique in your Azure subscription."
+  description = "Resources location in Azure"
 }
 
-variable "node_count" {
+variable "cluster_name" {
+  type        = string
+  description = "AKS name in Azure"
+}
+
+variable "kubernetes_version" {
+  type        = string
+  description = "Kubernetes version"
+}
+
+variable "system_node_count" {
   type        = number
-  description = "The initial quantity of nodes for the node pool."
-  default     = 1
+  description = "Number of AKS worker nodes"
 }
 
-variable "msi_id" {
+variable "node_resource_group" {
   type        = string
-  description = "The Managed Service Identity ID. Set this value if you're running this example using Managed Identity as the authentication method."
-  default     = null
-}
-
-variable "username" {
-  type        = string
-  description = "The admin username for the new cluster."
-  default     = "azureadmin"
+  description = "RG name for cluster resources in Azure"
 }

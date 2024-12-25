@@ -1,46 +1,30 @@
-# Generate random resource group name
-resource "random_pet" "rg_name" {
-  prefix = var.resource_group_name_prefix
-}
-
 resource "azurerm_resource_group" "rg" {
-  location = var.resource_group_location
-  name     = random_pet.rg_name.id
+  name     = var.resource_group_name
+  location = var.location
 }
 
-resource "random_pet" "azurerm_kubernetes_cluster_name" {
-  prefix = "cluster"
-}
-
-resource "random_pet" "azurerm_kubernetes_cluster_dns_prefix" {
-  prefix = "dns"
-}
-
-resource "azurerm_kubernetes_cluster" "k8s" {
-  depends_on          = [azapi_resource_action.ssh_public_key_gen]
-  location            = azurerm_resource_group.rg.location
-  name                = random_pet.azurerm_kubernetes_cluster_name.id
+resource "azurerm_kubernetes_cluster" "aks" {
+  name                = var.cluster_name
+  kubernetes_version  = var.kubernetes_version
+  location            = var.location
   resource_group_name = azurerm_resource_group.rg.name
-  dns_prefix          = random_pet.azurerm_kubernetes_cluster_dns_prefix.id
+  dns_prefix          = var.cluster_name
+  node_resource_group = var.node_resource_group
+
+  default_node_pool {
+    name       = "system"
+    node_count = var.system_node_count
+    vm_size    = "Standard_DS2_v2"
+    type       = "VirtualMachineScaleSets"
+    # availability_zones  = [1, 2, 3]
+  }
 
   identity {
     type = "SystemAssigned"
   }
 
-  default_node_pool {
-    name       = "agentpool"
-    vm_size    = "Standard_D2_v2"
-    node_count = var.node_count
-  }
-  linux_profile {
-    admin_username = var.username
-
-    ssh_key {
-      key_data = azapi_resource_action.ssh_public_key_gen.output.publicKey
-    }
-  }
   network_profile {
-    network_plugin    = "kubenet"
     load_balancer_sku = "standard"
+    network_plugin    = "kubenet" # azure (CNI)
   }
 }
