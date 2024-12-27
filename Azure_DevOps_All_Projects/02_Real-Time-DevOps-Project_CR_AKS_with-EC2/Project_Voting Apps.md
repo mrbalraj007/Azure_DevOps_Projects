@@ -15,23 +15,15 @@ Before diving into this project, here are some skills and tools you should be fa
  
 - [x] [App Repo (Example Voting App)](https://github.com/mrbalraj007/k8s-kind-voting-app.git)
 
-- [x] __Azure Account__: You’ll need an Azure account to create resources like virtual Machine, AKS cluster, and more.
+- [x] __Azure Account__: You’ll need an Azure account to create resources like virtual Machine, AKS cluster, and manage pipelines.
 - [x] __Terraform Knowledge__: Familiarity with Terraform to provision, manage, and clean up infrastructure.
 - [x] __Basic Kubernetes (AKS)__: A basic understanding of Kubernetes, especially Azure AKS, to deploy and manage containers.
 - [x] __Docker Knowledge__: Basic knowledge of Docker for containerizing applications.
 - [x] __GitHub__: Experience with GitHub for version control and managing repositories.
 - [x] __Command-Line Tools__: Basic comfort with using the command line for managing infrastructure and services.
-
-Prerequisites:
-Before starting with the migration process, make sure you meet the following prerequisites:
-
-Azure DevOps Account: You’ll need an active Azure DevOps account to create and manage pipelines.
-Docker Installed: Install Docker on your system as we will be building Docker images.
-Azure Container Registry (ACR): Set up ACR to store your Docker images.
-GitHub Repository: The source code for the project should be hosted on GitHub.
-Linux VM: Docker must be installed on a Linux virtual machine to run containers.
-Basic CI/CD Knowledge: Some understanding of Continuous Integration and Deployment is recommended.
-
+- [x] __Basic CI/CD Knowledge__: Some understanding of Continuous Integration and Deployment is recommended.
+- [x] __Azure Container Registry (ACR)__: Set up ACR to store your Docker images.
+- [x] __Linux VM__: Docker must be installed on a Linux virtual machine to run containers.
 
 ## <span style="color: Yellow;">Setting Up the Infrastructure </span>
 
@@ -122,9 +114,6 @@ azureuser@devopsdemovm:~$ az version
   "extensions": {}
 }
 ```
-
-- [x] <span style="color: brown;"> Verify the AKS cluster.
-
 ## <span style="color: Yellow;"> Step-by-Step Process:</span>
 
 **1. Setting up Azure DevOps Pipeline:**
@@ -312,6 +301,7 @@ az login --use-device-code
 ![image-32](https://github.com/user-attachments/assets/ef18f082-e414-4030-83ed-a80baffffc57)
 
 
+
 - To list out all the account
 ```sh
 az account list --output table
@@ -325,7 +315,7 @@ az aks list --resource-group "resourceGroupName" --output table
 ![image-34](https://github.com/user-attachments/assets/15c66017-5b79-4cfe-b3fe-603b2a4197aa)
 ![image-35](https://github.com/user-attachments/assets/081e2c85-4c47-4ff8-bfc7-fefcacd476b6)
 
-
+- [x] <span style="color: brown;"> Verify the AKS cluster.
 - To get credentails for AKS
 ```sh
 az aks get-credentials --name "Clustername" --resource-group "ResourceGroupName" --overwrite-existing
@@ -623,13 +613,24 @@ kubectl describe svc argocd-server -n argocd
 Congratulations :-) the application is working and accessible.
 
 
-#### <span style="color: orange;"> Cleanup the images and deployment using the pipeline.</span>
+#### <span style="color: yellow;"> Step-05: Cleanup the images and container registroy using the pipeline.</span>
+
+- First create [Service Connection](https://www.youtube.com/watch?v=pSmKNbN_Y4s) in Azure Devops.
+- Once you create a connection then note it down the connection ID, because that ID would be used in pipeline. 
+- On agent machine, make sure login with azure login and connection is active, if not then login with following.
+  ```sh
+  az login --use-device-code
+  ```
+- Delete all the images along with repogitory.
+    - Delete all images from result-app
+    - Delete all images from vote-app
+    - Delete all images from worker-app
 
 ## <span style="color: Yellow;"> Environment Cleanup:
 - As we are using Terraform, we will use the following command to delete 
 
 - __Delete all deployment/Service__ first
-    - ```sh
+     ```sh
         kubectl delete service/redis
         kubectl delete service/db
         kubectl delete service/resut
@@ -642,9 +643,8 @@ Congratulations :-) the application is working and accessible.
         kubectl delete deployment.apps/db
         kubectl delete deployment.apps/result
         kubectl delete service/db
-        ```
+        
 ![image-67](https://github.com/user-attachments/assets/b63fbef2-5720-4143-9cd3-c04d836f4cd3)
-
 
 #### Now, time to delete the ```AKS Cluster and Virtual machine```.
 run the terraform command.
@@ -663,6 +663,8 @@ __Ref Link:__
 - [CI-Pipeline](https://www.youtube.com/watch?v=aAjH9wqtx9o&list=PLdpzxOOAlwvIcxgCUyBHVOcWs0Krjx9xR&index=15)
 
 - [CD-Pipeline](https://www.youtube.com/watch?v=HyTIsLZWkZg&list=PLdpzxOOAlwvIcxgCUyBHVOcWs0Krjx9xR&index=16)
+  
+- [pipelines troubleshooting](https://learn.microsoft.com/en-us/azure/devops/pipelines/troubleshooting/troubleshooting?view=azure-devops)
 
 - [Create an Account in Azure DevOps](https://www.youtube.com/watch?v=A91difri0BQ)
 
@@ -681,3 +683,4 @@ __Ref Link:__
 - [ArgoCD Version](https://argo-cd.readthedocs.io/en/stable/)
 
 - [Pull Registory](https://kubernetes.io/docs/tasks/configure-pod-container/pull-image-private-registry/)
+
