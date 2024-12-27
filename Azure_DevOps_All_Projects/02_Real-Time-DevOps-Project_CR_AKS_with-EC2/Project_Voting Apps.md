@@ -165,9 +165,9 @@ you will see the following pipeline yaml and we have to modify accordingly.
 ![image-8](https://github.com/user-attachments/assets/ab975781-a81a-41b7-bc2c-fa0686ac518b)
 
 - We have to update the CI_pipeline as below
-  - [Vote_pipeline](https://github.com/mrbalraj007/Azure_DevOps_Projects/blob/main/Azure_DevOps_All_Projects/02_Real-Time-DevOps-Project_CR_AKS_with-EC2/pipeline/Updated_vote_pipeline.md)
-  - [result_pipeline](https://github.com/mrbalraj007/Azure_DevOps_Projects/blob/main/Azure_DevOps_All_Projects/02_Real-Time-DevOps-Project_CR_AKS_with-EC2/pipeline/Updated_Results_pipeline.md)
-  - [worker_pipeline](https://github.com/mrbalraj007/Azure_DevOps_Projects/blob/main/Azure_DevOps_All_Projects/02_Real-Time-DevOps-Project_CR_AKS_with-EC2/pipeline/Updated_worker_pipeline.md)
+  - [Vote_pipeline](https://github.com/mrbalraj007/Azure_DevOps_Projects/blob/main/Azure_DevOps_All_Projects/02_Real-Time-DevOps-Project_CR_AKS_with-EC2/PipeLine_Details/CI-CD/Updated_vote_pipeline.md)
+  - [result_pipeline](https://github.com/mrbalraj007/Azure_DevOps_Projects/blob/main/Azure_DevOps_All_Projects/02_Real-Time-DevOps-Project_CR_AKS_with-EC2/PipeLine_Details/CI-CD/Updated_Results_pipeline.md)
+  - [worker_pipeline](https://github.com/mrbalraj007/Azure_DevOps_Projects/blob/main/Azure_DevOps_All_Projects/02_Real-Time-DevOps-Project_CR_AKS_with-EC2/PipeLine_Details/CI-CD/Updated_worker_pipeline.md)
 
 - First we will create a folder in repo called 'scripts' and update the sh file as below. we will create a shell script to get an updated image tag in case if it is creating new image.
 ![image-54](https://github.com/user-attachments/assets/3ec88fb5-b024-4361-ba79-63cdfc5e67cb)
@@ -622,9 +622,9 @@ Congratulations :-) the application is working and accessible.
   az login --use-device-code
   ```
 - Delete all the images along with repogitory.
-    - Delete all images from result-app
-    - Delete all images from vote-app
-    - Delete all images from worker-app
+    - Delete all images from [result-app](https://github.com/mrbalraj007/Azure_DevOps_Projects/blob/main/Azure_DevOps_All_Projects/02_Real-Time-DevOps-Project_CR_AKS_with-EC2/PipeLine_Details/Delete_Images_Repositories/Updated_Delete_Results_pipeline.md)
+    - Delete all images from [vote-app](https://github.com/mrbalraj007/Azure_DevOps_Projects/blob/main/Azure_DevOps_All_Projects/02_Real-Time-DevOps-Project_CR_AKS_with-EC2/PipeLine_Details/Delete_Images_Repositories/Updated_Delete_vote_pipeline.md)
+    - Delete all images from [worker-app](https://github.com/mrbalraj007/Azure_DevOps_Projects/blob/main/Azure_DevOps_All_Projects/02_Real-Time-DevOps-Project_CR_AKS_with-EC2/PipeLine_Details/Delete_Images_Repositories/Updated_Delete_worker_pipeline.md)
 
 ## <span style="color: Yellow;"> Environment Cleanup:
 - As we are using Terraform, we will use the following command to delete 

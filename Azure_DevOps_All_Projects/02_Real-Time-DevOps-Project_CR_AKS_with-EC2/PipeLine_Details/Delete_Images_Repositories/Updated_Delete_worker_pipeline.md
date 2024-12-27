@@ -12,7 +12,7 @@ resources:
 - repo: self
 
 variables:
-  azureServiceConnection: '9e0f2ba2-e6e5-490c-8a9f-a2f8bbbc350f'
+  azureServiceConnection: 'yourService ConnectionID'
   containerRegistry: 'aconreg6fdbda3e.azurecr.io'
   imageRepository: 'worker-app'
 
