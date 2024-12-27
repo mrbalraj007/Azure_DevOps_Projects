@@ -647,15 +647,8 @@ Congratulations :-) the application is working and accessible.
 
 
 #### Now, time to delete the ```AKS Cluster and Virtual machine```.
-Go to folder *<span style="color: cyan;">"19.Real-Time-DevOps-Project/Terraform_Code/Code_IAC_Terraform_box"</span>* and run the terraform command.
+run the terraform command.
 ```bash
-cd Terraform_Code/
-
-$ ls -l
-Mode                 LastWriteTime         Length Name
-----                 -------------         ------ ----
-da---l          26/09/24   9:48 AM                Code_IAC_Terraform_box
-
 Terraform destroy --auto-approve
 ```
 
