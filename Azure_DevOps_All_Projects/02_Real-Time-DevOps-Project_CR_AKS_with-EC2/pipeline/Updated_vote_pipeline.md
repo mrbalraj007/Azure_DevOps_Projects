@@ -1,3 +1,4 @@
+```sh
 # Docker
 # Build and push an image to Azure Container Registry
 # https://docs.microsoft.com/azure/devops/pipelines/languages/docker
@@ -12,9 +13,9 @@ resources:
 
 variables:
   # Container registry service connection established during pipeline creation
-  dockerRegistryServiceConnection: '62525df6-8e20-4b87-8838-43e183c77830'
+  dockerRegistryServiceConnection: '1cf9fa3f-e174-4539-b316-898363c21ddf'
   imageRepository: 'voting-app'
-  containerRegistry: 'aconregee7b05ba.azurecr.io'
+  containerRegistry: 'aconreg1f19a128.azurecr.io'
   dockerfilePath: '$(Build.SourcesDirectory)/voting/Dockerfile'
   tag: '$(Build.BuildId)'
 
@@ -78,3 +79,5 @@ stages:
       inputs:  
         scriptPath: 'scripts/updateK8sManifests.sh'
         args: 'vote $(imageRepository) $(tag)'
+
+```

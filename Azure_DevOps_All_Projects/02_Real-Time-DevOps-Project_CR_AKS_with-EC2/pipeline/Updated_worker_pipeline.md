@@ -13,10 +13,10 @@ resources:
 
 variables:
   # Container registry service connection established during pipeline creation
-  dockerRegistryServiceConnection: '7cdfda81-29df-400f-a9ca-0c448ab6f4e4'
+  dockerRegistryServiceConnection: '1cf9fa3f-e174-4539-b316-898363c21ddf'
   imageRepository: 'worker-app'
-  containerRegistry: 'aconregaaaf0e8c.azurecr.io'
-  dockerfilePath: '$(Build.SourcesDirectory)/worker111/Dockerfile'
+  containerRegistry: 'aconreg1f19a128.azurecr.io'
+  dockerfilePath: '$(Build.SourcesDirectory)/worker/Dockerfile'
   tag: '$(Build.BuildId)'
 
   # Agent VM image name
@@ -54,4 +54,19 @@ stages:
         repository: '$(imageRepository)'
         command: 'push'
         tags: '$(tag)'
+- stage: Update
+  displayName: Update
+  jobs:
+  - job: Update
+    displayName: Update
+    steps:
+    - script: |
+        sudo apt-get update
+        sudo apt-get install dos2unix -y
+        dos2unix 'scripts/updateK8sManifests.sh'
+      displayName: 'Install pkgs'
+    - task: ShellScript@2
+      inputs:  
+        scriptPath: 'scripts/updateK8sManifests.sh'
+        args: 'worker $(imageRepository) $(tag)'
 ```

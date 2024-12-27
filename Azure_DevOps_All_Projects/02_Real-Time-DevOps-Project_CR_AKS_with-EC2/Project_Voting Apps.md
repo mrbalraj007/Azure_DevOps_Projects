@@ -1,8 +1,8 @@
 
-# <span style="color: Yellow;"> Automated AWS DevOps CI/CD Pipeline for Amazon Prime Clone</span>
+# <span style="color: Yellow;"> End-to-End Azure DevOps Setup for Microservices and CI/CD Pipelines</span>
 
 
-In today’s fast-paced tech world, automating application deployment and infrastructure management is crucial. This project demonstrates how to set up a complete CI/CD pipeline, use AWS EKS for Kubernetes deployment, and integrate Grafana and Prometheus for monitoring, all using Terraform for infrastructure management. By automating everything, you reduce the need for manual intervention and improve the speed and reliability of your deployments.
+In the world of DevOps, Continuous Integration (CI) plays a pivotal role in automating the testing and deployment of applications. Azure DevOps has become a popular platform for managing these processes. In this technical blog, we will walk through the steps involved in migrating a GitHub-based CI pipeline to Azure DevOps, leveraging Docker for containerization and Azure Container Registry (ACR) to store Docker images. This project will help streamline your development workflows by automating the build and push stages, improving consistency across different environments.
 
 ## <span style="color: Yellow;"> Prerequisites </span>
 
@@ -10,39 +10,34 @@ Before diving into this project, here are some skills and tools you should be fa
 
 - [x] [Clone repository for terraform code](https://github.com/mrbalraj007/DevOps_free_Bootcamp/tree/main/19.Real-Time-DevOps-Project/Terraform_Code/Code_IAC_Terraform_box)<br>
   __Note__: Replace resource names and variables as per your requirement in terraform code
-  - from k8s_setup_file/main.tf (i.e ```balraj```*).
-  - from Virtual machine main.tf (i.e keyname- ```MYLABKEY```*)
+  - Generate the ssh key in ```id_rsa``` format.
+  - Update ```terraform.tfvars``` as per your requirement.
+ 
 
 - [x] [App Repo (Simple-DevOps-Project)](https://github.com/mrbalraj007/Amazon-Prime-Clone-Project.git)
 
 
-- [x] __AWS Account__: You’ll need an AWS account to create resources like EC2 instances, EKS clusters, and more.
+- [x] __Azure Account__: You’ll need an Azure account to create resources like virtual Machine, AKS cluster, and more.
 - [x] __Terraform Knowledge__: Familiarity with Terraform to provision, manage, and clean up infrastructure.
-- [x] __Basic Kubernetes (EKS)__: A basic understanding of Kubernetes, especially Amazon EKS, to deploy and manage containers.
+- [x] __Basic Kubernetes (AKS)__: A basic understanding of Kubernetes, especially Azure AKS, to deploy and manage containers.
 - [x] __Docker Knowledge__: Basic knowledge of Docker for containerizing applications.
-- [x] __Grafana & Prometheus__: Understanding of these tools to monitor applications and track performance.
-- [x] __Jenkins__: Knowledge of Jenkins for building and automating the CI/CD pipeline.
 - [x] __GitHub__: Experience with GitHub for version control and managing repositories.
 - [x] __Command-Line Tools__: Basic comfort with using the command line for managing infrastructure and services.
 
 ## <span style="color: Yellow;">Setting Up the Infrastructure </span>
 
-I have created a Terraform code to set up the entire infrastructure, including the installation of required applications, tools, and the EKS cluster automatically created.
+I have created a Terraform code to set up the entire infrastructure, including the installation of required applications, tools, and the AKS cluster automatically created.
 
 **Note** &rArr;<span style="color: Green;"> ```AKS cluster``` creation will take approx. 10 to 15 minutes.
 
-- &rArr; <span style="color: brown;">EC2 machines will be created named as ```"Jenkins-svr"```
-- &rArr;<span style="color: brown;"> Jenkins Install
+- &rArr; <span style="color: brown;">Virtual machines will be created named as ```"devopsdemovm"```
+
 - &rArr;<span style="color: brown;"> Docker Install
-- &rArr;<span style="color: brown;"> Trivy Install
-- &rArr;<span style="color: brown;"> helm Install
-- &rArr;<span style="color: brown;"> Grafan Install using Helm
-- &rArr;<span style="color: brown;"> Prometheus Install using Helm
-- &rArr;<span style="color: brown;"> AWS Cli Install
+- &rArr;<span style="color: brown;"> Azure Cli Install
 - &rArr;<span style="color: brown;"> Terraform Install
 - &rArr;<span style="color: brown;"> EKS Cluster Setup
 
-### <span style="color: Yellow;"> EC2 Instances creation
+### <span style="color: Yellow;"> Virtual Machine creation
 
 First, we'll create the necessary virtual machines using ```terraform``` code. 
 
@@ -155,6 +150,7 @@ To see help text, you can run:
   aws help
   aws <command> help
   aws <command> <subcommand> help
+  
 ```
 
 - [x] <span style="color: brown;"> Verify the EKS cluster
@@ -164,6 +160,7 @@ On the ```jenkins``` virtual machine, Go to directory ```k8s_setup_file``` and o
 ubuntu@ip-172-31-90-126:~/k8s_setup_file$ pwd
 /home/ubuntu/k8s_setup_file
 ubuntu@ip-172-31-90-126:~/k8s_setup_file$ cd ..
+kubectl version --client --output=yaml
 ```
 
 After Terraform deploys on the instance, now it's time to setup the cluster. You can SSH into the instance and run:
@@ -223,6 +220,19 @@ you will see the following pipeline yaml and we have to modify accordingly.
 ![alt text](image-8.png)
 
 Paste the Updated_CI_Pipeline here.
+
+- Also, we will create a folder named scripts and create a new sh file nameded as below and also use updated the container registroty name in the script file.
+![alt text](image-23.png)
+
+
+
+- Now, we will create a shell script to get an updated image tag in case if it is creating new image.
+
+- First we will create a folder in repo called 'scripts' and update the sh file as below.
+![alt text](image-54.png)
+![alt text](image-55.png)
+![alt text](image-56.png)
+
 
 got below error message
 ![alt text](image-10.png)
@@ -289,7 +299,7 @@ Need to create a PAT access Token-
 
 ![alt text](image-19.png)
 
-47olvKvZl7OtLNUdPgntt5w16Il6ybKi8mh5octeYYxptOp2m0QZJQQJ99ALACAAAAAAAAAAAAASAZDOIYnw
+
 
 devops-demo_vm
 
@@ -308,7 +318,7 @@ Now, Agent is online ;-)
 ![alt text](image-22.png)
 
 rerun the pipeline and it works.
-![alt text](image-23.png)
+![alt text](image-68.png)
 
 
 - rename the pipeline
@@ -335,7 +345,15 @@ Next Steps:
 - Configure Argocd 
 - Update shell - (Repo)
 
+
+- Go Azure UI and select the AKS cluster 
+![alt text](image-69.png)
+
+![alt text](image-70.png)
+![alt text](image-71.png)
+
 Take putty session of Azure VM and perform the following instruction to login into auzre and K8s
+
 
 ### Azure login
 Missing Browser on Headless Servers, Use the --use-device-code flag to authenticate without a browser:
@@ -353,6 +371,10 @@ az login --use-device-code
 az account list --output table
 ```
 ![alt text](image-33.png)
+
+
+
+
 
 - To get resource details
 ```sh
@@ -372,12 +394,22 @@ kubectl get nodes -o wide
 ```
 ![alt text](image-36.png)
 
-- Install ArgoCD
+### <span style="color: orange;"> Install ArgoCD
 ```sh
 kubectl create namespace argocd
 
 kubectl apply -n argocd -f https://raw.githubusercontent.com/argoproj/argo-cd/stable/manifests/install.yaml
 ```
+
+### <span style="color: orange;"> Setup ArgoCD </span>
+
+- Run the following commands to verify the ```Pods``` and ```services type```
+
+```sh
+kubectl get pods -n argocd
+kubectl get svc -n argocd
+```
+
 - To get details of Pods in namespace "argocd"
 ```sh
 kubectl get pods -n argocd
@@ -389,12 +421,6 @@ kubectl get pods -n argocd
 kubectl get secrets -n argocd
 ```
 ![alt text](image-38.png)
-
-- To retrive the password for argocd
-```sh
-kubectl -n argocd get secret argocd-initial-admin-secret -o jsonpath="{.data.password}" | base64 -d; echo
-```
-![alt text](image-39.png)
 
 - To get service details in argocd
 ```sh
@@ -416,25 +442,23 @@ argocd-server-metrics                     ClusterIP   10.0.201.27    <none>     
 ![alt text](image-40.png)
 
 - Currently, it is set to ```clusterIP``` and we will change it to ```NodePort```
-- Expose Argo CD server using NodePort:
 ```sh
 kubectl patch svc argocd-server -n argocd -p '{"spec": {"type": "NodePort"}}'
 ```
 - Review the service again
 ```sh
 kubectl get svc -n argocd
-```
-```sh
-azureuser@devopsdemovm:~/myagent$ kubectl get svc -n argocd
-NAME                                      TYPE        CLUSTER-IP     EXTERNAL-IP   PORT(S)                      AGE
-argocd-applicationset-controller          ClusterIP   10.0.199.83    <none>        7000/TCP,8080/TCP            9m19s
-argocd-dex-server                         ClusterIP   10.0.236.32    <none>        5556/TCP,5557/TCP,5558/TCP   9m19s
-argocd-metrics                            ClusterIP   10.0.231.144   <none>        8082/TCP                     9m19s
-argocd-notifications-controller-metrics   ClusterIP   10.0.54.255    <none>        9001/TCP                     9m18s
-argocd-redis                              ClusterIP   10.0.38.40     <none>        6379/TCP                     9m18s
-argocd-repo-server                        ClusterIP   10.0.29.153    <none>        8081/TCP,8084/TCP            9m18s
-argocd-server                             NodePort    10.0.216.42    <none>        80:31324/TCP,443:31061/TCP   9m18s
-argocd-server-metrics                     ClusterIP   10.0.201.27    <none>        8083/TCP                     9m18s
+
+azureuser@devopsdemovm:~$ kubectl get svc -n argocd
+NAME                                      TYPE        CLUSTER-IP    EXTERNAL-IP   PORT(S)                      AGE
+argocd-applicationset-controller          ClusterIP   10.0.98.49    <none>        7000/TCP,8080/TCP            49m
+argocd-dex-server                         ClusterIP   10.0.130.97   <none>        5556/TCP,5557/TCP,5558/TCP   49m
+argocd-metrics                            ClusterIP   10.0.91.113   <none>        8082/TCP                     49m
+argocd-notifications-controller-metrics   ClusterIP   10.0.83.161   <none>        9001/TCP                     49m
+argocd-redis                              ClusterIP   10.0.241.99   <none>        6379/TCP                     49m
+argocd-repo-server                        ClusterIP   10.0.38.142   <none>        8081/TCP,8084/TCP            49m
+argocd-server                             NodePort    10.0.228.33   <none>        80:32648/TCP,443:31181/TCP   49m
+argocd-server-metrics                     ClusterIP   10.0.124.90   <none>        8083/TCP                     49m
 ```
 ![alt text](image-41.png)
 
@@ -447,51 +471,86 @@ azureuser@devopsdemovm:~/myagent$ kubectl get nodes -o wide
 NAME                                STATUS   ROLES    AGE   VERSION   INTERNAL-IP   EXTERNAL-IP   OS-IMAGE             KERNEL-VERSION      CONTAINER-RUNTIME
 aks-agentpool-23873620-vmss000000   Ready    <none>   54m   v1.30.6   10.224.0.4    <none>        Ubuntu 22.04.5 LTS   5.15.0-1075-azure   containerd://1.7.23-1
 ```
-
 ![alt text](image-42.png)
 
-- Currently, it is set to ```clusterIP``` and we will change it to ```LoadBalancer```
+<!-- - Currently, it is set to ```NodePort``` and we will change it to ```LoadBalancer```
 - Expose Argo CD server using NodePort:
 ```sh
 kubectl patch svc argocd-server -n argocd -p '{"spec": {"type": "LoadBalancer"}}'
-```
+``` -->
 
-Verify Kubernetes Config: Confirm that the argocd-server service has the correct NodePort and is not misconfigured:
+Verify Kubernetes Config: Confirm that the argocd-server service has the correct ```NodePort``` and is not misconfigured:
 
-bash
-Copy code
+```bash
 kubectl describe svc argocd-server -n argocd
-Use Port-Forwarding (Temporary Solution): If you only need temporary access, you can use port-forwarding:
-
-bash
-Copy code
-kubectl port-forward svc/argocd-server -n argocd 8080:80
-Then access it at http://localhost:8080.
-
-![alt text](image-43.png)
-
-- To configure repo in argocd with token base.
+```
 ```sh
-s
+azureuser@devopsdemovm:~$ kubectl get svc -n argocd
+NAME                                      TYPE        CLUSTER-IP    EXTERNAL-IP   PORT(S)                      AGE
+argocd-applicationset-controller          ClusterIP   10.0.98.49    <none>        7000/TCP,8080/TCP            2m31s
+argocd-dex-server                         ClusterIP   10.0.130.97   <none>        5556/TCP,5557/TCP,5558/TCP   2m31s
+argocd-metrics                            ClusterIP   10.0.91.113   <none>        8082/TCP                     2m31s
+argocd-notifications-controller-metrics   ClusterIP   10.0.83.161   <none>        9001/TCP                     2m31s
+argocd-redis                              ClusterIP   10.0.241.99   <none>        6379/TCP                     2m31s
+argocd-repo-server                        ClusterIP   10.0.38.142   <none>        8081/TCP,8084/TCP            2m31s
+argocd-server                             NodePort    10.0.228.33   <none>        80:32648/TCP,443:31181/TCP   2m31s
+argocd-server-metrics                     ClusterIP   10.0.124.90   <none>        8083/TCP                     2m31s
+
+azureuser@devopsdemovm:~$ kubectl get nodes -o wide
+NAME                             STATUS   ROLES    AGE   VERSION   INTERNAL-IP   EXTERNAL-IP     OS-IMAGE             KERNEL-VERSION      CONTAINER-RUNTIME
+aks-system-29381837-vmss000000   Ready    <none>   26m   v1.30.6   10.224.0.4    52.148.171.58   Ubuntu 22.04.5 LTS   5.15.0-1075-azure   containerd://1.7.23-1
+```
+Then access it at ```http://52.148.171.58:32648```.
+
+If page is not opening then we have to open a port in NSG.
+- On Azure portal server with ```VMSS``` and select the ```VMSS```
+![alt text](image-72.png)
+![alt text](image-74.png)
+![alt text](image-75.png)
+![alt text](image-76.png)
+![alt text](image-77.png)
+
+Now, we need to try to access it again ```http://52.148.171.58:32648```.
+![alt text](image-78.png)
+
+- To retrive the password for argocd
+```sh
+kubectl -n argocd get secret argocd-initial-admin-secret -o jsonpath="{.data.password}" | base64 -d; echo
+```
+![alt text](image-39.png)
+
+#### <span style="color: orange;"> To configure repo in argocd with token base.
+```sh
+(http://52.148.171.58:32648)
 ```
 ![alt text](image-44.png)
 
 
-Go to azure pipeline and select 
+Go to azure pipeline and clink on setting and select "Personal Access Token"
 ![alt text](image-45.png)
 ![alt text](image-46.png)
 
-readOnly- token
-5vm6sS6s9O3JCB68OG55rQNUqCNK8F9wAz5FWFPBfmcYcYvTuJNsJQQJ99ALACAAAAAAAAAAAAASAZDODfBe
+
 ![alt text](image-47.png)
 ![alt text](image-48.png)
 
 ```sh
-https://5vm6sS6s9O3JCB68OG55rQNUqCNK8F9wAz5FWFPBfmcYcYvTuJNsJQQJ99ALACAAAAAAAAAAAAASAZDODfBe@dev.azure.com/mrbalraj/balraj-devops/_git/balraj-devops
+https://<Accesstoken>@dev.azure.com/mrbalraj/balraj-devops/_git/balraj-devops
 ```
 ![alt text](image-49.png)
 
-- To create a application in argocd
+
+#### <span style="color: orange;"> To create a application in argocd
+Once you access the ArgoCD URL and create an application
+ - **Application Name**: voteaccess-service
+ - **Project Name**: default
+ - **Sync Policy**: Automatic (Select Prune Resources and SelfHeal)
+ - **Repository URL**: https://mrbalraj@dev.azure.com/mrbalraj/balraj-devops/_git/balraj-devops
+ - **Revison**: main
+ - **Path**:  k8s-specifications (where Kubernetes files reside)
+ - **cluster URL**: Select default cluster
+ - **Namespace**: default
+
 ![alt text](image-50.png)
 ![alt text](image-51.png)
 
@@ -501,12 +560,7 @@ by default 3 min to sync with argocd but it can be changed.
 
 ![alt text](image-53.png)
 
-- Now, we will create a shell script to get an updated image tag in case if it is creating new image.
 
-- First we will create a folder in repo called 'scripts' and update the sh file as below.
-![alt text](image-54.png)
-![alt text](image-55.png)
-![alt text](image-56.png)
 
 Now, we will update our pipeline as below- 
 
@@ -517,11 +571,9 @@ Now, we will update our pipeline as below-
 kubectl edit cm argocd-cm -n argocd
 ```
 edit as below
-```sh
-
-```
 ![alt text](image-57.png)
 
+Now, try to get all resouces and you will noticed there is an error related to "ImagePullBackoff".
 
 ```sh
 kubectl get all
@@ -530,13 +582,13 @@ I am getting below error message.
 ![alt text](image-58.png)
 ![alt text](image-59.png)
 
-Solution: As we are using private registory and we need to use 'imagepullsecrets'
+**Solution**: As we are using private registory and we need to use 'imagepullsecrets'
 
 Go to azure registory and get the password which will be used in below command
 ![alt text](image-60.png)
 
 
-- command to create ACRImagePullSecret
+- command to create ```ACRImagePullSecret```
 ```sh
 kubectl create secret docker-registry <secret-name> \
     --namespace <namespace> \
@@ -544,47 +596,62 @@ kubectl create secret docker-registry <secret-name> \
     --docker-username=<service-principal-ID> \
     --docker-password=<service-principal-password>
 ```
+*Explanation of the Command:*
 ```sh
-Explanation of the Command:
 kubectl create secret docker-registry:
 
-This creates a new Kubernetes secret of type docker-registry.
+- This creates a new Kubernetes secret of type docker-registry.
 <secret-name>:
 
-The name of the secret being created. For example, acr-credentials.
+- The name of the secret being created. For example, acr-credentials.
 --namespace <namespace>:
 
-Specifies the namespace in which the secret will be created. If omitted, it defaults to the default namespace.
+- Specifies the namespace in which the secret will be created. If omitted, it defaults to the default namespace.
 Replace <namespace> with the desired namespace name.
 --docker-server=<container-registry-name>.azurecr.io:
 
-The URL of your container registry. For Azure Container Registry (ACR), the format is <container-registry-name>.azurecr.io.
+- The URL of your container registry. For Azure Container Registry (ACR), the format is <container-registry-name>.azurecr.io.
 Replace <container-registry-name> with your ACR name.
 --docker-username=<service-principal-ID>:
 
-The username to authenticate with the container registry. For Azure, this is typically a service principal's application (client) ID.
+- The username to authenticate with the container registry. For Azure, this is typically a service principal's application (client) ID.
 --docker-password=<service-principal-password>:
 
-The password (or secret) associated with the service principal used for authentication.
+- The password (or secret) associated with the service principal used for authentication.
 ```
+
+To get token, click on ```container registory```
+![alt text](image-79.png)
 
 ```sh
 kubectl create secret docker-registry acr-credentials \
     --namespace default \
     --docker-server=aconregee7b05ba.azurecr.io \
     --docker-username=aconregee7b05ba \
-    --docker-password=8C8k3eJnVSZtgqLvMKQr9idPg16YOiODPUTAdeK4fj+ACRC07FH7
+    --docker-password=<token>
 ```
 ![alt text](image-61.png)
 
+- Command to delete ```secret```
+ ```sh
+kubectl delete secret acr-credential --namespace default
+ ``` 
+
 now, we will update the vote-deployment.yaml as below:
 ![alt text](image-62.png)
+
+Need to update in all other deployment as below:
+
+![alt text](image-43.png)
+![alt text](image-73.png)
+
 
 here is the updated stats
 
 ![alt text](image-63.png)
 
-Try to update anything at vote folder in "app.py" as below and pipeline should be auto triggered.
+
+Try to update anything at vote folder in ```"app.py"``` as below and pipeline should be auto triggered.
 
 ![alt text](image-64.png)
 ![alt text](image-65.png)
@@ -599,381 +666,39 @@ kubectl get deploy vote -o yaml
 kubectl get svc
 kubectl get node -o wide
 ```
-- port need to opened in VMSS
+
+```sh
+kubectl describe svc argocd-server -n argocd
+```
+
+
+- Now, we will open one more port in VMSS
 ![alt text](image-66.png)
 
-test@123
 
-kubectl describe svc argocd-server -n argocd
-
-
-
-![alt text](image-67.png)
-
-
-
-```sh
-azureuser@devopsdemovm:~$ kubectl delete service/db
-service "db" deleted
-azureuser@devopsdemovm:~$ kubectl delete service/redis
-service "redis" deleted
-azureuser@devopsdemovm:~$ kubectl delete service/resut
-Error from server (NotFound): services "resut" not found
-azureuser@devopsdemovm:~$ kubectl delete service/result
-service "result" deleted
-azureuser@devopsdemovm:~$ kubectl delete service/vote
-service "vote" deleted
-azureuser@devopsdemovm:~$ kubectl delete deployment.apps/db
-deployment.apps "db" deleted
-azureuser@devopsdemovm:~$ kubectl delete deployment.apps/redis
-deployment.apps "redis" deleted
-azureuser@devopsdemovm:~$ kubectl delete deployment.apps/vote
-deployment.apps "vote" deleted
-azureuser@devopsdemovm:~$ kubectl delete deployment.apps/worker
-deployment.apps "worker" deleted
-azureuser@devopsdemovm:~$ kubectl delete deployment.apps/db
-Error from server (NotFound): deployments.apps "db" not found
-azureuser@devopsdemovm:~$ kubectl delete deployment.apps/result
-deployment.apps "result" deleted
-azureuser@devopsdemovm:~$ kubectl delete service/db
-service "db" deleted
-
-```
-
-
-
-
-
-
-
-
-
-
-
-
-
-********************************************
-
-## <span style="color: yellow;"> Setup the Jenkins </span>
-Go to Jenkins EC2 and run the following command 
-Access Jenkins via ```http://<your-server-ip>:8080```. 
-
-- Retrieve the initial admin password using:
-```bash
-sudo cat /var/lib/jenkins/secrets/initialAdminPassword
-```
-![image-4](https://github.com/user-attachments/assets/1fc5315b-0fe1-4a5a-bb7c-fd20645adbb4)
-![image-5](https://github.com/user-attachments/assets/82ae7f28-7cae-476e-99ae-b1d1596c379e)
-![image-6](https://github.com/user-attachments/assets/c966a1b3-96a2-4dc6-8329-a3b8f4ee93e3)
-![image-7](https://github.com/user-attachments/assets/867887a1-9d3e-4d22-b37f-b63fac896620)
-![image-8](https://github.com/user-attachments/assets/fc64c254-8d92-4e20-9ce0-76b1938a466a)
-
-### <span style="color: cyan;"> Install plugin in Jenkins </span>
-```sh
-Manage Jenkins > Plugins view> Under the Available tab, plugins available for download from the configured Update Center can be searched and considered:
-```
-Following plugin needs to be installed.
-```sh
-SonarQube Scanner
-NodeJS
-Pipeline: Stage View
-Blue Ocean
-Eclipse Temurin installer
-Docker
-Docker Commons
-Docker Pipeline
-Docker API
-docker-build-step
-Prometheus metrics
-```
-**Note**&rArr; Restart the jenkins to make it effective plugin.
-
-####  <span style="color: cyan;"> Create ```Webhook``` in SonarQube
-    - <publicIPaddressofJenkins:9000>
-- Click on 
-  - Administration>Configuration>webooks
-  - **Name**: sonarqube-webhook
-  - **URL**: <publicIPaddressofJenkins:8080/sonarqube-webhook>
-  
-![image](https://github.com/user-attachments/assets/58a28ce3-63d1-42ec-8874-9f36f9644626)
-
-
-####  <span style="color: cyan;"> Create a token in SonarQube
-  - Administration>Security>Users>Create a new token
-  
-![image-1](https://github.com/user-attachments/assets/84265e50-bc10-4959-aee9-36179c2b99ab)
-
-
-####  <span style="color: yellow;"> Configure Sonarqube credential in Jenkins</span>.
-```
-Dashboard> Manage Jenkins> Credentials> System> Global credentials (unrestricted)
-```
-![image-2](https://github.com/user-attachments/assets/8006669a-95c0-4d4c-b7cc-1a9cac571b8f)
-
-####  <span style="color: yellow;"> Configure AWS credential (Access & Secret Keys) in Jenkins
-```
-Dashboard> Manage Jenkins> Credentials> System> Global credentials (unrestricted)
-```
-![image-3](https://github.com/user-attachments/assets/8c75778c-dd17-493f-a30b-c9159f8bfc51)
-
-
-
-####  <span style="color: cyan;"> Configure/Integrate SonarQube in Jenkins</span>
-```
-Dashboard > Manage Jenkins > System
-```
-![image-4](https://github.com/user-attachments/assets/16476494-db0c-4874-a2d7-0842194c69de)
-![image-5](https://github.com/user-attachments/assets/95aedde7-ac31-46c3-a216-f47d6c3c38a6)
-
-####  <span style="color: cyan;"> Configure JDK , Sonar scanner, and Node JS</span>
-- To configure ```JDK```
-```
-Dashboard> Manage Jenkins> Tools
-```
-
-![image-6](https://github.com/user-attachments/assets/56d3dc2f-2266-4962-a721-d7fae610a4f1)
-![image-7](https://github.com/user-attachments/assets/bc2a089a-8195-47c3-a1f6-a144d90a809b)
-
-
-- To configure ```SonarQube Scanner```
-```
-Dashboard > Manage Jenkins > Tools
-```
-![image-8](https://github.com/user-attachments/assets/8a13ea7c-1abf-44d9-a063-55728ccf0593)
-![image-9](https://github.com/user-attachments/assets/aed870a7-3ffc-4ca2-b519-26073d0cae83)
-
-
-- To configure ```Node JS```
-```
-Dashboard > Manage Jenkins > Tools
-```
-![image-10](https://github.com/user-attachments/assets/3db3803b-c349-46ec-bcd2-db6e5a17f3c3)
-![image-11](https://github.com/user-attachments/assets/83fe1fef-ea25-48b0-99fb-02d97692e9f8)
-
-<span style="color: Red;"> **Note**</span> &rArr; We have to select ```NodeJS 16.20.0``` as per project required. it won't work on ```NodeJs23.x```
-
-- To configure ```Docker```
-```
-Dashboard > Manage Jenkins > Tools
-```
-![image-12](https://github.com/user-attachments/assets/47e5d12a-1824-47fa-b31b-eb5479ad24f2)
-
-#### <span style="color: orange;">  Build a pipeline.</span>
-
-  - Here is the [Pipeline Script](https://github.com/mrbalraj007/DevOps_free_Bootcamp/blob/main/19.Real-Time-DevOps-Project/Terraform_Code/Code_IAC_Terraform_box/All_Pipelines/Pipeline_CI.md)
-
-- Build deployment pipeline.
-![image-23](https://github.com/user-attachments/assets/03539b39-05cc-4dea-9b7b-55efb973aaed)
-
-Run the pipeline; the first time it would fail, and rerun it with parameters.
-
-- I ran the pipeline but it failed with below error message.
-
-![image-13](https://github.com/user-attachments/assets/3fba5e83-e1e7-4ac3-b34f-673a1993cf29)
-
-**Solution:**
-```sh
-sudo su - ansadmin
-sudo usermod -aG docker $USER && newgrp docker
-sudo usermod -aG docker jenkins && newgrp docker
-```
-*I ran the pipeline but it failed with same error message and I found the below solution.*
-
-**Solution:** 
-
-jenkins service need to be restarted.
-```bash
-sudo systemctl restart jenkins
-```
-
-I reran the pipeline, and it went well, and the build got completed successfully.
-
-![image-14](https://github.com/user-attachments/assets/ca86d4ef-46fc-4ba1-a88d-60107e3cac98)
-![image-15](https://github.com/user-attachments/assets/b19d88d8-6d43-4e64-976b-4e96ac8f22f8)
-
-Build status: 
-![image-17](https://github.com/user-attachments/assets/edf600a9-5c5e-46af-91f3-e88d49399639)
-![image-18](https://github.com/user-attachments/assets/62642045-c71a-4da7-8c92-60a6affdc629)
-
-- Application status in SonarQube
-![image-16](https://github.com/user-attachments/assets/c6beb945-6313-48ae-bc2c-ad472d62fe23)
-
-**Quality Gate** Status is failed because of NodeJS mismatch version, as I was using the latest version of Nodes (23.x).
-![image-19](https://github.com/user-attachments/assets/9d2b3aab-1517-4a36-a82d-0b08b08bba5f)
-
-- I removed the nodes js 23.x and installed ```nodejs16```.
-- <span style="color: red;">**Note: &rArr; You won't be facing this issue because I have updated the Terraform code.**</span>
-```sh
-sudo apt-get remove -y nodejs
-
-curl -fsSL https://deb.nodesource.com/setup_16.x | sudo -E bash -
-sudo apt-get install -y nodejs
-```
-
-Rerun the pipeline and change the quality gate status to passed from failed.
-![image-20](https://github.com/user-attachments/assets/02a8781d-b56c-4faa-af35-b409e6052e5b)
-
-
-```sh
-Cleanup Old Images from ECR checks if there are more than 3 images in the repository and deletes the old ones if necessary.
-```
-
-![image-21](https://github.com/user-attachments/assets/8f136fc5-ae7f-4f29-8233-7f9486ed2fcb)
-
-![image-22](https://github.com/user-attachments/assets/a9278715-e84b-4320-a03a-9225dcfd15ab)
-
-### <span style="color: orange;"> Setup ArgoCD </span>
-
-- Run the following commands to verify the ```Pods``` and ```services type```
-
-```sh
-kubectl get pods -n argocd
-kubectl get svc -n argocd
-
-kubectl get pods -n prometheus
-kubectl get service -n prometheus
-```
-
-```sh
-ubuntu@bootstrap-svr:~$ kubectl get pods -n argocd
-NAME                                                READY   STATUS    RESTARTS   AGE
-argocd-application-controller-0                     1/1     Running   0          40m
-argocd-applicationset-controller-64f6bd6456-79k4l   1/1     Running   0          40m
-argocd-dex-server-5fdcd9df8b-85dl7                  1/1     Running   0          40m
-argocd-notifications-controller-778495d96f-lsmww    1/1     Running   0          40m
-argocd-redis-69fd8bd669-qd4qs                       1/1     Running   0          40m
-argocd-repo-server-75567c944-cwrdv                  1/1     Running   0          40m
-argocd-server-5c768cdd96-wh4t5                      1/1     Running   0          40m
-
-ubuntu@bootstrap-svr:~$ kubectl get svc -n argocd
-NAME                                      TYPE        CLUSTER-IP       EXTERNAL-IP   PORT(S)                      AGE
-argocd-applicationset-controller          ClusterIP   172.20.37.85     <none>        7000/TCP,8080/TCP            41m
-argocd-dex-server                         ClusterIP   172.20.185.246   <none>        5556/TCP,5557/TCP,5558/TCP   41m
-argocd-metrics                            ClusterIP   172.20.6.170     <none>        8082/TCP                     41m
-argocd-notifications-controller-metrics   ClusterIP   172.20.36.121    <none>        9001/TCP                     41m
-argocd-redis                              ClusterIP   172.20.104.129   <none>        6379/TCP                     41m
-argocd-repo-server                        ClusterIP   172.20.184.189   <none>        8081/TCP,8084/TCP            41m
-argocd-server                             ClusterIP   172.20.150.224   <none>        80/TCP,443/TCP               41m
-argocd-server-metrics                     ClusterIP   172.20.208.97    <none>        8083/TCP                     41m
-ubuntu@bootstrap-svr:~$
-
-```
-
-```sh
-ubuntu@bootstrap-svr:~$ kubectl get pods -n prometheus
-NAME                                                     READY   STATUS    RESTARTS   AGE
-alertmanager-stable-kube-prometheus-sta-alertmanager-0   2/2     Running   0          42m
-prometheus-stable-kube-prometheus-sta-prometheus-0       2/2     Running   0          42m
-stable-grafana-6c67f4cb8d-k4bpb                          3/3     Running   0          42m
-stable-kube-prometheus-sta-operator-74dcfb4f9c-2vwqr     1/1     Running   0          42m
-stable-kube-state-metrics-6d6d5fcb75-w8k4l               1/1     Running   0          42m
-stable-prometheus-node-exporter-8tqgh                    1/1     Running   0          42m
-stable-prometheus-node-exporter-jkkkf                    1/1     Running   0          42m
-
-ubuntu@bootstrap-svr:~$ kubectl get service -n prometheus
-NAME                                      TYPE        CLUSTER-IP      EXTERNAL-IP   PORT(S)                      AGE
-alertmanager-operated                     ClusterIP   None            <none>        9093/TCP,9094/TCP,9094/UDP   42m
-prometheus-operated                       ClusterIP   None            <none>        9090/TCP                     42m
-stable-grafana                            ClusterIP   172.20.21.160   <none>        80/TCP                       42m
-stable-kube-prometheus-sta-alertmanager   ClusterIP   172.20.20.12    <none>        9093/TCP,8080/TCP            42m
-stable-kube-prometheus-sta-operator       ClusterIP   172.20.69.94    <none>        443/TCP                      42m
-stable-kube-prometheus-sta-prometheus     ClusterIP   172.20.199.20   <none>        9090/TCP,8080/TCP            42m
-stable-kube-state-metrics                 ClusterIP   172.20.52.146   <none>        8080/TCP                     42m
-stable-prometheus-node-exporter           ClusterIP   172.20.40.154   <none>        9100/TCP                     42m
-```
-
-- Run these commands to change the service type from ```ClusterIP``` to ```LoadBalancer```.
-```sh
-kubectl patch svc stable-kube-prometheus-sta-prometheus -n prometheus -p '{"spec": {"type": "LoadBalancer"}}'
-kubectl patch svc stable-grafana -n prometheus -p '{"spec": {"type": "LoadBalancer"}}'
-kubectl patch svc argocd-server -n argocd -p '{"spec": {"type": "LoadBalancer"}}'
-```
-Verify status now.
-![image-24](https://github.com/user-attachments/assets/7d359db7-4768-4a07-9f8d-77c37a2b6df5)
-
-
-- Now, time to run the script to get ArgoCD and Grafana access details.
-
-[Here is the access script](https://github.com/mrbalraj007/DevOps_free_Bootcamp/blob/main/19.Real-Time-DevOps-Project/Terraform_Code/Code_IAC_Terraform_box/All_Pipelines/access.sh)
-
-Once you access the ArgoCD URL and create an application
- - **Application Name**: amazon-prime-app
- - **Project Name**: default
- - **Sync Policy**: Automatic (Select Prune Resources and SelfHeal)
- - **Repository URL**: https://github.com/mrbalraj007/Amazon-Prime-Clone-Project.git
- - **Revison**: main
- - **Path**: k8s_files (where Kubernetes files reside)
- - **cluster URL**: Select default cluster
- - **Namespace**: default
-
-![image-25](https://github.com/user-attachments/assets/4caad6f2-dc55-4267-96dc-ea717f9effb8)
-![image-26](https://github.com/user-attachments/assets/a820c29f-8547-4b5e-9186-5e48acdb9d5f)
-
-- Update the **latest image** name in ```deployment.yml```
-![image-27](https://github.com/user-attachments/assets/47134897-c0c0-4cda-949b-ef94f38150bd)
-
-**Verify the apps Status**
-![image-28](https://github.com/user-attachments/assets/9c25274d-5464-476e-bfdb-9eddcce21975)
-
-**Verify Pods & service status**
-![image-29](https://github.com/user-attachments/assets/39589d65-4cd4-480c-b5c6-a59fdc341b50)
-
-Click on the hostnames (URL details) from the service and access it in the browser.
-```
-http://af70e2590416f4788be765b667bb8175-2006799998.us-east-1.elb.amazonaws.com:3000/
-```
-
-![image-30](https://github.com/user-attachments/assets/c78e077f-0457-4468-a69a-b71a4a73af2d)
-
+Vote application is accessible now.
+![alt text](image-80.png)
+![alt text](image-81.png)
 
 Congratulations :-) the application is working and accessible.
-![image-31](https://github.com/user-attachments/assets/70dc9605-5650-43ed-bd06-2c035abcb843)
 
-- Access Prometheus/Grafana and create a custom dashboard in Prometheus/Grafana.
-  
-![image-32](https://github.com/user-attachments/assets/452104dd-c859-46cd-909a-c53345055cab)
-![image-33](https://github.com/user-attachments/assets/5f96e4af-4b06-49f8-9eae-a22b1c60ba04)
-![image-34](https://github.com/user-attachments/assets/b54fcf5d-98fe-4196-8c6d-d66b154af843)
-![image-35](https://github.com/user-attachments/assets/c0b83f08-4fdc-4f9b-b1cf-8d562918b806)
 
-Dashboard in Grafana
-![image-36](https://github.com/user-attachments/assets/ec873ad5-ed0c-43b4-9d85-2a08e16a5839)
+
+
+
+
+
+
+
+
+
+
+
+
 
 ### <span style="color: yellow;"> Cleanup the images and deployment using the pipeline.</span>
 
-- Here is the [Updated pipeline](https://github.com/mrbalraj007/DevOps_free_Bootcamp/blob/main/19.Real-Time-DevOps-Project/Terraform_Code/Code_IAC_Terraform_box/All_Pipelines/Cleanup.md)
 
-![image-37](https://github.com/user-attachments/assets/86abb97d-3a99-4ca4-afde-3334ecf4a795)
-
-*Pipeline would be partially failed because KMS will take some days to get it deleted automatically.*
-![image-38](https://github.com/user-attachments/assets/fa32f024-1db8-442e-9fcf-51cecc74d301)
-
-- Verify the pods and services in EKS. If it is not deleted, then change the service back to ClusterIP and rerun the pipeline.
-
-```sh
-kubectl patch svc stable-kube-prometheus-sta-prometheus -n prometheus -p '{"spec": {"type": "ClusterIP"}}'
-kubectl patch svc stable-grafana -n prometheus -p '{"spec": {"type": "ClusterIP"}}'
-kubectl patch svc argocd-server -n argocd -p '{"spec": {"type": "ClusterIP"}}'
-kubectl patch svc singh-app -p '{"spec": {"type": "ClusterIP"}}'
-```
-<!-- 
-
-```sh
-Verify the Outputs in the EKS Module: Check the documentation or code for the terraform-aws-modules/eks/aws module version 19.15.1 you are using. The correct output might not be cluster_id but something else like eks_cluster_id, cluster_name, etc.
-
-To confirm:
-
-Look into .terraform/modules/eks/outputs.tf.
-Identify the exact name of the output variable for the cluster name.
-```
-
-
-```sh
-Run the following command outside the Jenkins pipeline to verify connectivity and status:
-bash
-Copy code
-aws eks --region us-east-1 describe-cluster --name balraj-cluster
-``` -->
 
 
 ## <span style="color: Yellow;"> Environment Cleanup:
@@ -981,27 +706,23 @@ aws eks --region us-east-1 describe-cluster --name balraj-cluster
 
 - __Delete all deployment/Service__ first
     - ```sh
-        kubectl delete deployment.apps/singh-app
-        kubectl delete service singh-app
-        kubectl delete service/singh-service
+        kubectl delete service/redis
+        kubectl delete service/db
+        kubectl delete service/resut
+        kubectl delete service/result
+        kubectl delete service/vote
+        kubectl delete deployment.apps/db
+        kubectl delete deployment.apps/redis
+        kubectl delete deployment.apps/vote
+        kubectl delete deployment.apps/worker
+        kubectl delete deployment.apps/db
+        kubectl delete deployment.apps/result
+        kubectl delete service/db
         ```
-   - __```EKS cluster```__ second
-   - then delete the __```virtual machine```__.
+![alt text](image-67.png)
 
 
-
-
-#### To delete ```AWS EKS cluster```
-   -   Login into the bootstrap EC2 instance and change the directory to /k8s_setup_file, and run the following command to delete the cluste.
-```bash
-sudo su - ubuntu
-cd /k8s_setup_file
-sudo terraform destroy --auto-approve
-```
-
-
-
-#### Now, time to delete the ```Virtual machine```.
+#### Now, time to delete the ```AKS Cluster and Virtual machine```.
 Go to folder *<span style="color: cyan;">"19.Real-Time-DevOps-Project/Terraform_Code/Code_IAC_Terraform_box"</span>* and run the terraform command.
 ```bash
 cd Terraform_Code/
@@ -1016,7 +737,7 @@ Terraform destroy --auto-approve
 
 ## <span style="color: Yellow;"> Conclusion
 
-By combining Terraform, Jenkins, EKS, Docker, and monitoring tools like Grafana and Prometheus, this project automates the entire process of infrastructure management, application deployment, and monitoring. The use of a cleanup pipeline ensures that resources are removed when no longer needed, helping to reduce costs. This approach offers a scalable, efficient, and cost-effective solution for modern application deployment and management.
+Migrating CI pipelines from GitHub to Azure DevOps can significantly improve your development process by automating the build and deployment stages. This blog covered the step-by-step process of setting up an Azure DevOps pipeline to build Docker images and push them to Azure Container Registry. It also provided insights into handling pipeline triggers for different microservices, ensuring that the correct pipelines run when changes are made. By adopting this approach, you’ll streamline your CI workflows and enhance your development productivity.
 
 
 __Ref Link:__

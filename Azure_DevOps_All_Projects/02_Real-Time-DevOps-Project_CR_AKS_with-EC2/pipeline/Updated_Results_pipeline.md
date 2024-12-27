@@ -6,16 +6,16 @@
 trigger:
  paths:
     include:
-     - results/*
+     - result/*
 
 resources:
 - repo: self
 
 variables:
   # Container registry service connection established during pipeline creation
-  dockerRegistryServiceConnection: '58ff46b5-f307-431e-a6fa-fd6a7f8ebd22'
+  dockerRegistryServiceConnection: '1cf9fa3f-e174-4539-b316-898363c21ddf'
   imageRepository: 'result-app'
-  containerRegistry: 'aconregaaaf0e8c.azurecr.io'
+  containerRegistry: 'aconreg1f19a128.azurecr.io'
   dockerfilePath: '$(Build.SourcesDirectory)/result/Dockerfile'
   tag: '$(Build.BuildId)'
 
@@ -54,4 +54,19 @@ stages:
         repository: '$(imageRepository)'
         command: 'push'
         tags: '$(tag)'
+- stage: Update
+  displayName: Update
+  jobs:
+  - job: Update
+    displayName: Update
+    steps:
+    - script: |
+        sudo apt-get update
+        sudo apt-get install dos2unix -y
+        dos2unix 'scripts/updateK8sManifests.sh'
+      displayName: 'Install pkgs'
+    - task: ShellScript@2
+      inputs:  
+        scriptPath: 'scripts/updateK8sManifests.sh'
+        args: 'result $(imageRepository) $(tag)'
 ```
