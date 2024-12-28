@@ -1,4 +1,3 @@
-```sh
 # Docker
 # Delete all images and repositories from Azure Container Registry
 # https://docs.microsoft.com/azure/devops/pipelines/languages/docker
@@ -34,9 +33,8 @@ stages:
         inlineScript: |
           az acr login --name $(containerRegistry)
     - script: |
-        az acr repository show-tags --name $(containerRegistry) --repository $(imageRepository) --output tsv | xargs -I % az acr repository delete --name $(containerRegistry) --image $(imageRepository):% --yes
+        az acr repository show-tags --name $(containerRegistry) --repository $(imageRepository) --output tsv | xargs -I % az acr repository delete --name $(containerRegistry) --repository $(imageRepository) --tag % --yes
       displayName: 'Delete all images and tags from repository'
     - script: |
-        az acr repository delete --name $(containerRegistry) --repository $(imageRepository) --yes || echo "Repository already deleted"
+        az acr repository delete --name $(containerRegistry) --repository $(imageRepository) --yes
       displayName: 'Delete repository'
-```
