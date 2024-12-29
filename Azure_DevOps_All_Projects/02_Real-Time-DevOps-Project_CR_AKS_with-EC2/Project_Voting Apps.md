@@ -1,6 +1,7 @@
 
 # <span style="color: Yellow;"> End-to-End Azure DevOps project for Microservices and CI/CD Pipelines</span>
 
+![Azure DevOps Voting App](https://github.com/user-attachments/assets/55ed3aa2-0bbb-42dd-81a2-a7ee67b4ac05)
 
 In the world of DevOps, Continuous Integration (CI) plays a pivotal role in automating the testing and deployment of applications. Azure DevOps has become a popular platform for managing these processes. In this technical blog, we will walk through the steps involved in migrating a GitHub-based CI pipeline to Azure DevOps, leveraging Docker for containerization and Azure Container Registry (ACR) to store Docker images. This project will help streamline your development workflows by automating the build and push stages, improving consistency across different environments.
 
