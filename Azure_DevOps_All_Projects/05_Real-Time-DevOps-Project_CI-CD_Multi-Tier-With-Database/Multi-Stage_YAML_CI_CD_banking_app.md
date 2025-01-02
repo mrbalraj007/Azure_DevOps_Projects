@@ -369,7 +369,7 @@ Select the organization
 
 
 ### <span style="color: Yellow;">**Step-06: Setup SonarQube.**</span>
- - Note it down the agent publicIP address and try to access on port ```9000```
+ - Note the agent's public IP address and try to access it on port ```9000```.
   - <publicIPaddressofVM:9000>  
 ![image](https://github.com/user-attachments/assets/1da18ea8-50d0-4be0-b32b-a43d845a66b1)
 ![image-1](https://github.com/user-attachments/assets/e3da4ebd-c291-487c-9c90-7a3311635926)
@@ -387,13 +387,13 @@ Select the organization
 ```sh
 az login --use-device-code
 ```
-![alt text](image-84.png)
+![image-84](https://github.com/user-attachments/assets/f1f4e869-4076-44b3-9c3b-81043d80b2b5)
 
 - To create a SP account
 ```sh
 az ad sp <name_of_SP> --role="contributor" --scope="subscriptions/SUBSCRIPTION_ID"
 ```
-![alt text](image-85.png)
+![image-85](https://github.com/user-attachments/assets/24c5abbf-2501-4e5a-b45e-e51aca6707a4)
 
 ### <span style="color: Yellow;">**Step-08: Configure the Service Connection for "```Azure Resource Manager```"**</span>
    - Steps to configure connection for [Azure Resource Manager](https://learn.microsoft.com/en-us/azure/devops/pipelines/release/configure-workload-identity?view=azure-devops&tabs=managed-identity):
