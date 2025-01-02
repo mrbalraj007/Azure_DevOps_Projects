@@ -415,9 +415,7 @@ az ad sp <name_of_SP> --role="contributor" --scope="subscriptions/SUBSCRIPTION_I
 
     - Steps to configure connection for Kubernetes:
 ![image-13](https://github.com/user-attachments/assets/bdbaf9e1-1bb6-4ef1-8ef8-ca35cca94ca3) 
-    - It will popup for login crednetial and it should be used the same cred which you have used for UI portal login.
-
-      ![alt text](image-14.png)
+    - A popup will appear asking for login credentials. Use the same credentials you used for the UI portal login.
 
 
 
@@ -733,7 +731,7 @@ aks-system-18075837-vmss000000   Ready    <none>   3h35m   v1.31.2   10.224.0.4 
 azureuser@devopsdemovm:~$
 ```
 
-Now, try to get all resouces and you will noticed there is an error related to "ImagePullBackoff".
+Now, try to get all resources, and you will notice there is an error related to "ImagePullBackoff".
 
 ```sh
 kubectl get all
@@ -742,9 +740,9 @@ I am getting below error message.
 ![image-58](https://github.com/user-attachments/assets/71922859-a009-45c5-b89c-433f30c06ac1)
 
 
-**Solution**: As we are using private registory and we need to use '```imagepullsecrets```'
+**Solution**: As we are using a private registry and we need to use 'imagepullsecrets'
 
-Go to azure registory and get the password which will be used in below command
+Go to Azure registry and get the password which will be used in the below command
 ![image-60](https://github.com/user-attachments/assets/5549858c-2c3e-493d-a802-c881af820477)
 
 
@@ -828,7 +826,7 @@ kubectl describe node aks-system-18075837-vmss000000
 Then access it at ```http://52.183.119.235:31781```.
 
   - If page is not opening then we have to open a port in NSG.
-    - On Azure portal server with ```VMSS``` and select the ```VMSS```
+    - On the Azure portal, navigate to the server with VMSS and select the VMSS.
 ![image-74](https://github.com/user-attachments/assets/6c847f3f-b6b0-4c4c-bf43-5751396a9e42)
 
 Now, we need to try to access it again ```http://PublicIPAddress:31781```.
@@ -845,11 +843,11 @@ Congratulations :-) the application is working and accessible.
 **Note**:- I have updated fully automated CI_pipeline: [Bank_App](https://github.com/mrbalraj007/Azure_DevOps_Projects/blob/main/Azure_DevOps_All_Projects/05_Real-Time-DevOps-Project_CI-CD_Multi-Tier-With-Database/Pipeline/Updated_CI_CD/Pipine_CI_Updated.md)
 
 
-### <span style="color: yellow;"> Step-11: Cleanup the images and container registroy using the pipeline.</span>
+### <span style="color: yellow;"> Step-11: Clean up the images and container registry using the pipeline..</span>
 
 - First create [Service Connection](https://www.youtube.com/watch?v=pSmKNbN_Y4s) in Azure Devops.
-- Once you create a connection then note it down the ```connection ID```, because that ID would be used in pipeline. 
-- On agent machine, make sure login with azure login and connection is active, if not then login with following.
+- Once you create a connection, make sure to note down the connection ID, as this ID will be used in the pipeline.
+- On the agent machine, ensure you are logged in with Azure and that the connection is active. If not, log in using the following steps.
   ```sh
   az login --use-device-code
   ```
