@@ -1,3 +1,4 @@
+```bash
 # Starter pipeline
 # Start with a minimal pipeline that you can customize to build and deploy your code.
 # Add steps that build, run tests, deploy, and more:
@@ -187,3 +188,4 @@ stages:
                kubectl logs deployment/bankapp --namespace default
              displayName: 'Check Deployment Logs'
              continueOnError: true
+```

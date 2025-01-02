@@ -1,3 +1,4 @@
+```bash
 # Starter pipeline
 # Start with a minimal pipeline that you can customize to build and deploy your code.
 # Add steps that build, run tests, deploy, and more:
@@ -159,3 +160,4 @@ stages:
                kubernetesServiceConnection: 'k8s-conn'
                namespace: 'default'
                manifests: 'k8s-specifications/Service-deployment.yaml'
+```

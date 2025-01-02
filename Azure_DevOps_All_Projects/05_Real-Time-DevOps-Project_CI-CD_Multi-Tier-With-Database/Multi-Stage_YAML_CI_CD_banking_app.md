@@ -6,7 +6,17 @@ This document provides a step-by-step guide on setting up a multi-stage YAML CI/
 
 Before diving into this project, here are some skills and tools you should be familiar with:
 
-- [x] [Clone repository for terraform code](https://github.com/mrbalraj007/Azure_DevOps_Projects/tree/main/Azure_DevOps_All_Projects/02_Real-Time-DevOps-Project_CR_AKS_with-EC2)<br>
+- [x]  Setting Up Azure Account
+    1. Go to [Azure Portal](https://portal.azure.com).
+    2. Create a new Microsoft account if you don't have one.
+    3. Provide necessary details like name, mobile number, and payment information.
+
+- [x] Creating Azure DevOps Organization
+    1. Go to [Azure DevOps](https://dev.azure.com).
+    2. Create a new organization.
+    3. Set up a new project within the organization.
+
+- [x] [Clone repository for terraform code](https://github.com/mrbalraj007/Azure_DevOps_Projects/tree/main/Azure_DevOps_All_Projects/05_Real-Time-DevOps-Project_CI-CD_Multi-Tier-With-Database)<br>
   __Note__: Replace resource names and variables as per your requirement in terraform code
     - Update ```terraform.tfvars```.
  
@@ -22,18 +32,22 @@ Before diving into this project, here are some skills and tools you should be fa
 - [x] __Azure Container Registry (ACR)__: Set up ACR to store your Docker images.
 - [x] __Linux VM__: Docker must be installed on a Linux virtual machine to run containers.
 
+
 ## <span style="color: Yellow;">Setting Up the Infrastructure </span>
 
 I have created a Terraform code to set up the entire infrastructure, including the installation of required applications, tools, and the AKS cluster automatically created.
 
 **Note** &rArr;<span style="color: Green;"> ```AKS cluster``` creation will take approx. 10 to 15 minutes.
 
-- &rArr; <span style="color: brown;">Virtual machines will be created named as ```"devopsdemovm"```
+- &rArr; <span style="color: orange;">Virtual machines will be created named as ```"devopsdemovm"```
 
 - &rArr;<span style="color: brown;"> Docker Install
 - &rArr;<span style="color: brown;"> Azure Cli Install
 - &rArr;<span style="color: brown;"> KubeCtl Install
 - &rArr;<span style="color: brown;"> AKS Cluster Setup
+- &rArr;<span style="color: brown;"> Sonarqube Install
+- &rArr;<span style="color: brown;"> Trivy Install
+- &rArr;<span style="color: brown;"> Maven Install
 
 ### <span style="color: Yellow;"> Virtual Machine creation
 
@@ -41,7 +55,7 @@ First, we'll create the necessary virtual machines using ```terraform``` code.
 
 Below is a terraform Code:
 
-Once you [clone repo](https://github.com/mrbalraj007/Azure_DevOps_Projects/tree/main/Azure_DevOps_All_Projects/02_Real-Time-DevOps-Project_CR_AKS_with-EC2)</span> and run the terraform command.
+Once you [clone repo](https://github.com/mrbalraj007/Azure_DevOps_Projects/tree/main/Azure_DevOps_All_Projects/05_Real-Time-DevOps-Project_CI-CD_Multi-Tier-With-Database)</span> and run the terraform command.
 ```bash
 $ ls -l
 Mode                 LastWriteTime         Length Name
@@ -52,7 +66,6 @@ dar--l          23/12/24   3:38 PM                scripts
 -a---l          26/12/24   9:29 PM           6571 EC2.tf
 -a---l          26/12/24   9:29 PM            892 main.tf
 -a---l          26/12/24   9:29 PM            567 output.tf
--a---l          27/12/24   4:00 PM          26624 Project_Voting Apps.md
 -a---l          26/12/24   9:29 PM            269 provider.tf
 -a---l          26/12/24   9:30 PM            223 terraform.tfvars
 -a---l          26/12/24   9:30 PM            615 variable.tf
@@ -111,6 +124,33 @@ azureuser@devopsdemovm:~$ az version
   "extensions": {}
 }
 ```
+- [x] <span style="color: brown;"> Trivy version
+```bash
+azureuser@devopsdemovm:~$ trivy --version
+Version: 0.58.1
+Vulnerability DB:
+  Version: 2
+  UpdatedAt: 2024-12-31 18:16:49.801727569 +0000 UTC
+  NextUpdate: 2025-01-01 18:16:49.801727188 +0000 UTC
+  DownloadedAt: 2024-12-31 23:32:58.310973832 +0000 UTC
+Java DB:
+  Version: 1
+  UpdatedAt: 2024-12-30 05:06:53.947339247 +0000 UTC
+  NextUpdate: 2025-01-02 05:06:53.947339087 +0000 UTC
+  DownloadedAt: 2025-01-01 00:25:50.06486541 +0000 UTC
+}
+```
+- [x] <span style="color: brown;"> Maven version
+```bash
+azureuser@devopsdemovm:~$ mvn --version
+Apache Maven 3.6.3
+Maven home: /usr/share/maven
+Java version: 17.0.13, vendor: Ubuntu, runtime: /usr/lib/jvm/java-17-openjdk-amd64
+Default locale: en, platform encoding: UTF-8
+OS name: "linux", version: "6.5.0-1025-azure", arch: "amd64", family: "unix"
+azureuser@devopsdemovm:~$
+```
+
 ## <span style="color: Yellow;"> Step-by-Step Process:</span>
 
 **1. Setting up Azure DevOps Pipeline:**
@@ -129,35 +169,82 @@ azureuser@devopsdemovm:~$ az version
 - **Handle Platform-Specific Builds:** If the pipeline fails due to architecture issues, ensure the correct platform (Linux/ARM64) is specified in the Dockerfile.
 
 
-## Steps
+## <span style="color: Yellow;"> Writing YAML Pipeline </span>
+1. **Trigger Configuration**: Define the trigger for the pipeline.
+2. **Pool Definition**: Specify the agent pool and agent.
+3. **Stages**:
+    - **Compile Stage**: Compile the application using Maven.
+    - **Test Stage**: Run unit tests using Maven.
+    - **Trivy File System Scan**: Scan the file system using Trivy.
+    - **SonarQube Analysis**: Perform code analysis using SonarQube.
+    - **Publish Artifacts**: Publish build artifacts to Azure Artifacts.
+    - **Docker Build**: Build Docker image.
+    - **Docker Publish**: Publish Docker image to ACR.
+    - **Deploy to AKS**: Deploy the application to AKS.
 
 
+### <span style="color: Yellow;">**Step-01: Create project in Azure DevOps**
+  - Open the Azure UI and DevOps portal ```https://dev.azure.com/<name>```
+  - Create a new project
+    - Git clone: https://github.com/jaiswaladi246/Multi-Tier-With-Database
+ ![image-7](https://github.com/user-attachments/assets/199f58fd-c1d4-46c4-8dd8-78b7c99db790)
 
-new project:
-![alt text](image-4.png)
-![alt text](image-5.png)
-![alt text](image-6.png)
+### <span style="color: Yellow;">**Step-02: Clone the Repo in Azure DevOps**
+  - Clone the repo :: 
+    - click on Import a repository
+![image-4](https://github.com/user-attachments/assets/53dbdf83-3556-48fd-be1a-0d9a947f0d3f)
+![image-5](https://github.com/user-attachments/assets/72b9064f-3da3-4a56-ba79-4fbd0da1161d)
+![image-6](https://github.com/user-attachments/assets/efda7e38-328e-4900-b2b8-1a5048a78d31)
 
 
-Git clone: https://github.com/jaiswaladi246/Multi-Tier-With-Database
-![alt text](image-7.png)
+- #### <span style="color: Yellow;"> Create/Configure a pipeline in Azure DevOps.
+  - Click on Pipeline:
+   - follow the below instruction
 
-  - Need to configure Self-hosted Linux agents/[integrate](https://learn.microsoft.com/en-us/azure/devops/pipelines/agents/linux-agent?view=azure-devops) to azure DevOps
+
+- Click on pipeline and build it 
+![image-15](https://github.com/user-attachments/assets/1569057a-b780-47fe-8272-236869de1a36)
+![image-16](https://github.com/user-attachments/assets/b107209b-4d3e-4e0f-8fcd-969b61c43e15)
+![image-8](https://github.com/user-attachments/assets/a3f02167-7b1e-46dd-8c66-7dadb0d7f4a1)
+![image-18](https://github.com/user-attachments/assets/646a7063-9021-445f-9123-9be24ecd9c53)
+    
+  - it will asking you to login with you azure login. please use the same login crednetial which you have configure for azure portal login.
+
+  - Select the container registry
+![image-7](https://github.com/user-attachments/assets/ebc5630e-d798-45d5-8688-2fe602defb3c)
 
 
-select the project and project setting:
-![alt text](image-24.png)
+  - **Note:** Key concept overview of pipeline.
+![image-9](https://github.com/user-attachments/assets/2c902e33-4243-4171-a666-9d0eb5743120)
 
+
+  - you will see the following pipeline yaml and we have to modify accordingly.
+![image-8](https://github.com/user-attachments/assets/ab975781-a81a-41b7-bc2c-fa0686ac518b)
+
+  - First we will create a folder in repo called 'scripts' and update the sh file as below. we will create a shell script to get an updated image tag in case if it is creating new image.
+![image-55](https://github.com/user-attachments/assets/43b96a06-d27c-46bf-b24a-1c0d7196f55a)
+![image-80](https://github.com/user-attachments/assets/dd1b68b4-5e89-4f34-895f-1381eb513e9c)
+
+
+  - Don't forget to update the container registroty name in the script file.
+![image-23](https://github.com/user-attachments/assets/f74f2934-17d8-477a-a964-b725ab67e672)
+
+
+- ### <span style="color: Yellow;">**Step-03: To configure Self-hosted Linux agents in Azure DevOps**
+ 
+ 
+   - Self-hosted Linux agents/[integrate](https://learn.microsoft.com/en-us/azure/devops/pipelines/agents/linux-agent?view=azure-devops) to azure DevOps
+   - select the project and project setting:
+![image-24](https://github.com/user-attachments/assets/1aa1583a-08aa-487f-8474-012ca5a72288)
 ![image-12](https://github.com/user-attachments/assets/27299cbd-4588-4cec-ae89-70667015d8b2)
 ![image-13](https://github.com/user-attachments/assets/2b19c543-db44-4736-ad93-43a8e30544af)
 ![image-14](https://github.com/user-attachments/assets/0d24cff6-99bc-4055-acf0-8eaeb14539bd)
+  - Select the agent pools name, you can choose any name 
+    - devops-demo_vm 
+   ![image-15](https://github.com/user-attachments/assets/23084fd1-3dfd-415c-8a81-9aa264690c0a)
+   ![image-16](https://github.com/user-attachments/assets/fdf5d367-ba38-4261-bd09-56284907f384)
 
-Select the agent pools name, you can choose any name 
-- devops-demo_vm 
-![image-15](https://github.com/user-attachments/assets/23084fd1-3dfd-415c-8a81-9aa264690c0a)
-![image-16](https://github.com/user-attachments/assets/fdf5d367-ba38-4261-bd09-56284907f384)
-
-run the following command as part of provision the server, we have already install the agent.
+  - run the following command as part of provision the agent server, we have already install the agent.
 <!-- ```sh
 mkdir myagent && cd myagent
 sudo wget https://vstsagentpackage.azureedge.net/agent/4.248.0/vsts-agent-linux-x64-4.248.0.tar.gz
@@ -179,26 +266,29 @@ drwxrwxr-x  7 azureuser azureuser      4096 Nov 13 10:46 externals
 
 ```
 
-- Configure the agent
-```powershell
+  - Configure the agent
+
+```bash
 ~/myagent$ ./config.sh
 
 Type 'Y'
 
 #Server URL
 Azure Pipelines: https://dev.azure.com/{your-organization}
-https://dev.azure.com/mrbalraj
+
+# https://dev.azure.com/mrbalraj
 ```
 
-- **Need to create a PAT access Token-** 
-  - Go to azure devops user setting and click on PAT.
-
+  - **Need to create a PAT access Token-** 
+    - Go to azure devops user setting and click on PAT.
 ![image-17](https://github.com/user-attachments/assets/bcba6e48-3cec-4f3b-89d1-8b2b8fdd9d21)
 ![image-18](https://github.com/user-attachments/assets/597e4b8d-8fc9-4b51-a7c7-6d276d82be62)
 ![image-19](https://github.com/user-attachments/assets/3f298f04-4bc1-4cc1-98a4-a11573369257)
 
 - Give any name for agent
 ```sh
+agent-1   # I used this in pipeline.
+or
 devops-demo_vm
 ```
 ![image-20](https://github.com/user-attachments/assets/4a52c9b4-60e4-4c1b-b5a7-227786e0b3b0)
@@ -206,123 +296,135 @@ devops-demo_vm
 Agent is still offline.
 ![image-21](https://github.com/user-attachments/assets/d2d4ef96-53cb-41cf-959e-e3229c47544d)
 
-- We have to Optionally run the agent interactively. If you didn't run as a service above:
+  - We have to Optionally run the agent interactively. If you didn't run as a service above:
 ```powershell
 ~/myagent$ ./run.sh &
 ```
-Now, Agent is online ;-)
+  - Now, Agent is online ;-)
+  ![image-22](https://github.com/user-attachments/assets/72bf3b1f-db9e-4ebc-b7c7-0008a7f477ba)
 
-![image-22](https://github.com/user-attachments/assets/72bf3b1f-db9e-4ebc-b7c7-0008a7f477ba)
+ - **Need to update**- the following info as well<br>
+  ![image-25](https://github.com/user-attachments/assets/dd9ddd60-c895-449f-83b9-d66fd9564030)
+  ![image-26](https://github.com/user-attachments/assets/426704f5-877d-434b-bf12-fbf69387051c)
+  ![image-27](https://github.com/user-attachments/assets/76a384fa-ece3-427e-960a-a4adbb89ef81)
+  ![image-28](https://github.com/user-attachments/assets/77b7fca9-604c-4a14-bd5c-5c884322c612)
+  ![image-29](https://github.com/user-attachments/assets/d4ac6e83-af34-4bd0-bf65-3e30b65ee540)
 
 
-![alt text](image-25.png)
-![alt text](image-26.png)
-![alt text](image-27.png)
-![alt text](image-28.png)
-![alt text](image-29.png)
+### <span style="color: Yellow;">**Step-04: Setup AKS Cluster**</span>
+  - Go Azure UI and select the AKS cluster 
+  ![image-69](https://github.com/user-attachments/assets/72890d18-4698-4d12-864b-b61e493b02d1)
+  ![image-70](https://github.com/user-attachments/assets/6b1ce124-10dc-4384-a370-add50bf1cce0)
+  ![image-71](https://github.com/user-attachments/assets/61df9213-b7fc-4fbd-9e2b-dca92839e776)
 
-- Install SonarQube Extension.
 
-Now, we will integrate SonarQube in same pipeline.
+  - Take putty session of Azure VM and perform the following instruction to login into auzre and K8s
+
+  - **Azure login**: Missing Browser on Headless Servers, Use the --use-device-code flag to authenticate without a browser:
+    ```
+    az login --use-device-code
+    ```
+    ![image-30](https://github.com/user-attachments/assets/c091888a-bcb3-4bfd-a726-aa4466225ff4)
+
+  - https://microsoft.com/devicelogin access this URL in a new browser and type the code which you see in console.
+![image-31](https://github.com/user-attachments/assets/1c2a3c10-a532-48e7-aafe-25230ced23b6)
+![image-32](https://github.com/user-attachments/assets/ef18f082-e414-4030-83ed-a80baffffc57)
+
+  - To list out all the account
+  ```sh
+  az account list --output table
+  ```
+  ![image-33](https://github.com/user-attachments/assets/32d77aa4-6bb6-4c2f-920b-2b1fd14a10b9)
+
+  - To get resource details
+  ```sh
+  az aks list --resource-group "resourceGroupName" --output table
+  ```
+  ![image-34](https://github.com/user-attachments/assets/15c66017-5b79-4cfe-b3fe-603b2a4197aa)
+  ![image-35](https://github.com/user-attachments/assets/081e2c85-4c47-4ff8-bfc7-fefcacd476b6)
+
+  - [x] <span style="color: brown;"> Verify the AKS cluster.
+  - To get credentails for AKS
+  ```sh
+  az aks get-credentials --name "Clustername" --resource-group "ResourceGroupName" --overwrite-existing
+
+  kubectl config current-context
+  kubectl get nodes
+  kubectl get nodes -o wide
+  ```
+  ![image-36](https://github.com/user-attachments/assets/84252f38-7754-4bb9-bd2d-5eca24d34fa5)
+
+
+### <span style="color: Yellow;">**Step-05: Install SonarQube Extension.**</span>
+ - Now, we will integrate SonarQube in same pipeline.
 we have to search it in market place and select the sonarqube as below.
-![alt text](image-38.png)
-![alt text](image-39.png)
-![alt text](image-40.png)
+![image-38](https://github.com/user-attachments/assets/9fd80f5b-e9e1-4369-8dd4-58a57e16758e)
+![image-39](https://github.com/user-attachments/assets/d7b9aa47-3b90-450a-ad29-a6669d1a603b)
+![image-40](https://github.com/user-attachments/assets/146f1783-746a-489e-bc32-8247edbf4448)
 
 Select the organization
 ![alt text](image-41.png)
 ![alt text](image-42.png)
 
-- Sonar Setup:
-  - <publicIPaddressofVM:9000>
-  
-![alt text](image.png)
-![alt text](image-1.png)
-![alt text](image-2.png)
-![alt text](image-3.png)
+### <span style="color: Yellow;">**Step-06: Setup SonarQube.**</span>
+ - Note it down the agent publicIP address and try to access on port ```9000```
+  - <publicIPaddressofVM:9000>  
+![image](https://github.com/user-attachments/assets/1da18ea8-50d0-4be0-b32b-a43d845a66b1)
+![image-1](https://github.com/user-attachments/assets/e3da4ebd-c291-487c-9c90-7a3311635926)
+![image-2](https://github.com/user-attachments/assets/d3031b16-86df-4aac-8a63-46c9b6cc7911)
+![image-3](https://github.com/user-attachments/assets/a89457c0-6d15-4784-bcd8-6eb2efde6c06)
 
-- Generate the SonarQubeToken-
-![alt text](image-48.png)
-![alt text](image-49.png)
+#### <span style="color: Yellow;">**Step-06.1: Generate the SonarQubeToken**</span>
+![image-48](https://github.com/user-attachments/assets/1a5a4bd3-268e-4062-b38b-ea9ab9d03e3a)
+![image-49](https://github.com/user-attachments/assets/0498387c-a463-4314-83ce-bee6200f0741)
 
 
-
-- Will create a [service principle](https://www.youtube.com/watch?v=CUHtHGS4xEc&list=PLJcpyd04zn7rxl0X8mBdysb5NjUGIsJ7W&index=3).
-
-Take putty session of Agent VM and do the following
+### <span style="color: Yellow;">**Step-07: Create Service Principle Account**</span>
+- Will create a [service principle account](https://www.youtube.com/watch?v=CUHtHGS4xEc&list=PLJcpyd04zn7rxl0X8mBdysb5NjUGIsJ7W&index=3).
+- Take putty session of Agent VM and do the following
 ```sh
 az login --use-device-code
 ```
 ![alt text](image-84.png)
 
+- To create a SP account
 ```sh
 az ad sp <name_of_SP> --role="contributor" --scope="subscriptions/SUBSCRIPTION_ID"
 ```
 ![alt text](image-85.png)
 
+### <span style="color: Yellow;">**Step-08: Configure the Service Connection for "```Azure Resource Manager```"**</span>
+   - Steps to configure connection for [Azure Resource Manager](https://learn.microsoft.com/en-us/azure/devops/pipelines/release/configure-workload-identity?view=azure-devops&tabs=managed-identity):
 
-- Configure the Service Connection for "```Azure Resource Manager```"
-- Steps to configure connection for [Azure Resource Manager](https://learn.microsoft.com/en-us/azure/devops/pipelines/release/configure-workload-identity?view=azure-devops&tabs=managed-identity):
+![image-17](https://github.com/user-attachments/assets/8e77bdc8-4c48-42c8-8ceb-92d7a0ab0dc8)
+![image-86](https://github.com/user-attachments/assets/d274d09b-1b45-4168-842c-f548386090de)
+![image-87](https://github.com/user-attachments/assets/9e1cc145-5490-4298-b4fb-dd7b0e633e30)
 
+### <span style="color: Yellow;">**Step-09: Configure the Service Connection for"```SonarQube```, ```Docker registory``` and ```AKS Cluster``` **</span>
 
-![alt text](image-17.png)
-![alt text](image-86.png)
-![alt text](image-87.png)
+  - Select the project and project setting:
+    - Steps to configure connection for SonarQube:
+![image-9](https://github.com/user-attachments/assets/8d10a5f5-f608-47e8-bae0-308efd0148ab)
+![image-10](https://github.com/user-attachments/assets/405d3300-0c8b-49f5-ad2a-6a45a9fdda4b)
 
+    - Steps to configure connection for Dockerregistory:
+![image-11](https://github.com/user-attachments/assets/b8dd8c30-1740-4df7-97bc-2d2aec9d5252)
+![image-12](https://github.com/user-attachments/assets/f3fa571e-cb34-4580-8f74-327c41e7941c)
 
+    - Steps to configure connection for Kubernetes:
+![image-13](https://github.com/user-attachments/assets/bdbaf9e1-1bb6-4ef1-8ef8-ca35cca94ca3) 
+    - It will popup for login crednetial and it should be used the same cred which you have used for UI portal login.
 
-
-
-
-
-
-
-- Select the project and project setting:
-  
-
-Will create connection as below
-   
-    - 01. SonarQube
-    - 02. Docker registory
-    - 03. AKS Cluster
-    
-
-- Steps to configure connection for SonarQube:
-
-![alt text](image-9.png)
-![alt text](image-10.png)
-
-- Steps to configure connection for Dockerregistory:
-![alt text](image-11.png)
-![alt text](image-12.png)
-
-- Steps to configure connection for Kubernetes:
-
-![alt text](image-13.png)
-
- It will popup for login crednetial and it should be used the same cred which you have used for UI portal login.
-
- ![alt text](image-14.png)
+      ![alt text](image-14.png)
 
 
 
+### <span style="color: Yellow;">**Step-10: Step by Step YAML configuration**</span>
+  - Configure the Maven (Package)
+![image-34](https://github.com/user-attachments/assets/26bbec50-e8f4-4553-90bb-7ab328a8cf4b)
+![image-44](https://github.com/user-attachments/assets/2cf6cfee-98ac-407f-8886-efe96e0a7c34)
 
-
-
-
-
-- Click on pipeline and build it 
-![alt text](image-15.png)
-![alt text](image-16.png)
-![alt text](image-8.png)
-![alt text](image-18.png)
-
-
-- Configure the Maven (Package)
-![alt text](image-34.png)
-![alt text](image-44.png)
-
-
+  - **Stage** To add maven compile
 ```sh
 # Starter pipeline
 # Start with a minimal pipeline that you can customize to build and deploy your code.
@@ -357,9 +459,9 @@ stages:
          sonarQubeRunAnalysis: false
 ```
 
-- Configure the Maven (Test)
-![alt text](image-45.png)
-![alt text](image-46.png)
+  - **Stage** To add maven Test
+![image-45](https://github.com/user-attachments/assets/4d0b426f-051c-4bef-9973-20076f5abaa4)
+![image-46](https://github.com/user-attachments/assets/761a1024-0c3a-477d-ba01-63dec6415c3a)
 
 ```sh
 - stage: Test
@@ -382,12 +484,13 @@ stages:
               sonarQubeRunAnalysis: false      
 ```
 
-Run the pipeline to validate it.
-![alt text](image-50.png)
+  Run the pipeline to validate it.
+![image-50](https://github.com/user-attachments/assets/170da4b0-599c-47ff-9d57-534ac877e158)
 
 
-- Add Stages for Trivy
-![alt text](image-47.png)
+  - Stage: To add for Trivy
+
+![image-47](https://github.com/user-attachments/assets/2ed4f328-087d-436c-b3f3-c137ed81d2ce)
 
 ```sh
 # Add Trivy FS scan image.
@@ -402,12 +505,13 @@ Run the pipeline to validate it.
               script: 'trivy fs --format table -o trivy-fs-report.html .'
 ```
 
-- Add Stages for SonarQube
-- taking help from helper as below to complete the stage for sonarqube
-![alt text](image-19.png)
-![alt text](image-20.png)
-![alt text](image-21.png)
-![alt text](image-22.png)
+  - **Stage** To Add for SonarQube
+  
+    - taking help from helper task as below to complete the stage for sonarqube
+![image-19](https://github.com/user-attachments/assets/3210d418-a537-4141-b4fe-19450200894f)
+![image-20](https://github.com/user-attachments/assets/cc8b6707-0a8a-42a5-89cb-067cd6dcb058)
+![image-21](https://github.com/user-attachments/assets/7aa578f0-61f7-4f75-bded-7fa81a759ccd)
+![image-22](https://github.com/user-attachments/assets/376c676d-c86b-4ab4-8ae3-2aeab908cc41)
 
 ```sh
 # Add SonarQube  
@@ -431,30 +535,30 @@ Run the pipeline to validate it.
 ```
 
 Run the pipeline to validate it.
-![alt text](image-54.png)
+![image-54](https://github.com/user-attachments/assets/172d8b42-2f98-4d9a-ae18-42cc0c437c3c)
 
-- Status in SonarQube for analysis.
-![alt text](image-53.png)
+  - **Stage** To SonarQube for analysis.
+![image-53](https://github.com/user-attachments/assets/09c3ea90-57a4-4ff9-88bb-b52a5e24afdb)
 
-
-- Add build package stage and publish artifacts into ```Azure artifacts```.
-![alt text](image-55.png)
-![alt text](image-57.png)
+  - **Stage** To add build package and publish artifacts
+    - Add build package stage and publish artifacts into ```Azure artifacts```.
+![image-55](https://github.com/user-attachments/assets/5defbc69-cef3-4b06-a791-51c4de0e17ce)
+![image-57](https://github.com/user-attachments/assets/1a1feda7-1d54-4edc-a30a-0647f60cbbe3)
 click on setting and change the permission as below.
-![alt text](image-58.png)
-![alt text](image-59.png)
+![image-58](https://github.com/user-attachments/assets/37d7c6ea-6f41-4892-a10e-6bcb7b50cba8)
+![image-59](https://github.com/user-attachments/assets/71437395-6d6a-4e8e-bc01-bccdb616c25f)
 
 
 build the project and then add maven Authentication
-![alt text](image-62.png)
-![alt text](image-63.png)
+![image-62](https://github.com/user-attachments/assets/3c9d5150-5b4d-4d0e-bf52-879fb7bc15fc)
+![image-63](https://github.com/user-attachments/assets/9adf38db-dae0-45f0-98dc-79e900d141c4)
 
-![alt text](image-60.png)
-![alt text](image-61.png)
+![image-60](https://github.com/user-attachments/assets/9a6204fb-40d8-40c6-8511-2d1f8eb57f87)
+![image-61](https://github.com/user-attachments/assets/64e1f174-7b24-4bee-8f89-708ec7bed902)
 
 ```sh
 # To Publish the Artifacts.
-  - stage: Publish_Artifact
+  - **Stage** Publish_Artifact
     displayName: 'Publish_Build_Artifacts'
     jobs:
       - job: publish_artifacts
@@ -477,36 +581,35 @@ build the project and then add maven Authentication
               sonarQubeRunAnalysis: false       
 ```
 
-next step would be, click the ```artifacts```
-![alt text](image-23.png)
-![alt text](image-64.png)
-![alt text](image-65.png)
+  - next step would be, click the ```artifacts```
+![image-23](https://github.com/user-attachments/assets/4212a003-48a8-41eb-835a-408ae0a8d00c)
+![image-64](https://github.com/user-attachments/assets/85d6700a-b750-4239-88ad-c845d0c040a8)
+![image-65](https://github.com/user-attachments/assets/c023ffb2-f69c-47c7-afd1-8ea92c6ff225)
 
 Run the pipeline and status of pipeline as below-
 
 I am getting below error message.
-![alt text](image-69.png)
+![image-69](https://github.com/user-attachments/assets/c0af4060-0874-447d-8af0-e508bd7d8111)
 
 **Solution:** 
 - Add the repo to both your pom.xml's ```repositories``` and ```distributionManagement``` sections.
 
-![alt text](image-66.png)
+![image-66](https://github.com/user-attachments/assets/fff81985-a89e-4f7d-9f79-51f77b4bc1e6)
 replace with below and commit it.
-![alt text](image-67.png)
-![alt text](image-68.png)
+![image-67](https://github.com/user-attachments/assets/52248806-2eb3-4454-9042-081642a048b6)
+![image-68](https://github.com/user-attachments/assets/b850fe78-2ccd-409e-bba0-a7df7edbf6a2)
 
 
 ReRun the pipeline and status of pipeline as below-
-![alt text](image-30.png)
+![image-30](https://github.com/user-attachments/assets/78097e21-5466-414a-b065-d3a38ca2198d)
 
 Validate the artifacts:
-![alt text](image-31.png)
-![alt text](image-32.png)
+![image-31](https://github.com/user-attachments/assets/85a1718b-5f5c-427a-83ba-5c2b366dd6c8)
+![image-32](https://github.com/user-attachments/assets/899c4cf0-a483-4f4a-ae4f-fcd6c387cb0f)
 
 
-
-- Add Stage for ```Docker build image```
-![alt text](image-70.png)
+  - **Stage** To Add Stage for ```Docker build image```
+![image-70](https://github.com/user-attachments/assets/a16838e5-19e8-4902-ae58-82148d59cc60)
 
 
 ```sh
@@ -528,8 +631,7 @@ Validate the artifacts:
                Dockerfile: '**/Dockerfile'
                tags: 'latest'
 ```
-
-- Add Stage for ```Trivy Image scan```
+  - **Stage** To Add Stage for ```Trivy Image scan```
 
 ```sh
  # Add Trivy Image scan .  
@@ -544,8 +646,7 @@ Validate the artifacts:
               script: 'trivy image --format table -o trivy-image-report.html aconreg6700da08.azurecr.io/dev:latest'
 ```
 
-
-- Add Stage for ```Docker Push Image```
+  - **Stage** To Add Stage for ```Docker Push Image```
   
 ```sh
 # To Docker push Image
@@ -563,9 +664,9 @@ Validate the artifacts:
               tags: 'latest'
 ```
 
-- Add Stage for ```Deploy on AKS```
-![alt text](image-71.png)
-![alt text](image-72.png)
+  - **Stage** To Add Stage for ```Deploy on AKS```
+![image-71](https://github.com/user-attachments/assets/339bfcaf-d44c-4947-abac-fcd17fd9d6c9)
+![image-72](https://github.com/user-attachments/assets/51c2eb38-d6df-4921-8d31-c18ff3a9ae18)
 
 ```sh
 # To Deploy on K8s
@@ -584,43 +685,24 @@ Validate the artifacts:
                manifests: 'ds.yml'
 ```
 
+ - complete YAML [pipeline](https://github.com/mrbalraj007/Azure_DevOps_Projects/blob/main/Azure_DevOps_All_Projects/05_Real-Time-DevOps-Project_CI-CD_Multi-Tier-With-Database/Pipeline/Updated_CI_CD/Pipine_CI.md)
 
 Pipeline status
-![alt text](image-35.png)
-![alt text](image-36.png)
-
-
-
-
-Will try to access the site:
-select the pipeline and edit and add the below two.
-
-
-
-
-
-
-### Setup AKS Cluster
-
+![image-35](https://github.com/user-attachments/assets/7b290bb3-bcea-4290-9572-bbcdce1dbe0c)
+![image-36](https://github.com/user-attachments/assets/12db5c8d-83f1-4898-b5a7-da0a54fcfb29)
 
 - update the image name in manifest file.
-![alt text](image-37.png)
-
-
-pipeline status
-
+![image-37](https://github.com/user-attachments/assets/54564b1d-af89-4f1d-beff-603d58a7ce7e)
 
 View status in Azure UI:from UI | K8s
-![alt text](image-51.png)
-![alt text](image-52.png)
-![alt text](image-43.png)
-![alt text](image-73.png)
+![image-51](https://github.com/user-attachments/assets/08b74607-5604-4a55-8d90-eedbc835703f)
+![image-52](https://github.com/user-attachments/assets/25345004-4c32-4564-aae3-d80b1f69ef8f)
+![image-43](https://github.com/user-attachments/assets/9c6544b7-c4a4-4dc9-969d-509f3b7795a9)
+![image-73](https://github.com/user-attachments/assets/6d7ba719-f591-4c60-a3e3-a4304696c7fd)
 
 
-az login
-![alt text](image-56.png)
-
-
+  - az login
+![image-56](https://github.com/user-attachments/assets/da2d0642-8b38-46ec-8e0e-3f6ebf55d028)
 
 
 ```sh
@@ -647,452 +729,7 @@ azureuser@devopsdemovm:~$ kubectl get nodes -o wide
 NAME                             STATUS   ROLES    AGE     VERSION   INTERNAL-IP   EXTERNAL-IP      OS-IMAGE             KERNEL-VERSION      CONTAINER-RUNTIME
 aks-system-18075837-vmss000000   Ready    <none>   3h35m   v1.31.2   10.224.0.4    52.183.119.235   Ubuntu 22.04.5 LTS   5.15.0-1075-azure   containerd://1.7.23-1
 azureuser@devopsdemovm:~$
-
-
 ```
-from Agent VM:
-
-
-
-Open port in k8s vmss
-![alt text](image-74.png)
-
-
-
-
-application works :-)
-
-![alt text](image-75.png)
-![alt text](image-76.png)
-![alt text](image-77.png)
-![alt text](image-78.png)
-![alt text](image-79.png)
-
-
-
-
-
-```sh
-azureuser@devopsdemovm:~$ docker --version
-Docker version 27.4.1, build b9d17ea
-azureuser@devopsdemovm:~$ docker images ls
-REPOSITORY   TAG       IMAGE ID   CREATED   SIZE
-
-No images found matching "ls": did you mean "docker image ls"?
-azureuser@devopsdemovm:~$ docker image ls
-REPOSITORY                                       TAG       IMAGE ID       CREATED       SIZE
-mc1arke/sonarqube-with-community-branch-plugin   latest    307499b84ff2   13 days ago   1.13GB
-azureuser@devopsdemovm:~$ docker container ls
-CONTAINER ID   IMAGE                                            COMMAND                  CREATED          STATUS          PORTS                                       NAMES
-973939f2cdc7   mc1arke/sonarqube-with-community-branch-plugin   "/opt/sonarqube/dock…"   41 minutes ago   Up 41 minutes   0.0.0.0:9000->9000/tcp, :::9000->9000/tcp   sonar
-azureuser@devopsdemovm:~$ java --version
-openjdk 17.0.13 2024-10-15
-OpenJDK Runtime Environment (build 17.0.13+11-Ubuntu-2ubuntu122.04)
-OpenJDK 64-Bit Server VM (build 17.0.13+11-Ubuntu-2ubuntu122.04, mixed mode, sharing)
-azureuser@devopsdemovm:~$ trivy --version
-Version: 0.58.1
-azureuser@devopsdemovm:~$ az version
-{
-  "azure-cli": "2.67.0",
-  "azure-cli-core": "2.67.0",
-  "azure-cli-telemetry": "1.1.0",
-  "extensions": {}
-}
-azureuser@devopsdemovm:~$ mvn -version
-Apache Maven 3.6.3
-Maven home: /usr/share/maven
-Java version: 17.0.13, vendor: Ubuntu, runtime: /usr/lib/jvm/java-17-openjdk-amd64
-Default locale: en, platform encoding: UTF-8
-OS name: "linux", version: "6.5.0-1025-azure", arch: "amd64", family: "unix"
-azureuser@devopsdemovm:~$
-```
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-***********************************
-
-
-
-- #### <span style="color: Yellow;">**Step-01: Create project in Azure DevOps**
-  - Open the Azure UI and DevOps portal ```https://dev.azure.com/<name>```
-  - Create a new project
-    - URL: https://github.com/mrbalraj007/k8s-kind-voting-app.git
-    - Original Repo; https://github.com/dockersamples/example-voting-app
-
-- #### <span style="color: Yellow;">**Step-02: Clone the Repo in Azure DevOps**
-  - Clone the repo :: 
-    - click on Imort a repository
-![image](https://github.com/user-attachments/assets/4a94ca68-f0b0-42ab-942c-b0931693185c)
-![image-1](https://github.com/user-attachments/assets/41ef28b8-8ebd-4fd7-b86e-87f669f3af5f)
-![image-82](https://github.com/user-attachments/assets/ee378853-8a1c-455b-a290-574a6a4538c1)
-
-- #### <span style="color: Yellow;"> Create/Configure a pipeline in Azure DevOps.
-  - Click on Pipeline:
-   - follow the below instruction
-    ![image-2](https://github.com/user-attachments/assets/2575c03f-2af8-4c35-96b8-ba468686981b)
-    ![image-3](https://github.com/user-attachments/assets/d002d185-8804-4c3d-9f34-f5f41d6cfed3)
-    ![image-4](https://github.com/user-attachments/assets/a053a4e2-3548-4ff0-8b0c-d2c37f164540)
-    ![image-5](https://github.com/user-attachments/assets/335a497b-2960-4a9a-bf8c-85ea56d35840)
-    ![image-6](https://github.com/user-attachments/assets/36ebae46-e1db-4959-820b-f54d8a455550)
-it will asking you to login with you azure login. please use the same login crednetial which you have configure for azure portal login.
-
-Select the container registry
-![image-7](https://github.com/user-attachments/assets/ebc5630e-d798-45d5-8688-2fe602defb3c)
-
-
-- **Note:** Key concept overview of pipeline.
-![image-9](https://github.com/user-attachments/assets/2c902e33-4243-4171-a666-9d0eb5743120)
-
-you will see the following pipeline yaml and we have to modify accordingly.
-![image-8](https://github.com/user-attachments/assets/ab975781-a81a-41b7-bc2c-fa0686ac518b)
-
-- We have to update the CI_pipeline as below
-  - [Vote_pipeline](https://github.com/mrbalraj007/Azure_DevOps_Projects/blob/main/Azure_DevOps_All_Projects/02_Real-Time-DevOps-Project_CR_AKS_with-EC2/PipeLine_Details/CI-CD/Updated_vote_pipeline.md)
-  - [result_pipeline](https://github.com/mrbalraj007/Azure_DevOps_Projects/blob/main/Azure_DevOps_All_Projects/02_Real-Time-DevOps-Project_CR_AKS_with-EC2/PipeLine_Details/CI-CD/Updated_Results_pipeline.md)
-  - [worker_pipeline](https://github.com/mrbalraj007/Azure_DevOps_Projects/blob/main/Azure_DevOps_All_Projects/02_Real-Time-DevOps-Project_CR_AKS_with-EC2/PipeLine_Details/CI-CD/Updated_worker_pipeline.md)
-
-- First we will create a folder in repo called 'scripts' and update the sh file as below. we will create a shell script to get an updated image tag in case if it is creating new image.
-![image-54](https://github.com/user-attachments/assets/3ec88fb5-b024-4361-ba79-63cdfc5e67cb)
-![image-55](https://github.com/user-attachments/assets/43b96a06-d27c-46bf-b24a-1c0d7196f55a)
-![image-56](https://github.com/user-attachments/assets/bb944f60-0378-436b-b76e-f344a0c2a584)
-
-
-- Don't forget to update the container registroty name in the script file.
-![image-23](https://github.com/user-attachments/assets/f74f2934-17d8-477a-a964-b725ab67e672)
-
-- #### <span style="color: Yellow;">**Step-03: To configure Self-hosted Linux agents in Azure DevOps**
- 
-  - Build the pipeline but I got below error message 
-![image-10](https://github.com/user-attachments/assets/5bf94c30-9a3e-48f6-a012-781baed2c0c3)
-
-
-- Rerun the pipeline and it works.
-![image-68](https://github.com/user-attachments/assets/b276f705-0011-4cc6-93b1-093b002dafef)
-
-
-- Rename the pipeline
-![image-24](https://github.com/user-attachments/assets/5b7096a4-c010-4d89-8110-b63a1ae16e7c)
-![image-25](https://github.com/user-attachments/assets/6a98f1e6-d5ad-435e-b705-73d5d84e5d6b)
-![image-26](https://github.com/user-attachments/assets/3418abcc-2b73-4142-a5d6-edbf879a83f6)
-![image-27](https://github.com/user-attachments/assets/5b3e2bc1-d0b2-4a65-9296-97335e901634)
-
-
-
-- Will create two more pipeline (microservices).
-  - result
-  - worker 
-  ![image-28](https://github.com/user-attachments/assets/538f3fcf-4d00-42c3-8712-e4b0e159558e)
-
-- Repository status in Container Registry.  
-![image-29](https://github.com/user-attachments/assets/928cba0b-bc7c-4e9d-997a-3b93e27813cf)
-
-
-#### <span style="color: Yellow;">**Step-04: Setup ArgoCD**</span>
-
-  - K8s Cluster login
-  - Argocd install
-  - Configure Argocd 
-
-- Go Azure UI and select the AKS cluster 
-![image-69](https://github.com/user-attachments/assets/72890d18-4698-4d12-864b-b61e493b02d1)
-![image-70](https://github.com/user-attachments/assets/6b1ce124-10dc-4384-a370-add50bf1cce0)
-![image-71](https://github.com/user-attachments/assets/61df9213-b7fc-4fbd-9e2b-dca92839e776)
-
-
-Take putty session of Azure VM and perform the following instruction to login into auzre and K8s
-
-- **Azure login**:
-
-Missing Browser on Headless Servers, Use the --use-device-code flag to authenticate without a browser:
-```
-az login --use-device-code
-```
-![image-30](https://github.com/user-attachments/assets/c091888a-bcb3-4bfd-a726-aa4466225ff4)
-
-- https://microsoft.com/devicelogin access this URL in a new browser and type the code which you see in console.
-![image-31](https://github.com/user-attachments/assets/1c2a3c10-a532-48e7-aafe-25230ced23b6)
-![image-32](https://github.com/user-attachments/assets/ef18f082-e414-4030-83ed-a80baffffc57)
-
-
-
-- To list out all the account
-```sh
-az account list --output table
-```
-![image-33](https://github.com/user-attachments/assets/32d77aa4-6bb6-4c2f-920b-2b1fd14a10b9)
-
-- To get resource details
-```sh
-az aks list --resource-group "resourceGroupName" --output table
-```
-![image-34](https://github.com/user-attachments/assets/15c66017-5b79-4cfe-b3fe-603b2a4197aa)
-![image-35](https://github.com/user-attachments/assets/081e2c85-4c47-4ff8-bfc7-fefcacd476b6)
-
-- [x] <span style="color: brown;"> Verify the AKS cluster.
-- To get credentails for AKS
-```sh
-az aks get-credentials --name "Clustername" --resource-group "ResourceGroupName" --overwrite-existing
-
-kubectl config current-context
-kubectl get nodes
-kubectl get nodes -o wide
-```
-![image-36](https://github.com/user-attachments/assets/84252f38-7754-4bb9-bd2d-5eca24d34fa5)
-
-#### <span style="color: orange;"> Install ArgoCD
-```sh
-kubectl create namespace argocd
-
-kubectl apply -n argocd -f https://raw.githubusercontent.com/argoproj/argo-cd/stable/manifests/install.yaml
-```
-
-#### <span style="color: orange;"> Configure ArgoCD </span>
-
-- Run the following commands to verify the ```Pods``` and ```services type```
-
-```sh
-kubectl get pods -n argocd
-kubectl get svc -n argocd
-```
-
-- To get details of Pods in namespace "argocd"
-```sh
-kubectl get pods -n argocd
-```
-![image-37](https://github.com/user-attachments/assets/adbaba7c-bee9-44a9-a967-4dd352830ad2)
-
-- To get the secrets for argoCd
-```sh
-kubectl get secrets -n argocd
-```
-![image-38](https://github.com/user-attachments/assets/be9e563f-b8bd-4ec6-8bc3-b1b3c1a13900)
-
-- To get service details in argocd
-```sh
-kubectl get svc -n argocd
-```
-```sh
-azureuser@devopsdemovm:~/myagent$ kubectl get svc -n argocd
-NAME                                      TYPE        CLUSTER-IP     EXTERNAL-IP   PORT(S)                      AGE
-argocd-applicationset-controller          ClusterIP   10.0.199.83    <none>        7000/TCP,8080/TCP            6m17s
-argocd-dex-server                         ClusterIP   10.0.236.32    <none>        5556/TCP,5557/TCP,5558/TCP   6m17s
-argocd-metrics                            ClusterIP   10.0.231.144   <none>        8082/TCP                     6m17s
-argocd-notifications-controller-metrics   ClusterIP   10.0.54.255    <none>        9001/TCP                     6m16s
-argocd-redis                              ClusterIP   10.0.38.40     <none>        6379/TCP                     6m16s
-argocd-repo-server                        ClusterIP   10.0.29.153    <none>        8081/TCP,8084/TCP            6m16s
-argocd-server                             ClusterIP   10.0.216.42    <none>        80/TCP,443/TCP               6m16s
-argocd-server-metrics                     ClusterIP   10.0.201.27    <none>        8083/TCP                     6m16s
-
-```
-![image-40](https://github.com/user-attachments/assets/8e3a84e1-1f05-4d36-8e66-a3e48e92f2ca)
-
-- Currently, it is set to ```clusterIP``` and we will change it to ```NodePort```
-```sh
-kubectl patch svc argocd-server -n argocd -p '{"spec": {"type": "NodePort"}}'
-```
-- Review the service again
-```sh
-kubectl get svc -n argocd
-
-azureuser@devopsdemovm:~$ kubectl get svc -n argocd
-NAME                                      TYPE        CLUSTER-IP    EXTERNAL-IP   PORT(S)                      AGE
-argocd-applicationset-controller          ClusterIP   10.0.98.49    <none>        7000/TCP,8080/TCP            49m
-argocd-dex-server                         ClusterIP   10.0.130.97   <none>        5556/TCP,5557/TCP,5558/TCP   49m
-argocd-metrics                            ClusterIP   10.0.91.113   <none>        8082/TCP                     49m
-argocd-notifications-controller-metrics   ClusterIP   10.0.83.161   <none>        9001/TCP                     49m
-argocd-redis                              ClusterIP   10.0.241.99   <none>        6379/TCP                     49m
-argocd-repo-server                        ClusterIP   10.0.38.142   <none>        8081/TCP,8084/TCP            49m
-argocd-server                             NodePort    10.0.228.33   <none>        80:32648/TCP,443:31181/TCP   49m
-argocd-server-metrics                     ClusterIP   10.0.124.90   <none>        8083/TCP                     49m
-```
-![image-41](https://github.com/user-attachments/assets/b76f53f9-6319-42a0-995e-157c1a388957)
-
-- To get URL/IP address details
-```sh
-kubectl get nodes -o wide
-```
-```sh
-azureuser@devopsdemovm:~/myagent$ kubectl get nodes -o wide
-NAME                                STATUS   ROLES    AGE   VERSION   INTERNAL-IP   EXTERNAL-IP   OS-IMAGE             KERNEL-VERSION      CONTAINER-RUNTIME
-aks-agentpool-23873620-vmss000000   Ready    <none>   54m   v1.30.6   10.224.0.4    <none>        Ubuntu 22.04.5 LTS   5.15.0-1075-azure   containerd://1.7.23-1
-```
-![image-42](https://github.com/user-attachments/assets/8343415e-3b3f-4707-9cef-c0f31b2722cd)
-
-<!-- - Currently, it is set to ```NodePort``` and we will change it to ```LoadBalancer```
-- Expose Argo CD server using NodePort:
-```sh
-kubectl patch svc argocd-server -n argocd -p '{"spec": {"type": "LoadBalancer"}}'
-``` -->
-
-**Verify Kubernetes Config:** Confirm that the argocd-server service has the correct ```NodePort``` and is not misconfigured:
-
-```bash
-kubectl describe svc argocd-server -n argocd
-```
-```sh
-azureuser@devopsdemovm:~$ kubectl get secrets -n argocd
-NAME                          TYPE     DATA   AGE
-argocd-notifications-secret   Opaque   0      8s
-argocd-secret                 Opaque   0      8s
-azureuser@devopsdemovm:~$ kubectl get svc -n argocd
-NAME                                      TYPE        CLUSTER-IP     EXTERNAL-IP   PORT(S)                      AGE
-argocd-applicationset-controller          ClusterIP   10.0.131.57    <none>        7000/TCP,8080/TCP            16s
-argocd-dex-server                         ClusterIP   10.0.17.67     <none>        5556/TCP,5557/TCP,5558/TCP   16s
-argocd-metrics                            ClusterIP   10.0.192.242   <none>        8082/TCP                     16s
-argocd-notifications-controller-metrics   ClusterIP   10.0.157.137   <none>        9001/TCP                     16s
-argocd-redis                              ClusterIP   10.0.213.183   <none>        6379/TCP                     16s
-argocd-repo-server                        ClusterIP   10.0.159.107   <none>        8081/TCP,8084/TCP            16s
-argocd-server                             ClusterIP   10.0.91.83     <none>        80/TCP,443/TCP               16s
-argocd-server-metrics                     ClusterIP   10.0.140.102   <none>        8083/TCP                     16s
-azureuser@devopsdemovm:~$ kubectl patch svc argocd-server -n argocd -p '{"spec": {"type": "NodePort"}}'
-service/argocd-server patched
-azureuser@devopsdemovm:~$ kubectl get svc -n argocd
-NAME                                      TYPE        CLUSTER-IP     EXTERNAL-IP   PORT(S)                      AGE
-argocd-applicationset-controller          ClusterIP   10.0.131.57    <none>        7000/TCP,8080/TCP            34s
-argocd-dex-server                         ClusterIP   10.0.17.67     <none>        5556/TCP,5557/TCP,5558/TCP   34s
-argocd-metrics                            ClusterIP   10.0.192.242   <none>        8082/TCP                     34s
-argocd-notifications-controller-metrics   ClusterIP   10.0.157.137   <none>        9001/TCP                     34s
-argocd-redis                              ClusterIP   10.0.213.183   <none>        6379/TCP                     34s
-argocd-repo-server                        ClusterIP   10.0.159.107   <none>        8081/TCP,8084/TCP            34s
-argocd-server                             NodePort    10.0.91.83     <none>        80:32603/TCP,443:31657/TCP   34s
-argocd-server-metrics                     ClusterIP   10.0.140.102   <none>        8083/TCP                     34s
-azureuser@devopsdemovm:~$ kubectl get nodes -o wide
-NAME                             STATUS   ROLES    AGE     VERSION   INTERNAL-IP   EXTERNAL-IP      OS-IMAGE             KERNEL-VERSION      CONTAINER-RUNTIME
-aks-system-18075837-vmss000000   Ready    <none>   6h12m   v1.31.2   10.224.0.4    52.183.119.235   Ubuntu 22.04.5 LTS   5.15.0-1075-azure   containerd://1.7.23-1
-azureuser@devopsdemovm:~$ kubectl describe svc argocd-server -n argocd
-Name:                     argocd-server
-Namespace:                argocd
-Labels:                   app.kubernetes.io/component=server
-                          app.kubernetes.io/name=argocd-server
-                          app.kubernetes.io/part-of=argocd
-Annotations:              <none>
-Selector:                 app.kubernetes.io/name=argocd-server
-Type:                     NodePort
-IP Family Policy:         SingleStack
-IP Families:              IPv4
-IP:                       10.0.91.83
-IPs:                      10.0.91.83
-Port:                     http  80/TCP
-TargetPort:               8080/TCP
-NodePort:                 http  32603/TCP
-Endpoints:                10.244.0.25:8080
-Port:                     https  443/TCP
-TargetPort:               8080/TCP
-NodePort:                 https  31657/TCP
-Endpoints:                10.244.0.25:8080
-Session Affinity:         None
-External Traffic Policy:  Cluster
-Internal Traffic Policy:  Cluster
-Events:                   <none>
-azureuser@devopsdemovm:~$
-
-```
-Then access it at ```http://52.148.171.58:32648```.
-
-If page is not opening then we have to open a port in NSG.
-- On Azure portal server with ```VMSS``` and select the ```VMSS```
-![image-72](https://github.com/user-attachments/assets/65c78f84-d41f-4401-a73b-b70e3530bcc1)
-![image-74](https://github.com/user-attachments/assets/90c6f4d2-f589-471c-a4cf-bdbdff3d187c)
-![image-75](https://github.com/user-attachments/assets/28bee629-0166-48ef-a12e-bf2f12ce355e)
-![image-76](https://github.com/user-attachments/assets/9b33b1a7-4012-45b4-b2d6-a66f655b66a6)
-![image-77](https://github.com/user-attachments/assets/20bf8d81-a170-4469-83af-16e9a1412515)
-
-
-Now, we need to try to access it again ```http://PublicIPAddress:32648```.
-![image-78](https://github.com/user-attachments/assets/cc35a59c-1c79-437b-8cad-95962fae81f5)
-
-- To retrive the password for argocd
-```sh
-kubectl -n argocd get secret argocd-initial-admin-secret -o jsonpath="{.data.password}" | base64 -d; echo
-```
-![image-39](https://github.com/user-attachments/assets/eb10d8f6-a3f2-462d-8e39-7e6750f98684)
-
-- <span style="color: orange;"> To configure repo in argocd with token base.
-```sh
-(http://PublicIPAddress:32603)
-```
-![image-44](https://github.com/user-attachments/assets/67a669ed-58f8-4cb0-9c76-ef8c8db18451)
-
-Go to azure pipeline and clink on setting and select "Personal Access Token"
-![image-45](https://github.com/user-attachments/assets/c449ee33-2507-4a64-8989-a230e78107fa)
-![image-46](https://github.com/user-attachments/assets/ed562b32-9ef8-4a17-902f-7f698dab0dfe)
-![image-47](https://github.com/user-attachments/assets/a99cccd6-b5a1-4e40-a011-f903df1ab914)
-![alt text](image-82.png)
-
-```sh
-https://<Accesstoken>@dev.azure.com/mrbalraj/balraj-devops/_git/balraj-devops
-```
-![image-49](https://github.com/user-attachments/assets/45d23906-d3cf-4b13-919c-1760b3732032)
-
-
-- <span style="color: orange;"> To create a application in argocd
-  Once you access the ArgoCD URL and create an application
-  - **Application Name**: voteaccess-service
-  - **Project Name**: default
-  - **Sync Policy**: Automatic (Select Prune Resources and SelfHeal)
-  - **Repository URL**: https://mrbalraj@dev.azure.com/mrbalraj/Multi-Tier-With-Database/_git/Multi-Tier-With-Database
-  - **Revison**: main
-  - **Path**:  k8s-specifications (where Kubernetes files reside)
-  - **cluster URL**: Select default cluster
-  - **Namespace**: default
-
-![image-50](https://github.com/user-attachments/assets/86145803-8e75-49ef-ad28-b4c5874cb586)
-![image-51](https://github.com/user-attachments/assets/ea3b2881-3eb6-4976-84ff-e6474f090242)
-
-
-by default 3 min to sync with argocd but it can be changed as below.
-
-![image-52](https://github.com/user-attachments/assets/bf5b1d61-3308-41ec-a10c-0f9d737ffefb)
-![image-53](https://github.com/user-attachments/assets/ab5194c9-7b83-4e70-82ff-457027a3ba8c)
-
-
-
-- Now, we will change the argocd default time (3 min) to 10 sec.
-
-```sh
-kubectl edit cm argocd-cm -n argocd
-```
-edit as below
-![image-57](https://github.com/user-attachments/assets/4b069769-da73-4cb1-bbf9-f16c60d25dcb)
 
 Now, try to get all resouces and you will noticed there is an error related to "ImagePullBackoff".
 
@@ -1103,14 +740,13 @@ I am getting below error message.
 ![image-58](https://github.com/user-attachments/assets/71922859-a009-45c5-b89c-433f30c06ac1)
 
 
-
-**Solution**: As we are using private registory and we need to use 'imagepullsecrets'
+**Solution**: As we are using private registory and we need to use '```imagepullsecrets```'
 
 Go to azure registory and get the password which will be used in below command
 ![image-60](https://github.com/user-attachments/assets/5549858c-2c3e-493d-a802-c881af820477)
 
 
-- command to create ```ACRImagePullSecret```
+- Command to create ```ACRImagePullSecret```
 ```sh
 kubectl create secret docker-registry <secret-name> \
     --namespace <namespace> \
@@ -1145,10 +781,11 @@ Replace <container-registry-name> with your ACR name.
 To get token, click on ```container registory```
 ![image-79](https://github.com/user-attachments/assets/20a8dff5-a911-45d5-85c5-efdbbe3fc5e1)
 
+  - To get secret details
 ```sh
 kubectl get secret
 ```
-
+  - To create secret
 ```sh
 kubectl create secret docker-registry acr-credentials \
     --namespace default \
@@ -1164,17 +801,12 @@ kubectl delete secret acr-credentials --namespace default
  ``` 
 
 now, we will update the service-deployment.yaml as below:
-![alt text](image-80.png)
-![alt text](image-81.png)
+![image-80](https://github.com/user-attachments/assets/dd1b68b4-5e89-4f34-895f-1381eb513e9c)
+![image-81](https://github.com/user-attachments/assets/acbcdc16-b457-4575-99d5-66b529e43d8f)
 
 
 here is the updated service status
-
-![image-63](https://github.com/user-attachments/assets/ba027da4-d678-4bc4-a219-3694510939ab)
-
-
-Try to update anything at vote folder in ```"dockerfile"``` as below and pipeline should be auto triggered.
-![alt text](image-83.png)
+![image](https://github.com/user-attachments/assets/6e6758b7-f19d-44be-9400-9bfcc623e37b)
 
 - To check the deployment
 ```sh
@@ -1188,63 +820,75 @@ kubectl get node -o wide
 ```
 
 ```sh
-kubectl describe svc argocd-server -n argocd
-
-# Verify node resources (CPU, memory) are sufficient to run the application
 kubectl describe node aks-system-18075837-vmss000000
 ```
 
-- Now, we will open one more port in VMSS
-![image-66](https://github.com/user-attachments/assets/45f7d9a5-7045-40d5-b305-d293de571cd8)
+Then access it at ```http://52.183.119.235:31781```.
 
-```sh
-kubectl describe node aks-system-18075837-vmss000000
-```
-- Application is accessible now.
-xx
+  - If page is not opening then we have to open a port in NSG.
+    - On Azure portal server with ```VMSS``` and select the ```VMSS```
+![image-74](https://github.com/user-attachments/assets/6c847f3f-b6b0-4c4c-bf43-5751396a9e42)
+
+Now, we need to try to access it again ```http://PublicIPAddress:31781```.
+
+![image-75](https://github.com/user-attachments/assets/63b70a22-f70d-4c23-b575-193956d94699)
+![image-76](https://github.com/user-attachments/assets/6e29d1eb-30bb-4c2f-8da6-b45fbbd683f6)
+![image-77](https://github.com/user-attachments/assets/12911d56-b111-43dd-8986-80639ade5910)
+![image-78](https://github.com/user-attachments/assets/32cf6ef5-9355-4c22-9dde-beb77a773851)
+![image-79](https://github.com/user-attachments/assets/b02fc3cb-6176-41ac-810d-27bb5c1908e2)
 
 
 Congratulations :-) the application is working and accessible.
 
+**Note**:- I have updated fully automated CI_pipeline: [Bank_App](https://github.com/mrbalraj007/Azure_DevOps_Projects/blob/main/Azure_DevOps_All_Projects/05_Real-Time-DevOps-Project_CI-CD_Multi-Tier-With-Database/Pipeline/Updated_CI_CD/Pipine_CI_Updated.md)
 
-#### <span style="color: yellow;"> Step-05: Cleanup the images and container registroy using the pipeline.</span>
+
+### <span style="color: yellow;"> Step-11: Cleanup the images and container registroy using the pipeline.</span>
 
 - First create [Service Connection](https://www.youtube.com/watch?v=pSmKNbN_Y4s) in Azure Devops.
-- Once you create a connection then note it down the connection ID, because that ID would be used in pipeline. 
+- Once you create a connection then note it down the ```connection ID```, because that ID would be used in pipeline. 
 - On agent machine, make sure login with azure login and connection is active, if not then login with following.
   ```sh
   az login --use-device-code
   ```
-- Delete all the images along with repogitory.
-    - Delete all images from [result-app](https://github.com/mrbalraj007/Azure_DevOps_Projects/blob/main/Azure_DevOps_All_Projects/02_Real-Time-DevOps-Project_CR_AKS_with-EC2/PipeLine_Details/Delete_Images_Repositories/Updated_Delete_Results_pipeline.md)
-    - Delete all images from [vote-app](https://github.com/mrbalraj007/Azure_DevOps_Projects/blob/main/Azure_DevOps_All_Projects/02_Real-Time-DevOps-Project_CR_AKS_with-EC2/PipeLine_Details/Delete_Images_Repositories/Updated_Delete_vote_pipeline.md)
-    - Delete all images from [worker-app](https://github.com/mrbalraj007/Azure_DevOps_Projects/blob/main/Azure_DevOps_All_Projects/02_Real-Time-DevOps-Project_CR_AKS_with-EC2/PipeLine_Details/Delete_Images_Repositories/Updated_Delete_worker_pipeline.md)
+    - **Using Azure DevOps CLI**
+        - Install the Azure DevOps CLI extension if not already installed:
+        ```sh
+        az extension add --name azure-devops
+        ```
 
-## <span style="color: Yellow;"> Environment Cleanup:
+    - Sign in and configure the Azure DevOps organization:
+      ```sh
+      az devops configure --defaults organization=https://dev.azure.com/{organization} project={project}
+      ```
+      * Replace {organization} and {project} with your details.
+
+    - List service connections:
+      ```bash
+        az devops service-endpoint list --query "[].{Name:name, ID:id}"
+        ```
+      - This command will return a list of service connections with their names and IDs.
+![image-33](https://github.com/user-attachments/assets/199c5e63-110c-4005-8586-1f85a503240c)
+
+- Delete all the images along with repogitory.
+    - Delete all images from CR [Repogitory]()
+    
+### <span style="color: yellow;"> Step-12: Environment Cleanup:</span>
+
 - As we are using Terraform, we will use the following command to delete 
 
 - __Delete all deployment/Service__ first
      ```sh
-        kubectl delete service/redis
-        kubectl delete service/db
-        kubectl delete service/resut
-        kubectl delete service/result
-        kubectl delete service/vote
-        kubectl delete deployment.apps/db
-        kubectl delete deployment.apps/redis
-        kubectl delete deployment.apps/vote
-        kubectl delete deployment.apps/worker
-        kubectl delete deployment.apps/db
-        kubectl delete deployment.apps/result
-        kubectl delete service/db
+        kubectl delete service/bankapp-service
+        kubectl delete service/mysql-service 
+        kubectl delete deployment.apps/bankapp
+        kubectl delete deployment.apps/mysql
         
-![image-67](https://github.com/user-attachments/assets/b63fbef2-5720-4143-9cd3-c04d836f4cd3)
+- Now, time to delete the ```AKS Cluster and Virtual machine```.
 
-#### Now, time to delete the ```AKS Cluster and Virtual machine```.
-run the terraform command.
-```bash
-Terraform destroy --auto-approve
-```
+    ```bash
+    Terraform destroy --auto-approve
+    ```
 
 ## <span style="color: Yellow;"> Conclusion
 
@@ -1253,17 +897,15 @@ Following these steps, you can set up a complete CI/CD pipeline in Azure DevOps,
 
 __Ref Link:__
 
+- [Youtube Link](https://www.youtube.com/watch?v=_6KjAp9h3Lo&list=PLAdTNzDIZj_8CAr71KAH9H9E1VTvywyxn&index=16)
+
+
 ## Additional Resources
 - [Azure DevOps Documentation](https://docs.microsoft.com/en-us/azure/devops/)
 - [Azure Kubernetes Service Documentation](https://docs.microsoft.com/en-us/azure/aks/)
 - [SonarQube Documentation](https://docs.sonarqube.org/latest/)
 - [Trivy Documentation](https://github.com/aquasecurity/trivy)
 
-
-- [CI-Pipeline](https://www.youtube.com/watch?v=aAjH9wqtx9o&list=PLdpzxOOAlwvIcxgCUyBHVOcWs0Krjx9xR&index=15)
-
-- [CD-Pipeline](https://www.youtube.com/watch?v=HyTIsLZWkZg&list=PLdpzxOOAlwvIcxgCUyBHVOcWs0Krjx9xR&index=16)
-  
 - [pipelines troubleshooting](https://learn.microsoft.com/en-us/azure/devops/pipelines/troubleshooting/troubleshooting?view=azure-devops)
 
 - [Create an Account in Azure DevOps](https://www.youtube.com/watch?v=A91difri0BQ)
@@ -1278,9 +920,6 @@ __Ref Link:__
 
 - [create-aks-cluster-using-terraform](https://stacksimplify.com/azure-aks/create-aks-cluster-using-terraform/)
 
-- [ArgoCD](https://argo-cd.readthedocs.io/en/stable/operator-manual/upgrading/2.0-2.1/#replacing-app-resync-flag-with-timeoutreconciliation-setting)
-
-- [ArgoCD Version](https://argo-cd.readthedocs.io/en/stable/)
 
 - [Pull Registory](https://kubernetes.io/docs/tasks/configure-pod-container/pull-image-private-registry/)
 
@@ -1288,7 +927,7 @@ __Ref Link:__
 
 - [YAML vs Classic Pipelines (Two type of Azure Devops pipeline)](https://learn.microsoft.com/en-us/azure/devops/pipelines/get-started/pipelines-get-started?view=azure-devops) 
 
-https://github.com/mc1arke/sonarqube-community-branch-plugin?tab=readme-ov-file
-https://hub.docker.com/r/mc1arke/sonarqube-with-community-branch-plugin
-
 - [Connect to Azure with an Azure Resource Manager service connection](https://learn.microsoft.com/en-us/azure/devops/pipelines/library/connect-to-azure?view=azure-devops#create-an-azure-resource-manager-service-connection-using-workload-identity-federation)
+
+- [sonarqube-community-branch-plugin](https://github.com/mc1arke/sonarqube-community-branch-plugin?tab=readme-ov-file)
+- [sonarqube-with-community-branch-plugin](https://hub.docker.com/r/mc1arke/sonarqube-with-community-branch-plugin)
