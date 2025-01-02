@@ -1,5 +1,7 @@
 # <span style="color: Yellow;"> Azure DevOps Multi-Stage YAML CI/CD Pipeline </span>
 
+![Azure DevOps Voting App](https://github.com/user-attachments/assets/056cf9c3-1914-4f7a-bd0f-e763b64e08ac)
+
 This document provides a step-by-step guide on setting up a multi-stage YAML CI/CD pipeline in Azure DevOps. The pipeline includes setting up an Azure account, creating an organization, setting up a project, writing a YAML pipeline, and deploying an application to an AKS cluster.
 
 ## <span style="color: Yellow;"> Prerequisites </span>
