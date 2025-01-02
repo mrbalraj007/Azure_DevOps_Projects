@@ -86,7 +86,7 @@ terraform apply
 ```
 -------
 
-Once you run the terraform command, then we will verify the following things to make sure everything is setup via a terraform.
+Once you run the terraform command, we will verify the following things to ensure everything is set up via a terraform.
 
 ### <span style="color: Orange;"> Inspect the ```Cloud-Init``` logs</span>: 
 Once connected to VM then you can check the status of the ```user_data``` script by inspecting the log files
@@ -210,7 +210,7 @@ azureuser@devopsdemovm:~$
 ![image-8](https://github.com/user-attachments/assets/a3f02167-7b1e-46dd-8c66-7dadb0d7f4a1)
 ![image-18](https://github.com/user-attachments/assets/646a7063-9021-445f-9123-9be24ecd9c53)
     
-  - it will asking you to login with you azure login. please use the same login crednetial which you have configure for azure portal login.
+  - It will ask you to log in with your Azure account. Please use the same login credentials that you have set up for the Azure portal.
 
   - Select the container registry
 ![image-7](https://github.com/user-attachments/assets/ebc5630e-d798-45d5-8688-2fe602defb3c)
@@ -223,7 +223,7 @@ azureuser@devopsdemovm:~$
   - you will see the following pipeline yaml and we have to modify accordingly.
 ![image-8](https://github.com/user-attachments/assets/ab975781-a81a-41b7-bc2c-fa0686ac518b)
 
-  - First we will create a folder in repo called 'scripts' and update the sh file as below. we will create a shell script to get an updated image tag in case if it is creating new image.
+  - First, we will create a folder in the repo called 'scripts' and update the sh file as shown below. We will create a shell script to get an updated image tag if it is creating a new image.
 ![image-55](https://github.com/user-attachments/assets/43b96a06-d27c-46bf-b24a-1c0d7196f55a)
 ![image-80](https://github.com/user-attachments/assets/dd1b68b4-5e89-4f34-895f-1381eb513e9c)
 
@@ -246,7 +246,7 @@ azureuser@devopsdemovm:~$
    ![image-15](https://github.com/user-attachments/assets/23084fd1-3dfd-415c-8a81-9aa264690c0a)
    ![image-16](https://github.com/user-attachments/assets/fdf5d367-ba38-4261-bd09-56284907f384)
 
-  - run the following command as part of provision the agent server, we have already install the agent.
+  - Run the following command as part of setting up the agent server. We have already installed the agent.
 <!-- ```sh
 mkdir myagent && cd myagent
 sudo wget https://vstsagentpackage.azureedge.net/agent/4.248.0/vsts-agent-linux-x64-4.248.0.tar.gz
@@ -320,7 +320,7 @@ Agent is still offline.
   ![image-71](https://github.com/user-attachments/assets/61df9213-b7fc-4fbd-9e2b-dca92839e776)
 
 
-  - Take putty session of Azure VM and perform the following instruction to login into auzre and K8s
+  - Take a Putty session of the Azure VM and follow these instructions to log in to Azure and Kubernetes.
 
   - **Azure login**: Missing Browser on Headless Servers, Use the --use-device-code flag to authenticate without a browser:
     ```
@@ -328,7 +328,7 @@ Agent is still offline.
     ```
     ![image-30](https://github.com/user-attachments/assets/c091888a-bcb3-4bfd-a726-aa4466225ff4)
 
-  - https://microsoft.com/devicelogin access this URL in a new browser and type the code which you see in console.
+  - https://microsoft.com/devicelogin Open this URL in a new browser and enter the code you see in the console..
 ![image-31](https://github.com/user-attachments/assets/1c2a3c10-a532-48e7-aafe-25230ced23b6)
 ![image-32](https://github.com/user-attachments/assets/ef18f082-e414-4030-83ed-a80baffffc57)
 
@@ -358,15 +358,15 @@ Agent is still offline.
 
 
 ### <span style="color: Yellow;">**Step-05: Install SonarQube Extension.**</span>
- - Now, we will integrate SonarQube in same pipeline.
-we have to search it in market place and select the sonarqube as below.
+ - Now, we will integrate SonarQube into the same pipeline. We need to search for it in the marketplace and select SonarQube as shown below.
 ![image-38](https://github.com/user-attachments/assets/9fd80f5b-e9e1-4369-8dd4-58a57e16758e)
 ![image-39](https://github.com/user-attachments/assets/d7b9aa47-3b90-450a-ad29-a6669d1a603b)
 ![image-40](https://github.com/user-attachments/assets/146f1783-746a-489e-bc32-8247edbf4448)
 
 Select the organization
-![alt text](image-41.png)
-![alt text](image-42.png)
+![image-41](https://github.com/user-attachments/assets/ae6703b6-bb56-4cbc-9bab-517301154572)
+![image-42](https://github.com/user-attachments/assets/3fd6fcd4-827d-4c84-865a-36520fe86dca)
+
 
 ### <span style="color: Yellow;">**Step-06: Setup SonarQube.**</span>
  - Note it down the agent publicIP address and try to access on port ```9000```
