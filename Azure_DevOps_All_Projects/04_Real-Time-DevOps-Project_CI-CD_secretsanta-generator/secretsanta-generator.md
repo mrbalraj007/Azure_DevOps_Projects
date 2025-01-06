@@ -614,9 +614,7 @@ Congratulations :-) the application is working and accessible.
 ![image-62](https://github.com/user-attachments/assets/72ee4948-479d-48e6-8840-9a02bcb66066)
 
 
-
-
-#### <span style="color: yellow;"> Step-05: Cleanup the images and container registroy using the pipeline.</span>
+#### <span style="color: yellow;"> Step-08: Cleanup the images and container registroy using the pipeline.</span>
 
 - First create [Service Connection](https://www.youtube.com/watch?v=pSmKNbN_Y4s) in Azure Devops.
 - Once you create a connection then note it down the connection ID, because that ID would be used in pipeline. 
