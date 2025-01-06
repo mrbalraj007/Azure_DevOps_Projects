@@ -163,7 +163,7 @@ azureuser@devopsdemovm:~$ az version
   - Clone the repo :: 
     - click on Import a repository
     - Git clone: https://github.com/jaiswaladi246/secretsanta-generator.git
-![alt text](image-7.png)
+![image-7](https://github.com/user-attachments/assets/73e82d8b-b5e3-434f-b333-65fe6cce4772)
 
 
 - #### <span style="color: Yellow;"> [Create/Configure a pipeline in Azure DevOps](https://github.com/mrbalraj007/Azure_DevOps_Projects/blob/main/Azure_DevOps_All_Projects/00_Real-Time-DevOps-Project_Project_Tools_Configuration/Configure_a_pipeline_in_Azure-DevOps.md).
