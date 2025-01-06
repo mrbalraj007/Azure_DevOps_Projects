@@ -1,4 +1,5 @@
 # <span style="color: Yellow;"> Mastering Spring Boot: Building a Dynamic Secret Santa Generator Web Application using Azure DevOps </span>
+![alt text](<Senta Generate.gif>)
 The Secret Santa Generator is a web application built using Spring Boot technologies, Thymeleaf views, JPA, H2 Database, and more. It features a Spring Model, View, and Controller (MVC) architecture along with Service and Repository layers. This project is designed to facilitate the popular Christmas game "Secret Santa," where friends draw names to decide who they will give a present to.
 
 ## <span style="color: Yellow;"> Prerequisites </span>
@@ -456,13 +457,6 @@ Project Status in SonarQube:
 
 Image view in Docker Hub
 ![image-34](https://github.com/user-attachments/assets/f31b3472-6620-4214-a6c7-97ab062fa4c5)
-
-
-
-
-
-
-
 
 
 View status in Azure UI:
