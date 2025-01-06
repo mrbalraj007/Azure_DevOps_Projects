@@ -5,7 +5,7 @@ The Secret Santa Generator is a web application built using Spring Boot technolo
 
 Before diving into this project, here are some skills and tools you should be familiar with:
 
-- [x] [Clone repository for terraform code](https://github.com/mrbalraj007/Azure_DevOps_Projects/tree/main/Azure_DevOps_All_Projects/02_Real-Time-DevOps-Project_CR_AKS_with-EC2)<br>
+- [x] [Clone repository for terraform code](https://github.com/mrbalraj007/Azure_DevOps_Projects/tree/main/Azure_DevOps_All_Projects/04_Real-Time-DevOps-Project_CI-CD_secretsanta-generator)<br>
   __Note__: Replace resource names and variables as per your requirement in terraform code
     - Update ```terraform.tfvars```.
  
@@ -82,7 +82,7 @@ First, we'll create the necessary virtual machines using ```terraform``` code.
 
 Below is a terraform Code:
 
-Once you [clone repo](https://github.com/mrbalraj007/Azure_DevOps_Projects/tree/main/Azure_DevOps_All_Projects/02_Real-Time-DevOps-Project_CR_AKS_with-EC2)</span> and run the terraform command.
+Once you [clone repo](https://github.com/mrbalraj007/Azure_DevOps_Projects/tree/main/Azure_DevOps_All_Projects/04_Real-Time-DevOps-Project_CI-CD_secretsanta-generator)</span> and run the terraform command.
 ```bash
 $ ls -l
 Mode                 LastWriteTime         Length Name
