@@ -1,6 +1,8 @@
 
-# <span style="color: Yellow;">  Automating CI/CD with Azure DevOps: Blue-Green Deployment and Self-Hosted Agents on Azure VM Scale Sets</span>
-![App_YouTube Clone](https://github.com/user-attachments/assets/de97c63b-fb04-4d76-88d4-c72b5bfe10b4)
+# <span style="color: Yellow;">  YouTube Clone: Automating CI/CD with Azure DevOps: Blue-Green Deployment and Self-Hosted Agents on Azure VM Scale Sets</span>
+
+
+![App_YouTube Clone_Compress](https://github.com/user-attachments/assets/c8637593-efce-42b6-ac95-ef90f4272772)
 
 ##  <span style="color: Yellow;"> Overview
 This project provides a comprehensive guide to automating Continuous Integration and Continuous Deployment (CI/CD) using Azure DevOps. It covers two main topics: Blue-Green Deployment using Azure DevOps Release Pipelines and setting up Self-Hosted Agents using Azure Virtual Machine Scale Sets (VMSS). The project uses a YouTube clone application as a practical example to demonstrate the concepts and steps involved.
