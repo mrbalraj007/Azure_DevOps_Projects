@@ -11,7 +11,7 @@ This project provides a comprehensive guide to automating Continuous Integration
 
 Before diving into this project, here are some skills and tools you should be familiar with:
 
-- [x] [Clone repository for terraform code](https://github.com/mrbalraj007/Azure_DevOps_Projects/tree/main/Azure_DevOps_All_Projects/04_Real-Time-DevOps-Project_CI-CD_secretsanta-generator)<br>
+- [x] [Clone repository for terraform code](https://github.com/mrbalraj007/Azure_DevOps_Projects/tree/main/Azure_DevOps_All_Projects/03.1_Real-Time-DevOps-Project_CI-CD_VMSS_Storage_webapp-YouTube_Clone)<br>
   __Note__: Replace resource names and variables as per your requirement in terraform code
     - Update ```terraform.tfvars```.
  
@@ -51,7 +51,7 @@ I have created a Terraform code to set up the entire infrastructure, including t
 
 Below is a terraform Code:
 
-Once you [clone repo](https://github.com/mrbalraj007/Azure_DevOps_Projects/tree/main/Azure_DevOps_All_Projects/04_Real-Time-DevOps-Project_CI-CD_secretsanta-generator)</span> and run the terraform command.
+Once you [clone repo](https://github.com/mrbalraj007/Azure_DevOps_Projects/tree/main/Azure_DevOps_All_Projects/03.1_Real-Time-DevOps-Project_CI-CD_VMSS_Storage_webapp-YouTube_Clone)</span> and run the terraform command.
 ```bash
 $ ls -l
 Mode                 LastWriteTime         Length Name
@@ -80,7 +80,7 @@ terraform apply
 ```
 -------
 
-### Step-by-Step Description
+### <span style="color: Yellow;"> Step-by-Step Description
 
 #### 1. Project Setup
 - **Clone the Repository**: Clone the project repository from the source control.
@@ -219,7 +219,7 @@ terraform apply
        pool:
          name: devops-demo_vm
        ```
-      - 👉[Complete Pipeline]()👈 
+      - 👉[Complete Pipeline](https://github.com/mrbalraj007/Azure_DevOps_Projects/blob/main/Azure_DevOps_All_Projects/03.1_Real-Time-DevOps-Project_CI-CD_VMSS_Storage_webapp-YouTube_Clone/Pipeline/Updated_CI.md)👈 
 
 2. **Run Pipeline**:
    - Trigger the pipeline to run using the self-hosted agent.
@@ -322,7 +322,7 @@ terraform apply
    ![image-51](https://github.com/user-attachments/assets/6a65afad-b0b1-4d0d-ba5c-048f35a25797)
 
 #### <span style="color: Cyan;">  Step 12: Update the query and workIteam in pipeline
-2. **To Configure query and workIteam in CD pipeline**:
+1. **To Configure query and workIteam in CD pipeline**:
   - run the pipeline and Cd job would be failed because we have set the workitem query set to `doing` while it should be in `done` state.
    ![image-52](https://github.com/user-attachments/assets/e136019b-0975-4d24-a1f0-9e46279b2593)
   - also, we need to update the query as below:
@@ -377,13 +377,13 @@ Explanation:
 --agent <agent-name>: Replace <agent-name> with the name you want to assign to this agent.
 
 ``` -->
-### Advantages of Using This Project
+### <span style="color: Yellow;">  Advantages of Using This Project
 - **Automated Deployment**: The project demonstrates how to automate the deployment process using Azure DevOps release pipelines.
 - **Reduced Downtime**: Blue-green deployment strategy ensures minimal downtime during deployments by using deployment slots.
 - **Enhanced Control**: Deployment gates provide additional control over the deployment process, ensuring only approved changes are deployed to production.
 - **Scalability**: Using Azure App Service and deployment slots allows for easy scaling of the application based on demand.
 
-### Impact of Using This Project
+### <span style="color: Yellow;">  Impact of Using This Project
 - **Improved Efficiency**: Automating the deployment process saves time and reduces the risk of human error.
 - **Increased Reliability**: Deployment gates and blue-green deployment strategies ensure that only tested and approved changes are deployed to production, increasing the reliability of the application.
 - **Faster Time-to-Market**: Continuous deployment enables faster release cycles, allowing new features and updates to reach users more quickly.
