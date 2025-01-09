@@ -26,3 +26,5 @@ Universal_Terraform_EC2_Create/.terraform/providers/registry.terraform.io/hashic
 *id_rsa
 *id_ed255198
 *.pub
+id_rsa
+id_rsa.pub
