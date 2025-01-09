@@ -23,6 +23,6 @@ Universal_Terraform_EC2_Create/.terraform/providers/registry.terraform.io/hashic
 *.txt
 *azurerm-credentials.json
 *.json
-*id_rsa*
+*id_rsa
 *id_ed255198
 *.pub
