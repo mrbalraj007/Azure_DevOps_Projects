@@ -64,52 +64,52 @@ variable "azurerm_vnet_name" {
 variable "azurerm_subnet_name" {
   description = "The name of the subnet."
   type        = string
-  
+
 }
 
 variable "azurerm_public_ip_name" {
   description = "The name of the public IP address."
-  type        = string  
+  type        = string
 }
 
 variable "azurerm_network_interface_name" {
   description = "The name of the network interface."
   type        = string
-  
+
 }
 
 variable "azurerm_network_security_group_name" {
   description = "The name of the network security group."
   type        = string
-  
+
 }
 
 variable "azurerm_vm_admin_username" {
   description = "The username for the virtual machine."
   type        = string
   default     = "azureuser"
-  
+
 }
 
 variable "azurerm_vm_size" {
   description = "The size of the virtual machine."
   type        = string
   default     = "Standard_DS2_v2"
- 
+
 }
 
 variable "azurerm_computer_name" {
   description = "The name of the virtual machine."
   type        = string
   default     = "devopsdemovm"
-  
+
 }
 
 variable "azurerm_linux_vm_name" {
   description = "The name of the virtual machine."
   type        = string
   default     = "DevOps_Agent_VM"
-  
+
 }
 
 variable "resource_suffix" {
