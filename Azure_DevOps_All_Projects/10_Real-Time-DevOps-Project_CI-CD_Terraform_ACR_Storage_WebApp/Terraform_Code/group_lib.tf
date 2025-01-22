@@ -6,25 +6,25 @@ resource "azuredevops_variable_group" "comman_parameters" {
 
   variable {
     name  = "TF_VAR_CLIENT_ID"
-    value = "40bbf41d-b165-4ef2-8d0b-a25409ffc5a2"
+    value = "Update here"
   }
 
   variable {
     name  = "TF_VAR_CLIENT_SECRET"
-    value = "Ci_8Q~PYPIfvj09IDuyS5uKaq7xttRGymtocEaTS"
+    value = "Update here"
   }
   variable {
     name  = "TF_VAR_SUBSCRIPTION_ID"
-    value = "2fc598a4-6a52-44b9-b476-6a62640513f8"
+    value = "Update here"
   }
 
   variable {
     name  = "TF_VAR_TENANT_ID"
-    value = "d504922d-ac26-4aa9-b625-3a29942cc709"
+    value = "Update here"
   }
   variable {
     name  = "TF_VAR_CUSTOM_EMAILS"
-    value = "mr_balraj@rediffmail.com"
+    value = "Update here"
   }
 
   variable {
