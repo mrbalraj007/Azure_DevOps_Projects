@@ -125,3 +125,22 @@ variable "resource_suffix" {
   default     = "First_Project"
 }
 
+variable "azurerm_sp_client_id_value" {
+  type = string
+}
+
+variable "azurerm_sp_client_secret_value" {
+  type = string
+}
+
+variable "azurerm_sp_tenant_value" {
+  type = string
+}
+
+variable "azurerm_sp_subs_value" {
+  type = string
+}
+
+variable "azurerm_sp_email" {
+  type = string
+}

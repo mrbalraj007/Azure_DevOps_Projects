@@ -6,30 +6,34 @@ resource "azuredevops_variable_group" "comman_parameters" {
 
   variable {
     name = "TF_VAR_CLIENT_ID"
-    value = "Update here"
-    
+    #value = "Update here"
+    value = var.azurerm_sp_client_id_value
+
   }
 
   variable {
     name = "TF_VAR_CLIENT_SECRET"
-    value = "Update here"
-    
+    #value = "Update here"
+    value = var.azurerm_sp_client_secret_value
+
   }
   variable {
     name = "TF_VAR_SUBSCRIPTION_ID"
-    value = "Update here"
-    
+    #value = "Update here"
+    value = var.azurerm_sp_subs_value
   }
 
   variable {
     name = "TF_VAR_TENANT_ID"
-    value = "Update here"
-    
+    #value = "Update here"
+    value = var.azurerm_sp_tenant_value
+
   }
   variable {
-    name  = "TF_VAR_CUSTOM_EMAILS"
-    value = "Update here"
-    
+    name = "TF_VAR_CUSTOM_EMAILS"
+    #value = "Update here"
+    value = var.azurerm_sp_email
+
   }
 
   variable {
