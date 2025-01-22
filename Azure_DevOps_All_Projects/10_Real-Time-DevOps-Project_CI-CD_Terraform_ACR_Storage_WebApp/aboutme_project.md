@@ -13,8 +13,7 @@ Need to create a PAT access Token-
 - [x] [Clone repository for terraform code](https://github.com/mrbalraj007/Azure_DevOps_Projects/tree/main/Azure_DevOps_All_Projects/10_Real-Time-DevOps-Project_CI-CD_Terraform_ACR_Storage_WebApp)<br>
   __Note__: Replace resource names and variables as per your requirement in terraform code
     - Update ```terraform.tfvars```
-    - Update ```group_lib.tf```.
- 
+     
 - [x] [App Repo](https://github.com/mrbalraj007/python-app-docker.git)
 
 - [x] __Azure Account__: You’ll need an Azure account to create resources like virtual Machine, AKS cluster, and manage pipelines.
