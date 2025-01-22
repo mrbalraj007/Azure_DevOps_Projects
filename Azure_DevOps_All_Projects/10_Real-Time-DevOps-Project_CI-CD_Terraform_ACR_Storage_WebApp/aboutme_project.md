@@ -246,27 +246,69 @@ $(agent.builddirectory)
 $(agent.builddirectory)/Terraform
 ```
 
-```sh
-1. List All Storage Accounts
-To list all storage accounts in your Azure subscription:
 
-bash
-Copy
-Edit
+1. List All Storage Accounts; To list all storage accounts in your Azure subscription:
+
+```bash
 az storage account list --output table
+```
 2. List All Containers in a Storage Account
 To list all containers in a specific storage account:
-
-bash
-Copy
-Edit
+```bash
 az storage container list --account-name <STORAGE_ACCOUNT_NAME> --output table
-Replace <STORAGE_ACCOUNT_NAME> with the name of your storage account.
 ```
+Replace <STORAGE_ACCOUNT_NAME> with the name of your storage account.
 
 
-# https://www.youtube.com/watch?v=1XfazFLPfQQ&list=PLJcpyd04zn7p_nI0hoYRcqSqVS_9_eLaR&index=181
 
-https://learn.microsoft.com/en-us/azure/devops/pipelines/release/variables?view=azure-devops&tabs=batch
+- https://www.youtube.com/watch?v=1XfazFLPfQQ&list=PLJcpyd04zn7p_nI0hoYRcqSqVS_9_eLaR&index=181
 
-https://learn.microsoft.com/en-us/azure/devops/pipelines/build/variables?view=azure-devops&tabs=yaml
+- https://learn.microsoft.com/en-us/azure/devops/pipelines/release/variables?view=azure-devops&tabs=batch
+
+- https://learn.microsoft.com/en-us/azure/devops/pipelines/build/variables?view=azure-devops&tabs=yaml
+************
+![Image](https://github.com/user-attachments/assets/d2802609-0e91-4a3a-96e4-584b8517b502)
+![Image](https://github.com/user-attachments/assets/afe19e14-fd2e-4687-b743-2d392d930cb8)
+![Image](https://github.com/user-attachments/assets/2f131727-4638-4c0c-82c9-36016c67c4e6)
+![Image](https://github.com/user-attachments/assets/50eabe5e-9d38-4145-951a-0ec84ac7e726)
+![Image](https://github.com/user-attachments/assets/5ce7e3b4-ecf4-45ce-8da0-a2209df2fa2a)
+![Image](https://github.com/user-attachments/assets/a2d2132f-b9a6-49ec-8496-4e43e73bc3a7)
+![Image](https://github.com/user-attachments/assets/babe6a89-c55e-40a3-a952-c0877937fa3d)
+![Image](https://github.com/user-attachments/assets/e477ddd3-18fa-4119-b06b-36b05ddb0476)
+![Image](https://github.com/user-attachments/assets/57e4b218-b0d8-47b0-8540-d672aede59ff)
+![Image](https://github.com/user-attachments/assets/4f014723-45b6-487c-acad-a1cda3dc0a6f)
+![Image](https://github.com/user-attachments/assets/127f0101-8fea-4470-9bbb-99cab70653c6)
+![Image](https://github.com/user-attachments/assets/083bc64e-b714-4cac-8d8d-6a9b437ad96f)
+![Image](https://github.com/user-attachments/assets/d0681a85-a214-42f8-96b9-ff0e92a842d7)
+![Image](https://github.com/user-attachments/assets/d221eabb-ccd3-4348-9268-aed2741578f5)
+![Image](https://github.com/user-attachments/assets/dfdaea87-025d-4462-b3f3-348815336dd9)
+![Image](https://github.com/user-attachments/assets/bbe1765b-44d2-4531-9e6e-3056cee7de40)
+![Image](https://github.com/user-attachments/assets/1b5189da-baa7-48e6-9928-c70faf5c92e2)
+![Image](https://github.com/user-attachments/assets/abd4d3c7-9d70-408f-b1e9-e17c82f010c8)
+![Image](https://github.com/user-attachments/assets/59464714-56fc-4189-a6c5-e9d62ba80ba6)
+![Image](https://github.com/user-attachments/assets/f534845d-53f5-41ee-ba00-064e88f7b6ff)
+![Image](https://github.com/user-attachments/assets/48d36ed2-5e89-44c9-a6f2-e43a84480f86)
+![Image](https://github.com/user-attachments/assets/8685a267-6643-4a47-b7f3-d2d5cfc67768)
+![Image](https://github.com/user-attachments/assets/e0b3af19-1bc4-4c98-9ebf-5bd7a6603020)
+![Image](https://github.com/user-attachments/assets/40c2a353-e95e-4d3a-8ecd-7d1a8e532a7a)
+![Image](https://github.com/user-attachments/assets/7729c368-6ef3-4079-ba5a-b0c47c262fcd)
+![Image](https://github.com/user-attachments/assets/7e52318b-cdbb-4d53-8841-2e76d77d1980)
+![Image](https://github.com/user-attachments/assets/ade4a2c3-5324-4319-ba6e-17b5cf8b0446)
+![Image](https://github.com/user-attachments/assets/246b9e8f-6de4-494a-bbba-c45022a54dff)
+![Image](https://github.com/user-attachments/assets/6d9f6edd-8c8c-40c1-b44d-6e3917d2a195)
+![Image](https://github.com/user-attachments/assets/3ba84fd1-ce43-4d4b-a094-fab39ce69f48)
+![Image](https://github.com/user-attachments/assets/b0fd3a7f-0fd3-452b-bce0-1ec427f8cb1d)
+![Image](https://github.com/user-attachments/assets/058c40c1-d3f1-4b48-8c69-9ce4a7bf0e72)
+![Image](https://github.com/user-attachments/assets/fbd84d93-45dc-4e88-a089-263a46c90fc5)
+![Image](https://github.com/user-attachments/assets/b658774f-6c31-442f-92f0-419e9c04b971)
+![Image](https://github.com/user-attachments/assets/e6dc4313-ea0b-4753-8f66-ec90376cbbe5)
+![Image](https://github.com/user-attachments/assets/86be47cd-d1fb-4144-abf5-eeec6d0d3f10)
+![Image](https://github.com/user-attachments/assets/26d884b8-68c5-44a2-ac15-57b34e09e5a8)
+![Image](https://github.com/user-attachments/assets/9439474d-85de-45ca-9c1d-13b8c0ec0ae3)
+![Image](https://github.com/user-attachments/assets/85243f0c-45a4-4975-ab87-8b486e0c9ee7)
+![Image](https://github.com/user-attachments/assets/a8b2070c-6956-4493-9687-5c8af34aaa7b)
+![Image](https://github.com/user-attachments/assets/291ecfde-f3d5-47e5-9017-054ed8ba8261)
+![Image](https://github.com/user-attachments/assets/f1c4c66b-022b-4621-a547-710050a9bdcc)
+![Image](https://github.com/user-attachments/assets/80bb8486-64aa-4495-9163-8c735e9978b8)
+![Image](https://github.com/user-attachments/assets/054d6dfd-d23f-4cd0-b3a1-652e1b2630a0)
+![Image](https://github.com/user-attachments/assets/b34c1588-9cfd-41a7-803c-17f3292f6fa8)
