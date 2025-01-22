@@ -160,7 +160,9 @@ az ad sp update --id 00000000-0000-0000-0000-000000000000 --add tags=MyTag
    - Steps to configure connection for [Azure Resource Manager](https://learn.microsoft.com/en-us/azure/devops/pipelines/release/configure-workload-identity?view=azure-devops&tabs=managed-identity):
 
 ![image-17](https://github.com/user-attachments/assets/8e77bdc8-4c48-42c8-8ceb-92d7a0ab0dc8)
+
 ![image-86](https://github.com/user-attachments/assets/d274d09b-1b45-4168-842c-f548386090de)
+
 ![image-87](https://github.com/user-attachments/assets/9e1cc145-5490-4298-b4fb-dd7b0e633e30)
 
 - Verify the Service Connection:
