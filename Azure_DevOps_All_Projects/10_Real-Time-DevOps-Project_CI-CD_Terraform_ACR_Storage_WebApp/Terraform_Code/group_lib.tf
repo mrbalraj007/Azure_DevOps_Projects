@@ -5,26 +5,31 @@ resource "azuredevops_variable_group" "comman_parameters" {
   allow_access = true
 
   variable {
-    name  = "TF_VAR_CLIENT_ID"
+    name = "TF_VAR_CLIENT_ID"
     value = "Update here"
+    
   }
 
   variable {
-    name  = "TF_VAR_CLIENT_SECRET"
+    name = "TF_VAR_CLIENT_SECRET"
     value = "Update here"
+    
   }
   variable {
-    name  = "TF_VAR_SUBSCRIPTION_ID"
+    name = "TF_VAR_SUBSCRIPTION_ID"
     value = "Update here"
+    
   }
 
   variable {
-    name  = "TF_VAR_TENANT_ID"
+    name = "TF_VAR_TENANT_ID"
     value = "Update here"
+    
   }
   variable {
     name  = "TF_VAR_CUSTOM_EMAILS"
     value = "Update here"
+    
   }
 
   variable {
