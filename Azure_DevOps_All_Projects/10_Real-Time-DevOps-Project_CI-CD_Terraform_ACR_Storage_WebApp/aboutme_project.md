@@ -2,6 +2,8 @@
 
 # <span style="color: Yellow;"> One-Click Azure DevOps CI/CD Pipeline for Azure Container Web Apps with Terraform Integration
 
+![Image](https://github.com/user-attachments/assets/9f6cdf2c-89d5-40cf-9d4a-9e029c48db51)
+
 This document describes the process of setting up a CI/CD pipeline using Azure DevOps, Terraform, and Azure Container Web App for deploying a Python-based web application. The deployment is automated and can be triggered with a single click.
 
 ## <span style="color: Yellow;"> Prerequisites </span>
