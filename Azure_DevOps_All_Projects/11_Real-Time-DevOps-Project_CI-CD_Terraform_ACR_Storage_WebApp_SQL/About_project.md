@@ -2,7 +2,7 @@
 
 ![Image](https://github.com/user-attachments/assets/00ba4653-adaa-4422-b3b1-fb94654c4f2a)
 
-This document describes the process of setting up a CI/CD pipeline using Azure DevOps, Terraform, and various Azure services for deploying a web application on a private AKS cluster. The deployment is automated and ensures secure communication between services.
+This document explains how to set up a CI/CD pipeline using Azure DevOps, Terraform, and different Azure services to deploy a web application on a private AKS cluster. The deployment is automated and ensures secure communication between services.
 
 ## Prerequisites
 
