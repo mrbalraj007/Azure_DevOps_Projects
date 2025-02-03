@@ -159,29 +159,29 @@ sudo cat /var/log/cloud-init-output.log | more
   - update `servicePrincipalKey`
   - update `tenantid`
 
-- **Step-01**. Go to keyvault and update the value (Azure UI)
-  ![Image](https://github.com/user-attachments/assets/641035f5-af9a-425b-a90c-77109f29da5a)
-  ![Image](https://github.com/user-attachments/assets/d38fe4a1-7306-48f1-a4bd-5cc89bb8df54)
-  ![Image](https://github.com/user-attachments/assets/0ef6df0e-e930-4a08-a7d2-4a541726b6b0)
+  - **Step-01**. Go to keyvault and update the value (Azure UI)
+    ![Image](https://github.com/user-attachments/assets/641035f5-af9a-425b-a90c-77109f29da5a)
+    ![Image](https://github.com/user-attachments/assets/d38fe4a1-7306-48f1-a4bd-5cc89bb8df54)
+    ![Image](https://github.com/user-attachments/assets/0ef6df0e-e930-4a08-a7d2-4a541726b6b0)
 
 - Update rest of two values in a same ways.
   
-- **Step-02**. Update the secret in Library at Azure DevOps 
-![Image](https://github.com/user-attachments/assets/f06b8daa-65d8-4999-90a6-e222f61336ad)
+  - **Step-02**. Update the secret in Library at Azure DevOps 
+    ![Image](https://github.com/user-attachments/assets/f06b8daa-65d8-4999-90a6-e222f61336ad)
 
-- **Step-03**. Link secrets from an Azure key vault as variables..
-![Image](https://github.com/user-attachments/assets/3f1ee30c-c31e-47e4-b554-dd0367c185f2)
-![Image](https://github.com/user-attachments/assets/7a8e2a60-2862-460e-aefd-e313a588a0b9)
-![Image](https://github.com/user-attachments/assets/cda11888-d173-4c83-8bfa-440f00d5aaa2)
-![Image](https://github.com/user-attachments/assets/00bf3b2c-4edc-4a1c-a7cd-c21b9232a5d1)
-![Image](https://github.com/user-attachments/assets/8edb341d-47a4-4777-9af0-f9011e3a94b0)
-![Image](https://github.com/user-attachments/assets/976fc27e-27b1-4118-bcc7-fa39cbc2e245)
+  - **Step-03**. Link secrets from an Azure key vault as variables..
+    ![Image](https://github.com/user-attachments/assets/3f1ee30c-c31e-47e4-b554-dd0367c185f2)
+    ![Image](https://github.com/user-attachments/assets/7a8e2a60-2862-460e-aefd-e313a588a0b9)
+    ![Image](https://github.com/user-attachments/assets/cda11888-d173-4c83-8bfa-440f00d5aaa2)
+    ![Image](https://github.com/user-attachments/assets/00bf3b2c-4edc-4a1c-a7cd-c21b9232a5d1)
+    ![Image](https://github.com/user-attachments/assets/8edb341d-47a4-4777-9af0-f9011e3a94b0)
+    ![Image](https://github.com/user-attachments/assets/976fc27e-27b1-4118-bcc7-fa39cbc2e245)
 
 #### <span style="color: cyan;"> Update changes in Repo code as per project details.
 - Repo (Infra-as-code)
   - Step-01: `script file` need to be updated from  `agent-vm` folder
     - update the `Organization` and `PAT token`
-   ![Image](https://github.com/user-attachments/assets/08b262af-bf4f-4a54-b9ee-ffe5e23b4778)
+    ![Image](https://github.com/user-attachments/assets/08b262af-bf4f-4a54-b9ee-ffe5e23b4778)
 
 
   - Step-02: Update Service Principle Name from `private-acr` Folder
