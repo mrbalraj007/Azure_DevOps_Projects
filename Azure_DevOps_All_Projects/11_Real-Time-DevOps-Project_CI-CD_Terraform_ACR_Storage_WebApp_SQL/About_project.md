@@ -10,7 +10,7 @@ Before diving into this project, here are some skills and tools you should be fa
 
 Need to create a PAT access Token-
 
-- [x] [Clone repository for terraform code](https://github.com/mrbalraj007/Azure_DevOps_Projects/tree/main/Azure_DevOps_All_Projects/10_Real-Time-DevOps-Project_CI-CD_Terraform_ACR_Storage_WebApp)<br>
+- [x] [Clone repository for terraform code](https://github.com/mrbalraj007/Azure_DevOps_Projects/tree/main/Azure_DevOps_All_Projects/11_Real-Time-DevOps-Project_CI-CD_Terraform_ACR_Storage_WebApp_SQL)<br>
   __Note__: Replace resource names and variables as per your requirement in terraform code
     - Update ```terraform.tfvars```
      
@@ -66,7 +66,7 @@ First, we'll create the necessary virtual machines using ```terraform``` code.
 
 Below is a terraform Code:
 
-Once you [clone repo](https://github.com/mrbalraj007/Azure_DevOps_Projects/tree/main/Azure_DevOps_All_Projects/10_Real-Time-DevOps-Project_CI-CD_Terraform_ACR_Storage_WebApp)</span> and run the terraform command.
+Once you [clone repo](https://github.com/mrbalraj007/Azure_DevOps_Projects/tree/main/Azure_DevOps_All_Projects/11_Real-Time-DevOps-Project_CI-CD_Terraform_ACR_Storage_WebApp_SQL)</span> and run the terraform command.
 ```bash
 $ ls -l
 -rw-r--r-- 1 bsingh 1049089  690 Jan 31 15:01 DevOps_UI.tf
@@ -92,7 +92,7 @@ terraform plan
 terraform apply 
 # Optional <terraform apply --auto-approve>
 ```
-![alt text](image.png)
+![Image](https://github.com/user-attachments/assets/8747070b-baf2-404a-9894-656eaa027df4)
 
 Once you run the terraform command, then we will verify the following things to make sure everything is setup via a terraform.
 
@@ -146,12 +146,12 @@ sudo cat /var/log/cloud-init-output.log | more
   ```
 - Need to Create a service Connect in pipeline first.
      - Azure Service Connection
-![alt text](image-1.png)
-![alt text](image-2.png)
-![alt text](image-3.png)
-![alt text](image-4.png)
-![alt text](image-5.png)
-![alt text](image-6.png)
+![Image](https://github.com/user-attachments/assets/e10917fd-fb50-4971-af44-092d36c49e3d)
+![Image](https://github.com/user-attachments/assets/e2199467-ae79-4ad4-a679-cd7a5eb22610)
+![Image](https://github.com/user-attachments/assets/8b5f1b92-0891-43c8-9a58-5ca27427952c)
+![Image](https://github.com/user-attachments/assets/1e7020fc-8a7d-4c68-bb7a-9b101ce8dc55)
+![Image](https://github.com/user-attachments/assets/ea313399-e8b3-402d-8cb1-875f6e698b27)
+![Image](https://github.com/user-attachments/assets/1fe802f7-bb27-4df1-af33-9b1ca6d19188)
 
 #### <span style="color: cyan;"> Update Secret variable value details.
 - Update secret variable value first
@@ -160,28 +160,28 @@ sudo cat /var/log/cloud-init-output.log | more
   - update `tenantid`
 
 - **Step-01**. Go to keyvault and update the value (Azure UI)
-  ![alt text](image-7.png)
-  ![alt text](image-8.png)
-  ![alt text](image-9.png)
+  ![Image](https://github.com/user-attachments/assets/641035f5-af9a-425b-a90c-77109f29da5a)
+  ![Image](https://github.com/user-attachments/assets/d38fe4a1-7306-48f1-a4bd-5cc89bb8df54)
+  ![Image](https://github.com/user-attachments/assets/0ef6df0e-e930-4a08-a7d2-4a541726b6b0)
 
 - Update rest of two values in a same ways.
   
 - **Step-02**. Update the secret in Library at Azure DevOps 
-![alt text](image-10.png)
+![Image](https://github.com/user-attachments/assets/f06b8daa-65d8-4999-90a6-e222f61336ad)
 
 - **Step-03**. Link secrets from an Azure key vault as variables..
-![alt text](image-11.png)
-![alt text](image-12.png)
-![alt text](image-13.png)
-![alt text](image-14.png)
-![alt text](image-15.png)
-![alt text](image-16.png)
+![Image](https://github.com/user-attachments/assets/3f1ee30c-c31e-47e4-b554-dd0367c185f2)
+![Image](https://github.com/user-attachments/assets/7a8e2a60-2862-460e-aefd-e313a588a0b9)
+![Image](https://github.com/user-attachments/assets/cda11888-d173-4c83-8bfa-440f00d5aaa2)
+![Image](https://github.com/user-attachments/assets/00bf3b2c-4edc-4a1c-a7cd-c21b9232a5d1)
+![Image](https://github.com/user-attachments/assets/8edb341d-47a4-4777-9af0-f9011e3a94b0)
+![Image](https://github.com/user-attachments/assets/976fc27e-27b1-4118-bcc7-fa39cbc2e245)
 
 #### <span style="color: cyan;"> Update changes in Repo code as per project details.
 - Repo (Infra-as-code)
   - Step-01: `script file` need to be updated from  `agent-vm` folder
     - update the `Organization` and `PAT token`
-   ![alt text](image-17.png)
+   ![Image](https://github.com/user-attachments/assets/08b262af-bf4f-4a54-b9ee-ffe5e23b4778)
 
 
   - Step-02: Update Service Principle Name from `private-acr` Folder
@@ -197,40 +197,48 @@ sudo cat /var/log/cloud-init-output.log | more
     az ad sp list --query "[?starts_with(displayName, 'Azure')].{Name:displayName, AppId:appId}" --output table
     ```
     - Update the Service Principal name:
-    ![alt text](image-18.png)
+    ![Image](https://github.com/user-attachments/assets/7b9db8ed-2991-44e0-a79b-e80db59921ae)
 
 ### <span style="color: yellow;"> Build a YAML pipeline.
+- Following are the sequence to create the setup using pipeline.
+  - VNet (Network/Subnet)
+  - Agent VM  
+  - Azure Container Registry
+  - SQL Database
+  - Application Gateway
+  - AKS Cluster
+  
 - Step-01: Build YAML pipeline as below:
-![alt text](image-19.png)
-![alt text](image-20.png)
-![alt text](image-21.png)
-![alt text](image-22.png)
+![Image](https://github.com/user-attachments/assets/ab364f80-8ca9-40c6-b049-66e96353d0c9)
+![Image](https://github.com/user-attachments/assets/d8256fb6-02da-4e09-aa16-aca69699dd1e)
+![Image](https://github.com/user-attachments/assets/264e7e8f-8074-46c1-84e9-69dfc3c684d5)
+![Image](https://github.com/user-attachments/assets/32bceb0a-b008-49b0-b201-98edbd8cd7e4)
+
 
 - Adjust the paramerts for `vNet` Job.
-   - ![alt text](image-23.png)
+   ![Image](https://github.com/user-attachments/assets/fb6b8e3e-fb2a-405a-bf5a-7fbc2d9a1841)
 
 - Adjust the paramerts for `vm` Job.
-  ![alt text](image-24.png)
+  ![Image](https://github.com/user-attachments/assets/28d63092-c966-4bb5-8869-8de0cefff925)
 
 - Adjust the paramerts for `acr` Job.
-![alt text](image-25.png)
+  ![Image](https://github.com/user-attachments/assets/e0e495b4-a3f6-4b53-abc9-8f43a5318829)
 
 - Save and run the pipeline.
-![alt text](image-26.png)
+  ![Image](https://github.com/user-attachments/assets/4fe7c114-058a-46f4-8a12-7e3faa2c8bee)
 
 - Adjust the paramerts for `db` Job.
-![alt text](image-27.png)
+  ![Image](https://github.com/user-attachments/assets/a2fe3359-b438-40ec-9a33-434e75eef20e)
 
 - Adjust the paramerts for `appgateway` Job.
-![alt text](image-28.png)
+  ![Image](https://github.com/user-attachments/assets/abd46cdc-85e8-4d74-9cab-b9541efcf840)
 
 - Adjust the `ssh key` in library for `AKS cluster`
   - `SSH public key` need to be updated
-   ![alt text](image-29.png)
+   ![Image](https://github.com/user-attachments/assets/046a1093-a9ea-4908-9b9b-85895ae46a2a)
 
   Run the pipeline.
-  ![alt text](image-37.png)
-
+  ![Image](https://github.com/user-attachments/assets/77964f28-2286-4764-b392-3d55afa9aa25)
 
 ### <span style="color: yellow;"> Install SQL package on Agent VM.
 - Open a PuTTY session for the virtual machine and install the required SQL package to check SQL connectivity.
@@ -249,25 +257,25 @@ sudo cat /var/log/cloud-init-output.log | more
   - Apply the changes:
     - source ~/.bashrc
   
-  ![alt text](image-30.png)
+  ![Image](https://github.com/user-attachments/assets/b51291e1-9bbc-4b70-9c1c-2e90b5bcddba)
 
   - Verify the installation:
     - sqlcmd -S <server_address> -U <username> -P <password> -d <database_name>
-  ![alt text](image-31.png)
+  ![Image](https://github.com/user-attachments/assets/cdfb5be6-bd1b-4861-b36b-beeb50e12b5e)
 
 
 - Convert SQL cred to base 64  
 ```
 echo "Server=tcp:yourserver.database.windows.net,1433;Initial Catalog=yourdatabase;Persist Security Info=False;User ID=yourusername;Password=yourpassword;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;" | base64
 ```
-![alt text](image-33.png)
+![Image](https://github.com/user-attachments/assets/17975644-1a11-410a-9c09-a137f9d10661)
 
 - Decode base64 cred to Normal.
 ```sh
  echo "U2VydmVyPXRjcDpldGlja2V0ZGJzZXJ2ZXIzMDAxMjAyNS5kYXRhYmFzZS53aW5kb3dzLm5ldCwxNDMzO0luaXRpYWwgQ2F0YWxvZz1ldGlja2V0cy1kYjtQZXJzaXN0IFNlY3VyaXR5IEluZm89RmFsc2U7VXNlciBJRD1henVyZXVzZXI7UGFzc3dvcmQ9cGFzc3dvcmRAMTIzO011bHRpcGxlQWN0aXZlUmVzdWx0U2V0cz1GYWxzZTtFbmNyeXB0PVRydWU7VHJ1c3RTZXJ2ZXJDZXJ0aWZpY2F0ZT1G" | base64 -d
 ```
 
-![alt text](image-32.png)
+![Image](https://github.com/user-attachments/assets/b6f901f4-e941-415b-b264-6248f87ffbda)
 
 ###  <span style="color: yellow;"> Connect `AKS cluster` on Agent VM.
 - Run the following commands to connect AKS cluster
@@ -284,29 +292,28 @@ echo "Server=tcp:yourserver.database.windows.net,1433;Initial Catalog=yourdataba
   az aks get-credentials --resource-group rg-devops --name aksdemo --overwrite-existing
   ```
 
-![alt text](image-34.png)
+![Image](https://github.com/user-attachments/assets/5c586034-bd57-49df-8bd3-6a481133bba8)
 
 ### <span style="color: yellow;"> Verify Application Accessibility.
 - Try to access application gateway IP in browser and you will below error message
-![alt text](image-35.png)
-![alt text](image-36.png)
+![Image](https://github.com/user-attachments/assets/5f26931b-b116-4747-804c-da85aa32ab80)
+![Image](https://github.com/user-attachments/assets/33ae7b59-c0b6-432d-86f0-80b1fceabb9c)
 
 ## <span style="color: yellow;">  Build the second pipeline (Application).
 
 - Build application pipeline
-![alt text](image-38.png)
+![Image](https://github.com/user-attachments/assets/6a2d7d9e-589b-410f-80c0-4c5a162b7dfc)
 
 - run the pipeline.
 
 - It will ask for permission and approve it.
-![alt text](image-39.png)
-
+![Image](https://github.com/user-attachments/assets/e156d14f-8f97-4d6e-bb1d-39db605854ff)
 
 - Update the deployment.yaml file as below (SQL Connection)
-  ![alt text](image-40.png)
+  ![Image](https://github.com/user-attachments/assets/544e9fb5-e59c-47f2-af48-02d04950ac45)
 
 - AKS deployment is waiting for approval
-- ![alt text](image-41.png)
+  ![Image](https://github.com/user-attachments/assets/acd32b2b-5194-4863-8c02-38f86419c6e0)
 
 ### <span style="color: yellow;"> Troubleshooting.
 - I was getting an error `imagepullbackoff` and noticed that the `SQL connection` name was having a problem. To retrieve and update the string from Secret.
@@ -316,26 +323,23 @@ echo "Server=tcp:yourserver.database.windows.net,1433;Initial Catalog=yourdataba
   kubectl get secret db-connection-secret -o jsonpath="{.data.connection-string}" | base64 --decode
   ```
 - Pipeline status
-![alt text](image-46.png)
+![Image](https://github.com/user-attachments/assets/8111a79c-376f-4551-9674-a6b5c553ffdb)
 
 - Image status
-![alt text](image-42.png)
+![Image](https://github.com/user-attachments/assets/d684659b-7fb5-4fd0-a03c-f9a766a5c730)
 
 ### <span style="color: yellow;"> Update the image name in manifest file.
-![alt text](image-40.png)
-
-
-- Application is accessible now.
-![alt text](image-43.png)
-
-- Try to create account in website.
-![alt text](image-44.png)
-
-- Following are the cred to login into webpage
-![alt text](image-45.png)
+![Image](https://github.com/user-attachments/assets/544e9fb5-e59c-47f2-af48-02d04950ac45)
 
 Congratulations :-) the application is working and accessible.
+- Application is accessible now.
+![Image](https://github.com/user-attachments/assets/1e298a29-52e7-48b7-972b-e355b90de3ad)
 
+- Try to create account in website.
+![Image](https://github.com/user-attachments/assets/724fa414-c3d2-4d50-82dc-5ed9676eb054)
+
+- Following are the cred to login into webpage
+![Image](https://github.com/user-attachments/assets/28a139cc-9e6d-4eec-ac18-0e5214bec229)
 
 ## <span style="color: yellow;"> Pipeline for Cleanup Infra Setup.</span>
 - Following are the sequence to delete the setup using pipeline.
@@ -346,7 +350,7 @@ Congratulations :-) the application is working and accessible.
   - Agent VM
   - VNet
   
-- Here is the 👉[Updated pipeline]()👈 
+- Here is the 👉[Updated pipeline](https://github.com/mrbalraj007/Azure_DevOps_Projects/blob/main/Azure_DevOps_All_Projects/11_Real-Time-DevOps-Project_CI-CD_Terraform_ACR_Storage_WebApp_SQL/Pipeline/Destroy%20Infra.md)👈 
 
 ## <span style="color: Yellow;"> Environment Cleanup:
 - As we are using Terraform, we will use the following command to delete `ssh_key`, `Vault` and `Storage account`.
@@ -357,11 +361,10 @@ Congratulations :-) the application is working and accessible.
   ```
 
 - I was getting below error message while deleting the setup
-![alt text](image-47.png)
+![Image](https://github.com/user-attachments/assets/81ae4575-01fb-47f2-8f4b-8207862394dc)
 
 - Rerun the destroy command again and it will delete `ResourceGroup` as well.
-![alt text](image-48.png)
-
+![Image](https://github.com/user-attachments/assets/86309505-ce7b-47d1-9459-4e4e9b3f194d)
 
 ## <span style="color: Yellow;"> Conclusion
 
@@ -369,7 +372,6 @@ This project demonstrates a robust CI/CD pipeline setup using Azure DevOps, Terr
 
 
 __Ref Link:__
-
 
 - [YouTube Link](https://www.youtube.com/watch?v=PDBoprlJfUw)
 - [Standard and Basic SKU](https://learn.microsoft.com/en-us/answers/questions/1349124/azure-cannot-change-the-static-ip-address)
