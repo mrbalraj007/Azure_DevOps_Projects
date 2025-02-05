@@ -189,7 +189,7 @@ resource "azuredevops_variable_group" "aksvariables" {
 
 
   variable {
-    name  = "TF_VAR_AKS_SUBNET_NAME"
+    name  = "TF_VAR_ACR_SUBNET_NAME"
     value = var.ACR_SUBNET_NAME
   }
 
