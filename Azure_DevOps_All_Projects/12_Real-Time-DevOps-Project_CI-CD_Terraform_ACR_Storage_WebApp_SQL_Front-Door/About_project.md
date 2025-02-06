@@ -395,10 +395,10 @@ echo "Server=tcp:yourserver.database.windows.net,1433;Initial Catalog=yourdataba
 ![Image](https://github.com/user-attachments/assets/96667f9e-611c-4286-8576-6f386a815670)
 ![Image](https://github.com/user-attachments/assets/40bee6c7-2f28-43f1-a214-022d43fba9ea)
 
-Congratulations :-) the application is working and accessible.
+**Congratulations** :-) the application is working and accessible.
 ![Image](https://github.com/user-attachments/assets/5a9efd1f-1584-4b6a-bb13-4756c44ea252)
 
-Pipenline Status
+- **Pipenline Status**
 ![Image](https://github.com/user-attachments/assets/4e1fb7d3-6aad-489e-9f82-ab015e539b0f)
 
 ## <span style="color: yellow;"> Pipeline for Cleanup Infra Setup.</span>
