@@ -8,7 +8,7 @@ Before diving into this project, here are some skills and tools you should be fa
 
 Need to create a PAT access Token-
 
-- [x] [Terraform code](https://github.com/mrbalraj007/Azure_DevOps_Projects/tree/main/Azure_DevOps_All_Projects/11_Real-Time-DevOps-Project_CI-CD_Terraform_ACR_Storage_WebApp_SQL)<br>
+- [x] [Terraform code](https://github.com/mrbalraj007/Azure_DevOps_Projects/tree/main/Azure_DevOps_All_Projects/12_Real-Time-DevOps-Project_CI-CD_Terraform_ACR_Storage_WebApp_SQL_Front-Door/Terraform_Code)<br>
   __Note__: Replace resource names and variables as per your requirement in terraform code
     - Update ```terraform.tfvars```
 - [x] Application Repo:     
@@ -77,7 +77,7 @@ First, we'll create the necessary virtual machines using ```terraform``` code.
 
 Below is a terraform Code:
 
-Once you [clone repo](https://github.com/mrbalraj007/Azure_DevOps_Projects/tree/main/Azure_DevOps_All_Projects/11_Real-Time-DevOps-Project_CI-CD_Terraform_ACR_Storage_WebApp_SQL)</span> and run the terraform command.
+Once you [clone repo](https://github.com/mrbalraj007/Azure_DevOps_Projects/tree/main/Azure_DevOps_All_Projects/12_Real-Time-DevOps-Project_CI-CD_Terraform_ACR_Storage_WebApp_SQL_Front-Door/Terraform_Code)</span> and run the terraform command.
 ```bash
 $ ls -l
 -rw-r--r-- 1 bsingh 1049089  690 Jan 31 15:01 DevOps_UI.tf
@@ -274,6 +274,8 @@ sudo cat /var/log/cloud-init-output.log | more
 Run the pipeline.
 ![Image](https://github.com/user-attachments/assets/432c3290-558c-47b1-a01f-0a9a115896a3)  
 
+- Here is the 👉[Updated pipeline for Create Infra](https://github.com/mrbalraj007/Azure_DevOps_Projects/blob/main/Azure_DevOps_All_Projects/12_Real-Time-DevOps-Project_CI-CD_Terraform_ACR_Storage_WebApp_SQL_Front-Door/Pipeline/Create%20Infra.md)👈 
+
 ### <span style="color: yellow;"> Install SQL package on Agent VM.
 - Open a PuTTY session for the virtual machine and install the required SQL package to check SQL connectivity.
 
@@ -432,7 +434,7 @@ Pipenline Status
   - Agent VM
   - VNet
   
-- Here is the 👉[Updated pipeline](https://github.com/mrbalraj007/Azure_DevOps_Projects/blob/main/Azure_DevOps_All_Projects/11_Real-Time-DevOps-Project_CI-CD_Terraform_ACR_Storage_WebApp_SQL/Pipeline/Destroy%20Infra.md)👈 
+- Here is the 👉[Updated pipeline for delete](https://github.com/mrbalraj007/Azure_DevOps_Projects/blob/main/Azure_DevOps_All_Projects/12_Real-Time-DevOps-Project_CI-CD_Terraform_ACR_Storage_WebApp_SQL_Front-Door/Pipeline/Destroy%20Infra.md)👈 
 
 ![Image](https://github.com/user-attachments/assets/701d8225-1977-4b98-9a8c-500c5b26b956)
 
