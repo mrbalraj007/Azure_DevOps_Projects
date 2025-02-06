@@ -34,29 +34,6 @@ Need to create a PAT access Token-
    
 ## Key Points
 
-1. **Architecture Overview**:
-   - The architecture includes multiple VNets for AKS, ACR, and self-hosted agents.
-   - Virtual Network Peering is used to enable communication between VNets.
-   - Private Endpoints are used for secure access to Azure services.
-
-2. **Build Pipeline**:
-   - The build pipeline includes tasks to build and push a Docker image to ACR.
-   - Terraform configuration files are published as pipeline artifacts for use in the release pipeline.
-
-3. **Release Pipeline**:
-   - The release pipeline is linked to the artifacts published by the build pipeline.
-   - It includes stages for deploying resources to AKS using Terraform.
-   - Auto-scaling and alert configurations are set up for the web app.
-
-4. **Terraform Configuration**:
-   - Separate files for providers, variables, and main configuration.
-   - Variables are stored securely and referenced in the configuration files.
-   - The configuration includes creating VNets, AKS cluster, ACR, SQL Database, Application Gateway, and Private Endpoints.
-
-5. **Service Connections**:
-   - Azure DevOps service connections are created for authentication with Azure and Docker Registry.
-
-## Key Points
 **Architecture Components**:
    - **Virtual Networks**: Three virtual networks (AKS vnet, ACR vnet, Agent vnet) are used to isolate resources.
    - **Private AKS Cluster**: Deployed within the AKS vnet.
@@ -185,14 +162,14 @@ sudo cat /var/log/cloud-init-output.log | more
   - update `servicePrincipalKey`
   - update `tenantid`
 
-  - **Step-01**. Go to keyvault and update the value (Azure UI)
+- **Step-01**. Go to keyvault and update the value (Azure UI)
     ![Image](https://github.com/user-attachments/assets/641035f5-af9a-425b-a90c-77109f29da5a)
     ![Image](https://github.com/user-attachments/assets/d38fe4a1-7306-48f1-a4bd-5cc89bb8df54)
     ![Image](https://github.com/user-attachments/assets/0ef6df0e-e930-4a08-a7d2-4a541726b6b0)
 
-- Update rest of two values in a same ways.
+  - Update rest of two values in a same ways.
   
-  - **Step-02**. Update the secret in Library at Azure DevOps 
+- **Step-02**. Update the secret in Library at Azure DevOps 
     ![Image](https://github.com/user-attachments/assets/f06b8daa-65d8-4999-90a6-e222f61336ad)
 
   - **Step-03**. Link secrets from an Azure key vault as variables..
@@ -203,7 +180,7 @@ sudo cat /var/log/cloud-init-output.log | more
     ![Image](https://github.com/user-attachments/assets/8edb341d-47a4-4777-9af0-f9011e3a94b0)
     ![Image](https://github.com/user-attachments/assets/976fc27e-27b1-4118-bcc7-fa39cbc2e245)
 
-#### <span style="color: cyan;"> Update changes in Repo code as per project details.
+#### <span style="color: cyan;"> Update changes in repo code as per project details.
 - Repo (Infra-as-code)
   - Step-01: `script file` need to be updated from  `agent-vm` folder
     - update the `Organization` and `PAT token`
@@ -266,12 +243,12 @@ sudo cat /var/log/cloud-init-output.log | more
 - Adjust the paramerts for `FrontDoor` Job.
   ![Image](https://github.com/user-attachments/assets/27553262-b0cd-4bd6-a380-29922d336e07)
 
-- Adjust the `ssh key` in library for `AKS cluster`
+- Step-02:  Adjust the `ssh key` in library for `AKS cluster`
   - `SSH public key` need to be updated
    ![Image](https://github.com/user-attachments/assets/046a1093-a9ea-4908-9b9b-85895ae46a2a)
 
 
-Run the pipeline.
+####  Run the pipeline.
 ![Image](https://github.com/user-attachments/assets/432c3290-558c-47b1-a01f-0a9a115896a3)  
 
 - Here is the 👉[Updated pipeline for Create Infra](https://github.com/mrbalraj007/Azure_DevOps_Projects/blob/main/Azure_DevOps_All_Projects/12_Real-Time-DevOps-Project_CI-CD_Terraform_ACR_Storage_WebApp_SQL_Front-Door/Pipeline/Create%20Infra.md)👈 
