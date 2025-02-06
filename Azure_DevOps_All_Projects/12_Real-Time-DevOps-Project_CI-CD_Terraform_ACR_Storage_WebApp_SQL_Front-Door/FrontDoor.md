@@ -1,4 +1,5 @@
 # <span style="color: Yellow;"> Comprehensive CI/CD Pipeline for Private AKS: Seamless Integration with Azure DevOps, FrontDoor, Terraform, Private ACR, Azure SQL DB, Application Gateway, Key Vault, and Storage Account
+![Image](https://github.com/user-attachments/assets/6ea24f7c-8b6e-49e2-be82-5daa837a7c5d)
 
 This document provides a detailed explanation of setting up a CICD pipeline for deploying a web application on a private AKS cluster, integrating with Azure SQL Database, Private Azure Container Registry (ACR), and Application Gateway using Terraform. Additionally, it covers the use of Azure Front Door for global load balancing and content delivery.
 
@@ -6,7 +7,7 @@ This document provides a detailed explanation of setting up a CICD pipeline for 
 
 Before diving into this project, here are some skills and tools you should be familiar with:
 
-Need to create a PAT access Token-
+- [x] Need to Create a PAT access Token
 
 - [x] [Terraform code](https://github.com/mrbalraj007/Azure_DevOps_Projects/tree/main/Azure_DevOps_All_Projects/12_Real-Time-DevOps-Project_CI-CD_Terraform_ACR_Storage_WebApp_SQL_Front-Door/Terraform_Code)<br>
   __Note__: Replace resource names and variables as per your requirement in terraform code
