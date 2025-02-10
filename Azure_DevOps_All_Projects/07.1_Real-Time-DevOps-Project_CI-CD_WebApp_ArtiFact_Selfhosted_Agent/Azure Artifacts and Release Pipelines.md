@@ -1,5 +1,7 @@
 # Implementing CI/CD with Azure DevOps: Azure Artifacts and Release Pipelines
 
+![Image](https://github.com/user-attachments/assets/79c7176e-ef46-47bd-8eca-6595e87aa72a)
+
 ## <span style="color: Yellow;"> Overview
 
 This document provides a step-by-step guide on setting up a CI/CD pipeline using Azure Artifacts and Azure DevOps. The project involves deploying a sample Nike landing page using Tailwind CSS.
