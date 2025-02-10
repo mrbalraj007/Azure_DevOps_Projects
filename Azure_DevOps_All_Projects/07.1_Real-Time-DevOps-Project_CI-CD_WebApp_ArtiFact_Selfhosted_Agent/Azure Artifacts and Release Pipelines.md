@@ -281,7 +281,7 @@ sudo ./svc.sh start
 - Verify the Agent Registration in DevOps Portal:
   - After running the command, the agent should be registered in the nike-website-pool.
   - Select the Organization> Organization setting> Pipeline> Agent Pools
-    ![alt text](/All_ScreenShot/image-4.png)
+    ![Image](https://github.com/user-attachments/assets/7b031001-ea53-40b1-8abf-c47b1ff8a1ec)
   - *Go to Nike-Website > Project Settings > Agent Pools to confirm the agent is listed and active.*
   ![Image](https://github.com/user-attachments/assets/89e72f00-50bb-4675-a934-b010a02018b7)
 
