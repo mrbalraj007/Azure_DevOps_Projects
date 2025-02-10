@@ -220,6 +220,7 @@ azureuser@devopsdemovm:~$
   ```sh
   az login --use-device-code
   ```
+- [Create Service Principal via Azure CLI](https://github.com/mrbalraj007/Azure_DevOps_Projects/blob/main/Azure_DevOps_All_Projects/07.1_Real-Time-DevOps-Project_CI-CD_WebApp_ArtiFact_Selfhosted_Agent/Pipeline_Code/Az-Cli_Service_Principle.md)
 - Need to Create a service Connection in pipeline first.
      - Pipeline> Service Connections>Create Service Connection> select "Azure Service Connection"
 ![Image](https://github.com/user-attachments/assets/e10917fd-fb50-4971-af44-092d36c49e3d)
