@@ -107,7 +107,7 @@ terraform apply
 # Optional <terraform apply --auto-approve>
 ```
 - Terraform Output:
-![Image](https://github.com/user-attachments/assets/e09d3a43-8848-494b-afc8-ee7948c2264c)
+  ![Image](https://github.com/user-attachments/assets/e09d3a43-8848-494b-afc8-ee7948c2264c)
 
 Once you run the terraform command, then we will verify the following things to make sure everything is setup via a terraform.
 
