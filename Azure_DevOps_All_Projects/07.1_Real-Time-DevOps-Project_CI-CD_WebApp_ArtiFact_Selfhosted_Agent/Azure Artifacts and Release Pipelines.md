@@ -272,7 +272,7 @@ sudo ./svc.sh start
   - Navigate to your organization (https://dev.azure.com/<Organization_name>).
   - Open the Nike-Website project.
   - Go to Project Settings > Agent Pools.
-    ![Image](https://github.com/user-attachments/assets/a82eab75-70a8-4a3b-9204-884c59ee1d81)
+    ![Image](https://github.com/user-attachments/assets/482f4ac0-7633-4ac4-8057-90d8573a27f6)
   
   - Pool to link **existing one**.
   
