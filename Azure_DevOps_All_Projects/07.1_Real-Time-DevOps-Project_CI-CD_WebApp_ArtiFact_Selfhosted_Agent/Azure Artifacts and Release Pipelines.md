@@ -52,7 +52,7 @@ Before diving into this project, here are some skills and tools you should be fa
 
 Need to create a PAT access Token-
 
-- [x] [Clone repository for terraform code](https://github.com/mrbalraj007/Azure_DevOps_Projects/tree/main/Azure_DevOps_All_Projects/07.1_Real-Time-DevOps-Project_CI-CD_WebApp_ArtiFact_Selfhosted_Agent/Terraform_Code)<br>
+- [x] [Terraform Code](https://github.com/mrbalraj007/Azure_DevOps_Projects/tree/main/Azure_DevOps_All_Projects/07.1_Real-Time-DevOps-Project_CI-CD_WebApp_ArtiFact_Selfhosted_Agent/Terraform_Code)<br>
 
   __Note__: Replace resource names and variables as per your requirement in terraform code
     - Update ```terraform.tfvars```.
@@ -318,7 +318,7 @@ stages:
           command: 'custom'
           customCommand: 'run build'
 ```
-### <span style="color: cyan;"> To add stage to publish the aritifact.
+### <span style="color: cyan;"> To add a stage to publish the artifact.
 
 ![Image](https://github.com/user-attachments/assets/cfdf5e5f-33e4-4f96-917d-a0ec120cb060)
 
@@ -338,7 +338,7 @@ stages:
 - Validate the package in Artifact
 ![Image](https://github.com/user-attachments/assets/0883814c-fa4e-40d9-842e-ac0ce73ca2cb)
 
-- 👉[Here is CI Pipeline](https://github.com/mrbalraj007/Azure_DevOps_Projects/blob/main/Azure_DevOps_All_Projects/07.1_Real-Time-DevOps-Project_CI-CD_WebApp_ArtiFact_Selfhosted_Agent/Pipeline_Code/CI_only.md)👈 
+- 👉[Here is Complete CI Pipeline](https://github.com/mrbalraj007/Azure_DevOps_Projects/blob/main/Azure_DevOps_All_Projects/07.1_Real-Time-DevOps-Project_CI-CD_WebApp_ArtiFact_Selfhosted_Agent/Pipeline_Code/CI_only.md)👈 
 
 ## <span style="color: cyan;"> Configure CD Pipeline.
 - Release Pipeline
@@ -353,7 +353,7 @@ stages:
   ![Image](https://github.com/user-attachments/assets/e743cae3-e7df-45ad-a94d-f0de55ad277e)
 
 - Configure stage for Deployment
-  - Add sevice principal in deployment
+  - Add service principal in deployment
   ![Image](https://github.com/user-attachments/assets/5f74451c-6d6a-4cb1-bdc4-6bf8fbb9561e)
   ![Image](https://github.com/user-attachments/assets/9bd6c098-7504-44f1-ad70-d3abacc09e17)
   ![Image](https://github.com/user-attachments/assets/fb2ab50d-b953-4584-87c1-d4e4afb8fdea)
