@@ -50,12 +50,12 @@ Before diving into this project, here are some skills and tools you should be fa
 
 Need to create a PAT access Token-
 
-- [x] [Clone repository for terraform code](https://github.com/mrbalraj007/Azure_DevOps_Projects/tree/main/Azure_DevOps_All_Projects/02_Real-Time-DevOps-Project_CR_AKS_with-EC2)<br>
+- [x] [Clone repository for terraform code](https://github.com/mrbalraj007/Azure_DevOps_Projects/tree/main/Azure_DevOps_All_Projects/07.1_Real-Time-DevOps-Project_CI-CD_WebApp_ArtiFact_Selfhosted_Agent/Terraform_Code)<br>
 
   __Note__: Replace resource names and variables as per your requirement in terraform code
     - Update ```terraform.tfvars```.
  
-- [x] [App Repo (Nike App)](https://github.com/mrbalraj007/k8s-kind-voting-app.git)
+- [x] [App Repo (Nike App)](https://github.com/piyushsachdeva/nike_landing_page.git)
 
 - [x] __Azure Account__: You’ll need an Azure account to create resources like virtual Machine, AKS cluster, and manage pipelines.
 - [x] __Terraform Knowledge__: Familiarity with Terraform to provision, manage, and clean up infrastructure.
@@ -79,7 +79,7 @@ First, we'll create the necessary virtual machines using ```terraform``` code.
 
 Below is a terraform Code:
 
-Once you [clone repo](https://github.com/mrbalraj007/Azure_DevOps_Projects/tree/main/Azure_DevOps_All_Projects/02_Real-Time-DevOps-Project_CR_AKS_with-EC2)</span> and run the terraform command.
+Once you [clone repo](https://github.com/mrbalraj007/Azure_DevOps_Projects/tree/main/Azure_DevOps_All_Projects/07.1_Real-Time-DevOps-Project_CI-CD_WebApp_ArtiFact_Selfhosted_Agent/Terraform_Code)</span> and run the terraform command.
 ```bash
 $ ls -l
 -rw-r--r-- 1 bsingh 1049089   261 Feb 10 11:10 azure_artifact.tf 
