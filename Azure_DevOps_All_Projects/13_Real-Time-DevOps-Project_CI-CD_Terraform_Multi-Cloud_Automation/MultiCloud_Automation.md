@@ -90,7 +90,7 @@ First, we'll create the necessary virtual machines using ```terraform``` code.
   terraform apply 
   # Optional <terraform apply --auto-approve>
   ```
-![alt text](image.png)
+![Image](https://github.com/user-attachments/assets/ec2fb16f-d7f5-4de6-9831-b9a64829dc7d)
 Once you run the terraform command, then we will verify the following things to make sure everything is setup via a terraform.
 
 ### <span style="color: Orange;"> Inspect the ```Cloud-Init``` logs</span>: 
@@ -104,7 +104,7 @@ sudo cat /var/log/cloud-init-output.log | more
 - *If the user_data script runs successfully, you will see output logs and any errors encountered during execution.*
 - *If there’s an error, this log will provide clues about what failed.*
 
-![alt text](image-5.png)
+![Image](https://github.com/user-attachments/assets/27233f0b-3fab-49ec-893e-8c24431e0ebb)
 
 
 ### <span style="color: cyan;"> Verify the Installation 
@@ -142,16 +142,16 @@ azureuser@devopsdemovm:~$ az version
 }
 ```
 - [x] <span style="color: brown;"> Project Creation
-![alt text](image-1.png)
+![Image](https://github.com/user-attachments/assets/c641826f-9db1-431b-a27c-a0d57669ae37)
 - [x] <span style="color: brown;"> Service Connection
-![alt text](image-2.png)
+![Image](https://github.com/user-attachments/assets/a7952cbf-b200-4209-ad5e-732b23647c23)
 - [x] <span style="color: brown;"> Import Repo 
-![alt text](image-3.png)
+![Image](https://github.com/user-attachments/assets/eb5e0859-87c7-4cef-8518-f9713b432306)
 - [x] <span style="color: brown;"> Resource Group & Storage account Creation
-![alt text](image-4.png)
+![Image](https://github.com/user-attachments/assets/ed3ac689-7877-4128-b85d-80b8aedb51dc)
 
 - Upload the private and public keys in library from a secure files as below.
-![alt text](image-6.png)
+![Image](https://github.com/user-attachments/assets/11cae9a2-e347-40d3-81b0-996616a28f7f)
 
 **Note**: It would be the same keys which was created during the provision the infra.
 
@@ -182,25 +182,25 @@ azureuser@devopsdemovm:~$ az version
 
 ## <span style="color: cyan;"> Pipeline - Build (Package)
    - Build the packages pipeline first.
-  ![alt text](image-7.png)
-  ![alt text](image-8.png)
-  ![alt text](image-9.png)
-  ![alt text](image-10.png)
+  ![Image](https://github.com/user-attachments/assets/2e4c50d8-f8e5-44ec-846e-53cd0fa96672)
+  ![Image](https://github.com/user-attachments/assets/659358b7-fb14-4abf-8a14-9213f60584e1)
+  ![Image](https://github.com/user-attachments/assets/464cb7d9-f76c-4974-9c15-c869319a5830)
+  ![Image](https://github.com/user-attachments/assets/6cd3d7ce-7efc-4c11-a3d5-6179d61df779)
 
-🔔Here is the [Updated pipeline code]().🔔
+🔔Here is the [Updated pipeline code](https://github.com/mrbalraj007/Azure_DevOps_Projects/blob/main/Azure_DevOps_All_Projects/13_Real-Time-DevOps-Project_CI-CD_Terraform_Multi-Cloud_Automation/Pipeline/application_pipeline.md).🔔
 
 - Build the pipeline status.
-![alt text](image-12.png)
+![Image](https://github.com/user-attachments/assets/9d495524-08ac-4d43-b543-d972ccce7ccc)
 
 - Verify the artifact published or not.
-![alt text](image-11.png)
+![Image](https://github.com/user-attachments/assets/f0492186-3a19-4137-b8a5-6935ce6e6a0d)
 
 - Rename the pipeline as below, because that name will be used in next pipeline.
-  ![alt text](image-13.png)
+  ![Image](https://github.com/user-attachments/assets/f7e85e85-3428-46bb-bb0c-c2b36e63befa)
   ```sh
   Name: Build-Pipeline
   ```
-  ![alt text](image-14.png)
+  ![Image](https://github.com/user-attachments/assets/97b31472-4ba0-4972-843a-c68e11ef3f60)
 
 ## <span style="color: cyan;"> Pipeline - Create Infra
 - Create a new pipeline for AWS and Azure infra Setup.
@@ -209,42 +209,42 @@ azureuser@devopsdemovm:~$ az version
 
 - We choose startup pipeline and steps would be same as we followed in build pipeline.
 
-- 🔔Here is the [Updated pipeline for Infra Setup]().🔔
+- 🔔Here is the [Updated pipeline for Infra Setup](https://github.com/mrbalraj007/Azure_DevOps_Projects/blob/main/Azure_DevOps_All_Projects/13_Real-Time-DevOps-Project_CI-CD_Terraform_Multi-Cloud_Automation/Pipeline/Create%20Infra.md).🔔
 
 - Here the pipeline but few parameter need to be adjusted as below.
 
 - In `Terraform init`, adjust the connection, storage account etc.
-  ![alt text](image-15.png)
+  ![Image](https://github.com/user-attachments/assets/d6e10a4b-27dd-4138-b762-3bed7da4b3ea)
 
 - In `Terraform plan`, adjust the connection, AWS region etc.
-  ![alt text](image-16.png)
-  ![alt text](image-17.png)
+  ![Image](https://github.com/user-attachments/assets/779510d8-45bd-4b34-be76-86679814ea1e)
+  ![Image](https://github.com/user-attachments/assets/52c99dea-5a98-4585-b00e-148c53dd199e)
 
 - In `Terraform apply`,adjust the connection, AWS region etc.
-  ![alt text](image-18.png)
-  ![alt text](image-19.png)
+  ![Image](https://github.com/user-attachments/assets/0214c9cd-f6fc-4088-bc0a-451c69d59d1c)
+  ![Image](https://github.com/user-attachments/assets/83abf871-826f-4b65-ba7d-9bbe3992db9a)
 
 - Rename the pipeline as below.
-![alt text](image-20.png)
+![Image](https://github.com/user-attachments/assets/787b2923-58ed-4da5-aa65-352c7fe83678)
 
 - Run the pipeline
   - It will ask for permission and approve it.
-  ![alt text](image-21.png)
+  ![Image](https://github.com/user-attachments/assets/e59842c3-18fc-42b0-abbd-cf8eb440d74e)
 
 - Pipeline Status:
-![alt text](image-24.png)
+  ![Image](https://github.com/user-attachments/assets/4c7d105b-1f41-49ca-b593-5317ac96b467)
 
 ### <span style="color: cyan;"> Verify the infra setup in both cloud Environment
 - AWS
-  ![alt text](image-22.png)
+  ![Image](https://github.com/user-attachments/assets/84a8bbb0-c650-4035-bea5-316b6d31c187)
 - Azure
-![alt text](image-23.png)
+  ![Image](https://github.com/user-attachments/assets/2cf128bf-d7d4-4b51-89cb-843e3a5ec556)
 
 ## <span style="color: cyan;"> Selfhosted Agent setup
 - Will take putty session of selfthosted agent VM and run the following command-
 
--Verify agent status
-![alt text](image-34.png)
+- Verify agent status
+![Image](https://github.com/user-attachments/assets/09cbb3e5-b6af-48d1-9a9b-d6fabc3dcbde)
 
 - if agent is not visible then run the following command to Register the selfhost agent. 
 
@@ -260,44 +260,44 @@ azureuser@devopsdemovm:~$ az version
 
 - File `add_to_known_hosts.py`
   - changes the script as below.
-  ![alt text](image-25.png)
-  ![alt text](image-26.png)
+  ![Image](https://github.com/user-attachments/assets/61e02eba-2174-40fd-ab10-97696e32bb63)
+  ![Image](https://github.com/user-attachments/assets/c0be38ad-3d33-4bff-9efc-d09a790b7c3e)
 
 - File `fetch_state_file.py`
   - SAS token need to be generated from blob.
 
   - How to [Generate SAS token](https://www.youtube.com/watch?v=1GV8DmZqkIo) 
-  ![alt text](image-28.png)
-  ![alt text](image-29.png)
-  ![alt text](image-30.png)
+  ![Image](https://github.com/user-attachments/assets/1a80a3ac-11df-4ab2-8cba-2702ce5e4927)
+  ![Image](https://github.com/user-attachments/assets/57f306ff-b3ec-4d34-afb1-11be44a33254)
+  ![Image](https://github.com/user-attachments/assets/6b971421-fb91-45f9-852b-c7fd6006359a)
+
 
   - Update the SAS token into the same file as below.
-  ![alt text](image-27.png)
+  ![Image](https://github.com/user-attachments/assets/33296796-63a2-4c91-a7e3-43df5cbb421f)
 
 - Now, we have to upload the private key in selfthosted agent under direcoty (`/home/azureuser/.ssh`)
-![alt text](image-31.png)
+![Image](https://github.com/user-attachments/assets/7b6b8891-e635-48f5-9467-9fec8abf996f)
 
   - Change the permission.
   ```bash
   chmod 600 id_rsa
   ```
-  ![alt text](image-38.png)
+  ![Image](https://github.com/user-attachments/assets/b4d2be18-ff90-4f3a-8ebf-e4fceaa5fb6d)
 
-- Create a new pipeline.
+- Create a new pipeline (Application).
 
 - Adjust the perramerts.
   - Select the right project
   - Select the build Pipeline which generated the artifact.
-  ![alt text](image-33.png)
-
+  ![Image](https://github.com/user-attachments/assets/31bd1610-f9a2-436f-902a-9bdfb1d4bc14)
 
 - Run the pipeline and it will ask for permission.
-  ![alt text](image-32.png)
+  ![Image](https://github.com/user-attachments/assets/7f609450-94a5-451f-8a12-682b456abf6b)
 
 
 ## <span style="color: red;">  Troubleshooting
 - Pipeline failed because I was encountring issue with related to environment and python.
-![alt text](image-35.png)
+![Image](https://github.com/user-attachments/assets/b0227731-916e-400e-8606-ce69bddb91e8)
 
 ```sh
 Based on the error message, it seems there are a few issues:
@@ -345,10 +345,10 @@ source venv/bin/activate  # For Linux/macOS
 venv\Scripts\activate     # For Windows
 ``` -->
 
-- 🔔Here is the [Updated pipeline for Infra Setup]().🔔
+- 🔔Here is the [Updated pipeline for Application Setup with Ansible](https://github.com/mrbalraj007/Azure_DevOps_Projects/blob/main/Azure_DevOps_All_Projects/13_Real-Time-DevOps-Project_CI-CD_Terraform_Multi-Cloud_Automation/Pipeline/selfthosted.md).🔔
 
 - Rerun the pipeline and verify the status.
-![alt text](image-45.png)
+![Image](https://github.com/user-attachments/assets/c39a8e91-6cf3-4c12-9add-8a67256aa718)
 
 - Verify the dynamic_inventory file is created or not.
 ```sh
@@ -371,37 +371,36 @@ drwxr-xr-x 10 azureuser azureuser  4096 Feb 27 00:28 ..
 ```sh
 ansible-inventory --list -i dynamic_inventory.json
 ```
-![alt text](image-37.png)
+![Image](https://github.com/user-attachments/assets/1aa454e5-636b-4179-b2c7-33ad415b845d)
 
 - Validate the JSON format:
 ```bash
 cat dynamic_inventory.json | jq .
 ```
-![alt text](image-36.png)
+![Image](https://github.com/user-attachments/assets/a5a32ff5-9440-4798-b46d-c585a4e2642d)
 
-
-
-- All Pipeline Status
-![alt text](image-39.png)
+## <span style="color: cyan;"> All Pipeline Status
+- All pipeline is working fine.
+![Image](https://github.com/user-attachments/assets/d2737442-e232-4672-aa24-ea23d162a4b5)
 
 - Verify application accisibility
   - Try to access application on `port 5000` (<PublicIPAddress:5000>)
-  - From AWS EC2
-  ![alt text](image-40.png)
-  ![alt text](image-41.png)
+  - From `AWS EC2`
+  ![Image](https://github.com/user-attachments/assets/3e78662a-8d35-497e-8c78-c9ae6db16a0f)
+  ![Image](https://github.com/user-attachments/assets/2316a719-9867-4494-bcb9-11ee23cae19d)
 
-  - From Azure VM
-![alt text](image-42.png)
-![alt text](image-43.png)
+  - From `Azure VM`
+  ![Image](https://github.com/user-attachments/assets/1f75d576-31ac-400a-8cf7-b01a9ffae0d2)
+  ![Image](https://github.com/user-attachments/assets/8ee3f2c7-a188-4929-b10c-63026d0ef956)
 
-Congratulations, Application is accessible.🚀
+**Congratulations, Application is accessible**.🚀
 
 ## <span style="color: yellow;"> Pipeline for Cleanup Infra Setup.</span>
 
  - Pipeline Status
- ![alt text](image-44.png)
+ ![Image](https://github.com/user-attachments/assets/9fa7f2e4-6943-4684-8e0a-1f3efbd4e072)
 
-- Here is the 👉[Updated pipeline for delete](https://github.com/mrbalraj007/Azure_DevOps_Projects/blob/main/Azure_DevOps_All_Projects/12_Real-Time-DevOps-Project_CI-CD_Terraform_ACR_Storage_WebApp_SQL_Front-Door/Pipeline/Destroy%20Infra.md)👈 
+- Here is the 👉[Updated pipeline for delete](https://github.com/mrbalraj007/Azure_DevOps_Projects/blob/main/Azure_DevOps_All_Projects/13_Real-Time-DevOps-Project_CI-CD_Terraform_Multi-Cloud_Automation/Pipeline/Destroy%20Infra.md)👈 
 
 ## <span style="color: Yellow;"> Environment Cleanup:
 - As we are using Terraform, we will use the following command to delete `ssh_key`  and `Storage account`.
@@ -410,7 +409,7 @@ Congratulations, Application is accessible.🚀
   ```bash
   Terraform destroy --auto-approve
   ```
-![alt text](image-46.png)
+![Image](https://github.com/user-attachments/assets/bd05ed5e-d3ef-4aac-8519-19037bf8b393)
 
 <!-- - I was getting the below error message while deleting the setup. It is getting failed in deleting `ResourceGroup`
 
