@@ -180,7 +180,7 @@ azureuser@devopsdemovm:~$ az version
 
 
 
-## <span style="color: cyan;"> Pipeline - Build (Package)
+## <span style="color: cyan;"> 01. Pipeline - Build (Package)
    - Build the packages pipeline first.
   ![Image](https://github.com/user-attachments/assets/2e4c50d8-f8e5-44ec-846e-53cd0fa96672)
   ![Image](https://github.com/user-attachments/assets/659358b7-fb14-4abf-8a14-9213f60584e1)
@@ -202,7 +202,7 @@ azureuser@devopsdemovm:~$ az version
   ```
   ![Image](https://github.com/user-attachments/assets/97b31472-4ba0-4972-843a-c68e11ef3f60)
 
-## <span style="color: cyan;"> Pipeline - Create Infra
+## <span style="color: cyan;"> 02. Pipeline - Create Infra
 - Create a new pipeline for AWS and Azure infra Setup.
 
 - We choose startup pipeline and steps would be same as we followed in build pipeline.
@@ -255,7 +255,7 @@ azureuser@devopsdemovm:~$ az version
     sudo ./svc.sh start
     ```
 
-## <span style="color: cyan;"> Pipeline - Application with Ansible setup
+## <span style="color: cyan;"> 03. Pipeline - Application with Ansible setup
 - login into Azure DevOps portal and go to folder `Selfhosted-Ansible` and update as below.
 
 - File `add_to_known_hosts.py`
@@ -395,7 +395,7 @@ cat dynamic_inventory.json | jq .
 
 **Congratulations, Application is accessible**.🚀
 
-## <span style="color: yellow;"> Pipeline for Cleanup Infra Setup.</span>
+## <span style="color: yellow;"> 04. Pipeline for Cleanup Infra Setup.</span>
 
  - Pipeline Status
  ![Image](https://github.com/user-attachments/assets/9fa7f2e4-6943-4684-8e0a-1f3efbd4e072)
