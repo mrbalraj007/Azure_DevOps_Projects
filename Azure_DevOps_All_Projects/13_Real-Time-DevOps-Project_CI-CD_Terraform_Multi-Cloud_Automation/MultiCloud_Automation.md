@@ -24,13 +24,13 @@ Before diving into this project, here are some skills and tools you should be fa
   - [Custom-terraform-tasks](https://marketplace.visualstudio.com/items?itemName=JasonBJohnson.azure-pipelines-tasks-terraform)
   - [Terraform installation](https://marketplace.visualstudio.com/items?itemName=ms-devlabs.custom-terraform-tasks) 
 
-- [x] [Terraform code](https://github.com/mrbalraj007/Azure_DevOps_Projects/tree/main/Azure_DevOps_All_Projects/12_Real-Time-DevOps-Project_CI-CD_Terraform_ACR_Storage_WebApp_SQL_Front-Door/Terraform_Code)<br>
+- [x] [Terraform code](https://github.com/mrbalraj007/Azure_DevOps_Projects/tree/main/Azure_DevOps_All_Projects/13_Real-Time-DevOps-Project_CI-CD_Terraform_Multi-Cloud_Automation/Terraform_Code)<br>
   __Note__: Replace resource names and variables as per your requirement in terraform code
     - Update ```terraform.tfvars```
     - Update token and project name in `selfthost_agentvm.tf`
     - Note: In terraform, whereever you find `xxxxxx` then replace the value accordingly.
 - [x] Application Repo:     
-    - [x] [Infra as Code](https://github.com/mrbalraj007/infra-as-code.git)
+    - [x] [multi-cloud-project](https://github.com/mrbalraj007/multi-cloud-project.git)
     
 
 ## Tools and Technologies
@@ -59,7 +59,7 @@ First, we'll create the necessary virtual machines using ```terraform``` code.
 
   - Below is a terraform Code:
 
-  - Once you [clone repo](https://github.com/mrbalraj007/Azure_DevOps_Projects/tree/main/Azure_DevOps_All_Projects/12_Real-Time-DevOps-Project_CI-CD_Terraform_ACR_Storage_WebApp_SQL_Front-Door/Terraform_Code)</span> and run the terraform command.
+  - Once you [clone repo](https://github.com/mrbalraj007/Azure_DevOps_Projects/tree/main/Azure_DevOps_All_Projects/13_Real-Time-DevOps-Project_CI-CD_Terraform_Multi-Cloud_Automation/Terraform_Code)</span> and run the terraform command.
     ```bash
     $ ls -l
     -rw-r--r-- 1 bsingh 1049089   573 Feb 19 15:37 aws_connection.tf       
