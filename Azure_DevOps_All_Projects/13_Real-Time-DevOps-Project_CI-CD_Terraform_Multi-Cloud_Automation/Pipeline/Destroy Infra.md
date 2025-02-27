@@ -1,0 +1,59 @@
+```sh
+trigger:
+- none
+
+variables:
+  - group: rg-variables
+
+pool:
+  vmImage: ubuntu-latest
+
+steps:
+- task: DownloadSecureFile@1
+  displayName: 'Download Public Key'
+  name: DownloadPublicKey
+  inputs:
+    secureFile: 'id_rsa.pub'
+
+- script: |
+    mkdir -p $(Agent.TempDirectory)/keys
+    cp $(DownloadPublicKey.secureFilePath) $(Agent.TempDirectory)/keys/id_rsa.pub
+  displayName: 'Prepare Public Key'
+
+- task: DownloadSecureFile@1
+  displayName: 'Download Private Key'
+  name: DownloadPrivateKey
+  inputs:
+    secureFile: 'id_rsa'
+
+- script: |
+    mkdir -p ~/.ssh
+    cp $(DownloadPrivateKey.secureFilePath) ~/.ssh/id_rsa
+    chmod 600 ~/.ssh/id_rsa
+  displayName: 'Prepare Private Key'
+
+- task: TerraformCLI@2
+  displayName: 'Terraform Init'
+  inputs:
+    command: 'init'
+    workingDirectory: '$(System.DefaultWorkingDirectory)/Terraform'
+    backendType: 'azurerm'
+    backendServiceArm: 'Azure-service-connection'
+    backendAzureRmResourceGroupName: 'devops-rg'
+    backendAzureRmStorageAccountName: 'storageacct72bee084'
+    backendAzureRmContainerName: 'tfstates'
+    backendAzureRmKey: 'terraform.tfstate'
+    allowTelemetryCollection: true
+
+- task: TerraformCLI@2
+  displayName: 'Terraform Destroy'
+  inputs:
+    command: 'destroy'
+    workingDirectory: '$(System.DefaultWorkingDirectory)/Terraform'
+    environmentServiceName: 'Azure-service-connection'
+    commandOptions: '-auto-approve -var public_key_path=$(Agent.TempDirectory)/keys/id_rsa.pub'
+    allowTelemetryCollection: true
+    providerServiceAws: 'AWS-service-connection'
+    providerAwsRegion: 'us-east-1'
+
+```
