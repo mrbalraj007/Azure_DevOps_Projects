@@ -1,0 +1,73 @@
+<mxfile host="Electron" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/26.0.16 Chrome/132.0.6834.196 Electron/34.2.0 Safari/537.36" version="26.0.16">
+  <diagram name="Page-1" id="KLeILhXtVVkLYpdPzvLz">
+    <mxGraphModel dx="1434" dy="844" grid="0" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1100" pageHeight="850" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="yCSDbyFv26YVB5Upfxvf-19" value="" style="group" parent="1" vertex="1" connectable="0">
+          <mxGeometry x="273" y="32" width="459.36" height="338" as="geometry" />
+        </mxCell>
+        <mxCell id="yCSDbyFv26YVB5Upfxvf-1" value="vnet" style="sketch=0;outlineConnect=0;gradientColor=none;html=1;whiteSpace=wrap;fontSize=12;fontStyle=0;shape=mxgraph.aws4.group;grIcon=mxgraph.aws4.group_vpc;strokeColor=#879196;fillColor=none;verticalAlign=top;align=left;spacingLeft=30;fontColor=#879196;dashed=0;hachureGap=4;jiggle=2;curveFitting=1;fontFamily=Architects Daughter;fontSource=https%3A%2F%2Ffonts.googleapis.com%2Fcss%3Ffamily%3DArchitects%2BDaughter;" parent="yCSDbyFv26YVB5Upfxvf-19" vertex="1">
+          <mxGeometry y="57.62820512820513" width="440" height="232.37179487179486" as="geometry" />
+        </mxCell>
+        <mxCell id="yCSDbyFv26YVB5Upfxvf-4" value="&lt;h2&gt;&lt;b&gt;&lt;font face=&quot;Verdana&quot;&gt;10.1.0.0/16&lt;/font&gt;&lt;/b&gt;&lt;/h2&gt;" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;fontFamily=Architects Daughter;fontSource=https%3A%2F%2Ffonts.googleapis.com%2Fcss%3Ffamily%3DArchitects%2BDaughter;" parent="yCSDbyFv26YVB5Upfxvf-19" vertex="1">
+          <mxGeometry x="124.52830188679246" width="150" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="yCSDbyFv26YVB5Upfxvf-6" value="&lt;h2&gt;&lt;b&gt;&lt;font face=&quot;Verdana&quot;&gt;vNet-1&lt;/font&gt;&lt;/b&gt;&lt;/h2&gt;" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;fontFamily=Architects Daughter;fontSource=https%3A%2F%2Ffonts.googleapis.com%2Fcss%3Ffamily%3DArchitects%2BDaughter;" parent="yCSDbyFv26YVB5Upfxvf-19" vertex="1">
+          <mxGeometry x="41.50943396226416" width="90" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="yCSDbyFv26YVB5Upfxvf-10" value="Public subnet" style="points=[[0,0],[0.25,0],[0.5,0],[0.75,0],[1,0],[1,0.25],[1,0.5],[1,0.75],[1,1],[0.75,1],[0.5,1],[0.25,1],[0,1],[0,0.75],[0,0.5],[0,0.25]];outlineConnect=0;gradientColor=none;html=1;whiteSpace=wrap;fontSize=12;fontStyle=0;container=1;pointerEvents=0;collapsible=0;recursiveResize=0;shape=mxgraph.aws4.group;grIcon=mxgraph.aws4.group_security_group;grStroke=0;strokeColor=#7AA116;fillColor=#F2F6E8;verticalAlign=top;align=left;spacingLeft=30;fontColor=#248814;dashed=0;hachureGap=4;fontFamily=Architects Daughter;fontSource=https%3A%2F%2Ffonts.googleapis.com%2Fcss%3Ffamily%3DArchitects%2BDaughter;" parent="yCSDbyFv26YVB5Upfxvf-19" vertex="1">
+          <mxGeometry x="41.50943396226416" y="85.51282051282053" width="132.83018867924528" height="176.60256410256412" as="geometry" />
+        </mxCell>
+        <mxCell id="yCSDbyFv26YVB5Upfxvf-12" value="" style="verticalLabelPosition=bottom;html=1;verticalAlign=top;align=center;strokeColor=none;fillColor=#00BEF2;shape=mxgraph.azure.virtual_machine;hachureGap=4;fontFamily=Architects Daughter;fontSource=https%3A%2F%2Ffonts.googleapis.com%2Fcss%3Ffamily%3DArchitects%2BDaughter;" parent="yCSDbyFv26YVB5Upfxvf-10" vertex="1">
+          <mxGeometry x="16.60377358490566" y="83.65384615384616" width="41.509433962264154" height="37.179487179487175" as="geometry" />
+        </mxCell>
+        <mxCell id="yCSDbyFv26YVB5Upfxvf-16" value="&lt;h2&gt;&lt;b&gt;&lt;font face=&quot;Verdana&quot;&gt;10.1.0.0/24&lt;/font&gt;&lt;/b&gt;&lt;/h2&gt;" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;fontFamily=Architects Daughter;fontSource=https%3A%2F%2Ffonts.googleapis.com%2Fcss%3Ffamily%3DArchitects%2BDaughter;" parent="yCSDbyFv26YVB5Upfxvf-10" vertex="1">
+          <mxGeometry x="8.30188679245283" y="18.589743589743588" width="150" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="yCSDbyFv26YVB5Upfxvf-11" value="Private subnet" style="points=[[0,0],[0.25,0],[0.5,0],[0.75,0],[1,0],[1,0.25],[1,0.5],[1,0.75],[1,1],[0.75,1],[0.5,1],[0.25,1],[0,1],[0,0.75],[0,0.5],[0,0.25]];outlineConnect=0;gradientColor=none;html=1;whiteSpace=wrap;fontSize=12;fontStyle=0;container=1;pointerEvents=0;collapsible=0;recursiveResize=0;shape=mxgraph.aws4.group;grIcon=mxgraph.aws4.group_security_group;grStroke=0;strokeColor=#00A4A6;fillColor=#E6F6F7;verticalAlign=top;align=left;spacingLeft=30;fontColor=#147EBA;dashed=0;hachureGap=4;fontFamily=Architects Daughter;fontSource=https%3A%2F%2Ffonts.googleapis.com%2Fcss%3Ffamily%3DArchitects%2BDaughter;" parent="yCSDbyFv26YVB5Upfxvf-19" vertex="1">
+          <mxGeometry x="265.66037735849056" y="85.51282051282053" width="132.83018867924528" height="176.60256410256412" as="geometry" />
+        </mxCell>
+        <mxCell id="yCSDbyFv26YVB5Upfxvf-13" value="" style="verticalLabelPosition=bottom;html=1;verticalAlign=top;align=center;strokeColor=none;fillColor=#00BEF2;shape=mxgraph.azure.virtual_machine;hachureGap=4;fontFamily=Architects Daughter;fontSource=https%3A%2F%2Ffonts.googleapis.com%2Fcss%3Ffamily%3DArchitects%2BDaughter;" parent="yCSDbyFv26YVB5Upfxvf-19" vertex="1">
+          <mxGeometry x="290.5660377358491" y="169.16666666666666" width="41.50943396226416" height="37.179487179487175" as="geometry" />
+        </mxCell>
+        <mxCell id="yCSDbyFv26YVB5Upfxvf-14" value="&lt;h2&gt;&lt;font face=&quot;Verdana&quot;&gt;east-us&lt;/font&gt;&lt;/h2&gt;" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;fontFamily=Architects Daughter;fontSource=https%3A%2F%2Ffonts.googleapis.com%2Fcss%3Ffamily%3DArchitects%2BDaughter;" parent="yCSDbyFv26YVB5Upfxvf-19" vertex="1">
+          <mxGeometry x="356.9811320754718" y="11.153846153846153" width="100" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="yCSDbyFv26YVB5Upfxvf-17" value="&lt;h2&gt;&lt;b&gt;&lt;font face=&quot;Verdana&quot;&gt;10.2.0.0/24&lt;/font&gt;&lt;/b&gt;&lt;/h2&gt;" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;fontFamily=Architects Daughter;fontSource=https%3A%2F%2Ffonts.googleapis.com%2Fcss%3Ffamily%3DArchitects%2BDaughter;" parent="yCSDbyFv26YVB5Upfxvf-19" vertex="1">
+          <mxGeometry x="257.3584905660378" y="104.1025641025641" width="150" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="2HSo4CrAuxhgdnt-5y4_-3" value="" style="image;aspect=fixed;html=1;points=[];align=center;fontSize=12;image=img/lib/azure2/networking/Virtual_Network_Gateways.svg;sketch=1;hachureGap=4;jiggle=2;curveFitting=1;fontFamily=Architects Daughter;fontSource=https%3A%2F%2Ffonts.googleapis.com%2Fcss%3Ffamily%3DArchitects%2BDaughter;" vertex="1" parent="yCSDbyFv26YVB5Upfxvf-19">
+          <mxGeometry x="407.36" y="259" width="52" height="69" as="geometry" />
+        </mxCell>
+        <mxCell id="_wiBTf6sTnkV1GL4G61l-12" value="" style="group" parent="1" vertex="1" connectable="0">
+          <mxGeometry x="248" y="616" width="805.0011320754718" height="180" as="geometry" />
+        </mxCell>
+        <mxCell id="_wiBTf6sTnkV1GL4G61l-7" value="On-Premise" style="sketch=0;outlineConnect=0;gradientColor=none;html=1;whiteSpace=wrap;fontSize=12;fontStyle=0;shape=mxgraph.aws4.group;grIcon=mxgraph.aws4.group_on_premise;strokeColor=#AAB7B8;fillColor=none;verticalAlign=top;align=left;spacingLeft=30;fontColor=#AAB7B8;dashed=0;hachureGap=4;jiggle=2;curveFitting=1;fontFamily=Architects Daughter;fontSource=https%3A%2F%2Ffonts.googleapis.com%2Fcss%3Ffamily%3DArchitects%2BDaughter;" parent="_wiBTf6sTnkV1GL4G61l-12" vertex="1">
+          <mxGeometry width="563" height="180" as="geometry" />
+        </mxCell>
+        <mxCell id="_wiBTf6sTnkV1GL4G61l-9" value="&lt;h2&gt;&lt;font face=&quot;Verdana&quot;&gt;&lt;span style=&quot;font-size: 12px; font-weight: 400;&quot;&gt;Router&lt;/span&gt;&lt;/font&gt;&lt;/h2&gt;" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;fontFamily=Architects Daughter;fontSource=https%3A%2F%2Ffonts.googleapis.com%2Fcss%3Ffamily%3DArchitects%2BDaughter;" parent="_wiBTf6sTnkV1GL4G61l-12" vertex="1">
+          <mxGeometry x="375.0011320754718" y="7.003846153846098" width="58" height="64" as="geometry" />
+        </mxCell>
+        <mxCell id="2HSo4CrAuxhgdnt-5y4_-1" value="" style="outlineConnect=0;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;shape=mxgraph.aws3.router;fillColor=#F58534;gradientColor=none;hachureGap=4;fontFamily=Architects Daughter;fontSource=https%3A%2F%2Ffonts.googleapis.com%2Fcss%3Ffamily%3DArchitects%2BDaughter;" vertex="1" parent="_wiBTf6sTnkV1GL4G61l-12">
+          <mxGeometry x="438" y="3" width="69" height="72" as="geometry" />
+        </mxCell>
+        <mxCell id="2HSo4CrAuxhgdnt-5y4_-2" value="&lt;p&gt;&lt;b&gt;&lt;i&gt;&lt;font style=&quot;color: rgb(51, 51, 255);&quot;&gt;&lt;font face=&quot;Verdana&quot;&gt;Will Create a test virtual machine in Vmware workstation&amp;nbsp;&lt;br&gt;&lt;/font&gt;&lt;font face=&quot;Verdana&quot;&gt;and configure the routing and will treat like a router&lt;/font&gt;&lt;/font&gt;&lt;/i&gt;&lt;/b&gt;&lt;/p&gt;" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;fontFamily=Architects Daughter;fontSource=https%3A%2F%2Ffonts.googleapis.com%2Fcss%3Ffamily%3DArchitects%2BDaughter;" vertex="1" parent="_wiBTf6sTnkV1GL4G61l-12">
+          <mxGeometry x="137.0011320754718" y="62.0038461538461" width="409" height="67" as="geometry" />
+        </mxCell>
+        <mxCell id="2HSo4CrAuxhgdnt-5y4_-4" value="&lt;h2&gt;&lt;font face=&quot;Verdana&quot;&gt;&lt;span style=&quot;font-size: 12px; font-weight: 400;&quot;&gt;VPN Gateway&lt;/span&gt;&lt;/font&gt;&lt;/h2&gt;" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;fontFamily=Architects Daughter;fontSource=https%3A%2F%2Ffonts.googleapis.com%2Fcss%3Ffamily%3DArchitects%2BDaughter;" vertex="1" parent="1">
+          <mxGeometry x="720.0011320754718" y="302.0038461538461" width="99" height="64" as="geometry" />
+        </mxCell>
+        <mxCell id="2HSo4CrAuxhgdnt-5y4_-5" value="" style="endArrow=classic;startArrow=classic;html=1;rounded=0;hachureGap=4;fontFamily=Architects Daughter;fontSource=https%3A%2F%2Ffonts.googleapis.com%2Fcss%3Ffamily%3DArchitects%2BDaughter;entryX=0.647;entryY=0.942;entryDx=0;entryDy=0;entryPerimeter=0;dashed=1;flowAnimation=1;" edge="1" parent="1" source="2HSo4CrAuxhgdnt-5y4_-1" target="2HSo4CrAuxhgdnt-5y4_-3">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="702" y="476" as="sourcePoint" />
+            <mxPoint x="752" y="426" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="2HSo4CrAuxhgdnt-5y4_-6" value="&lt;font face=&quot;Verdana&quot;&gt;Local Network Gateway&lt;/font&gt;&lt;div&gt;&lt;font face=&quot;Verdana&quot;&gt;Local prefixes&lt;/font&gt;&lt;/div&gt;&lt;div&gt;&lt;font face=&quot;Verdana&quot;&gt;public IP address&lt;/font&gt;&lt;/div&gt;" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontFamily=Architects Daughter;fontSource=https%3A%2F%2Ffonts.googleapis.com%2Fcss%3Ffamily%3DArchitects%2BDaughter;" vertex="1" parent="1">
+          <mxGeometry x="739.5" y="390" width="232.5" height="30" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
