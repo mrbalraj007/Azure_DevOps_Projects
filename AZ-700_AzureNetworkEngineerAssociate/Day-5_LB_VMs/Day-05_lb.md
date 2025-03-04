@@ -9,3 +9,5 @@ https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/
 https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/virtual_network
 https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/lb
 https://github.com/Azure/terraform-azurerm-loadbalancer
+
+https://learn.microsoft.com/en-us/azure/load-balancer/load-balancer-nat-pool-migration?tabs=azure-cli

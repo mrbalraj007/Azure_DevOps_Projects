@@ -23,13 +23,13 @@ output "lb_name" {
 }
 
 output "lb_backend_pool_id" {
-  value = azurerm_lb_backend_address_pool.rg01_lb_backend.id
+  value = azurerm_lb_backend_address_pool.rg01_lb_backend.name
 }
 
 output "lb_probe_id" {
-  value = azurerm_lb_probe.rg01_lb_probe.id
+  value = azurerm_lb_probe.rg01_lb_probe.name
 }
 
 output "lb_rule_id" {
-  value = azurerm_lb_rule.rg01_lb_rule.id
+  value = azurerm_lb_rule.rg01_lb_rule.name
 }
