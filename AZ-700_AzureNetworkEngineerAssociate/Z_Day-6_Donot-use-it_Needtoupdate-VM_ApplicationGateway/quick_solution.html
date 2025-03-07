@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Application Gateway Resources</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        .card {
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .button {
+            display: inline-block;
+            background-color: #0078d4;
+            color: white;
+            padding: 10px 15px;
+            text-decoration: none;
+            border-radius: 4px;
+            margin-right: 10px;
+            margin-top: 10px;
+        }
+        .warning {
+            background-color: #FFF4E5;
+            border-left: 4px solid #FF8C00;
+            padding: 10px;
+            margin: 10px 0;
+        }
+        .success {
+            background-color: #DFF6DD;
+            border-left: 4px solid #107C10;
+            padding: 10px;
+            margin: 10px 0;
+        }
+        iframe {
+            border: 1px solid #ddd;
+            width: 100%;
+            height: 400px;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Application Gateway & VM Resources</h1>
+    
+    <div class="card">
+        <h2>Videos Content (Direct Access)</h2>
+        <div class="success">
+            <strong>✓ Working:</strong> Direct access to VM02 works correctly.
+        </div>
+        <p>Click the button below to view the videos content directly from VM02:</p>
+        <a href="http://52.191.28.128/videos/" class="button" target="_blank">Access Videos (Direct)</a>
+        
+        <div class="warning">
+            <strong>Note:</strong> While the direct access works, accessing through Application Gateway (http://13.92.199.248/videos/) does not currently work.
+        </div>
+    </div>
+    
+    <div class="card">
+        <h2>Images Content</h2>
+        <p>Access the Images content through Application Gateway:</p>
+        <a href="http://13.92.199.248/images/" class="button" target="_blank">Access Images</a>
+    </div>
+    
+    <div class="card">
+        <h2>Embedded Videos Content</h2>
+        <p>Here's the videos content embedded directly from VM02:</p>
+        <iframe src="http://52.191.28.128/videos/" title="Videos Content"></iframe>
+    </div>
+
+    <div class="card">
+        <h2>Troubleshooting</h2>
+        <p>If you're experiencing issues with the Application Gateway, please refer to:</p>
+        <a href="troubleshooting_guide.md" class="button">View Troubleshooting Guide</a>
+        
+        <h3>Application Gateway Details</h3>
+        <ul>
+            <li><strong>App Gateway IP:</strong> 13.92.199.248</li>
+            <li><strong>VM02 IP:</strong> 52.191.28.128</li>
+            <li><strong>Expected path:</strong> /videos/</li>
+        </ul>
+    </div>
+</body>
+</html>
