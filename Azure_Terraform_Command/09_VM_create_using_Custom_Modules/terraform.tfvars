@@ -1,0 +1,6 @@
+resource_group_name  = "test-rg"
+virtual_network_name = "test-vnet"
+subnet_name          = "test-subnet"
+public_ip_name       = "test-ip"
+virtual_machine_name = "test-vm"
+location             = "East US"
