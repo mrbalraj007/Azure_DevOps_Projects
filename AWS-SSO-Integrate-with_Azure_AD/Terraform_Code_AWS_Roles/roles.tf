@@ -17,8 +17,22 @@ resource "aws_iam_role" "roles" {
   description = "IAM role for ${var.role_names[count.index]}, and managed by terraform"
 }
 
-resource "aws_iam_role_policy_attachment" "admin_policy_attachment" {
-  count      = length(var.role_names)
+resource "aws_iam_role_policy_attachment" "policy_attachment" {
+  count      = length([for i, role in var.role_names : role if role == "AWS_M_Admin" || var.role_policies[i] != ""])
   role       = aws_iam_role.roles[count.index].name
-  policy_arn = "arn:aws:iam::aws:policy/AdministratorAccess"
+  policy_arn = var.role_names[count.index] == "AWS_M_Admin" ? "arn:aws:iam::aws:policy/AdministratorAccess" : var.role_policies[count.index]
+  lifecycle {
+    ignore_changes = [policy_arn]
+  }
+  depends_on = [aws_iam_role.roles]
+}
+
+resource "aws_iam_role_policy_attachment" "conditional_policy_attachment" {
+  count      = length([for policy in var.role_policies : policy if policy != ""])
+  role       = aws_iam_role.roles[count.index].name
+  policy_arn = var.role_policies[count.index]
+  lifecycle {
+    ignore_changes = [policy_arn]
+  }
+  depends_on = [aws_iam_role.roles]
 }

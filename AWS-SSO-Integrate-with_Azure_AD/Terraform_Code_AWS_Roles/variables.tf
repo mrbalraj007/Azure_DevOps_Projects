@@ -27,3 +27,8 @@ variable "assume_role_policy_service" {
   description = "Service for the assume role policy"
   type        = string
 }
+
+variable "role_policies" {
+  description = "List of policies to attach to each role"
+  type        = list(string)
+}
