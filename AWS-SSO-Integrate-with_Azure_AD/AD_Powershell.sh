@@ -1,0 +1,98 @@
+# PowerShell script to create OU, users and groups in Active Directory
+# Domain: singh.org.au
+
+# Importing the Active Directory module
+Import-Module ActiveDirectory
+
+# Define variables
+$DomainDN = "DC=singh,DC=org,DC=au"
+$OUName = "SINGH-Integration"
+$OUDN = "OU=$OUName,$DomainDN"
+$Password = ConvertTo-SecureString "P@ssw0rd123" -AsPlainText -Force
+$UserPrefix = "Singh_User"
+$GroupPrefix = "Singh-Group"
+
+# Step 1: Create the Organizational Unit
+if (Get-ADOrganizationalUnit -Filter "Name -eq '$OUName'" -SearchBase $DomainDN -ErrorAction SilentlyContinue) {
+    Write-Host "OU $OUName already exists." -ForegroundColor Yellow
+} else {
+    try {
+        Write-Host "Creating Organizational Unit: $OUName" -ForegroundColor Green
+        New-ADOrganizationalUnit -Name $OUName -Path $DomainDN -ProtectedFromAccidentalDeletion $false
+        Write-Host "OU created successfully!" -ForegroundColor Green
+    }
+    catch {
+        Write-Host ("Error creating OU: {0}" -f $_.Exception.Message) -ForegroundColor Red
+        exit
+    }
+}
+
+# Step 2: Create users Singh_User01 through Singh_User10
+Write-Host "Creating users..." -ForegroundColor Green
+for ($i = 1; $i -le 10; $i++) {
+    $UserNumber = "{0:D2}" -f $i  # Format as 01, 02, etc.
+    $UserName = "$UserPrefix$UserNumber"
+    
+    if (Get-ADUser -Filter "SamAccountName -eq '$UserName'" -ErrorAction SilentlyContinue) {
+        Write-Host "User $UserName already exists." -ForegroundColor Yellow
+    } else {
+        try {
+            New-ADUser -Name $UserName `
+                -SamAccountName $UserName `
+                -UserPrincipalName "$UserName@singh.org.au" `
+                -GivenName "Singh" `
+                -Surname "User$UserNumber" `
+                -DisplayName $UserName `
+                -Path $OUDN `
+                -AccountPassword $Password `
+                -Enabled $true
+            
+            Write-Host "Created user: $UserName" -ForegroundColor Green
+        }
+        catch {
+            Write-Host ("Error creating user {0}: {1}" -f $UserName, $_.Exception.Message) -ForegroundColor Red
+        }
+    }
+}
+
+# Step 3: Create groups Singh-Group01 through Singh-Group10
+Write-Host "Creating groups..." -ForegroundColor Green
+for ($i = 1; $i -le 10; $i++) {
+    $GroupNumber = "{0:D2}" -f $i  # Format as 01, 02, etc.
+    $GroupName = "$GroupPrefix$GroupNumber"
+    
+    if (Get-ADGroup -Filter "SamAccountName -eq '$GroupName'" -ErrorAction SilentlyContinue) {
+        Write-Host "Group $GroupName already exists." -ForegroundColor Yellow
+    } else {
+        try {
+            New-ADGroup -Name $GroupName `
+                -SamAccountName $GroupName `
+                -GroupCategory Security `
+                -GroupScope DomainLocal `
+                -Path $OUDN  # Ensure groups are created inside the custom OU
+            
+            Write-Host "Created group: $GroupName" -ForegroundColor Green
+        }
+        catch {
+            Write-Host ("Error creating group {0}: {1}" -f $GroupName, $_.Exception.Message) -ForegroundColor Red
+        }
+    }
+}
+
+# Step 4: Add the Administrators group to each security group
+Write-Host "Adding Administrators group to each security group..." -ForegroundColor Green
+for ($i = 1; $i -le 10; $i++) {
+    $GroupNumber = "{0:D2}" -f $i  # Format as 01, 02, etc.
+    $GroupName = "$GroupPrefix$GroupNumber"
+    
+    try {
+        Add-ADGroupMember -Identity $GroupName -Members "Administrators"
+        Write-Host "Added Administrators group to $GroupName" -ForegroundColor Green
+    }
+    catch {
+        Write-Host ("Error adding Administrators group to {0}: {1}" -f $GroupName, $_.Exception.Message) -ForegroundColor Yellow
+    }
+}
+
+Write-Host "Script execution completed!" -ForegroundColor Cyan
+Write-Host "Created 1 OU, 10 users, and 10 groups in the singh.org.au domain." -ForegroundColor Cyan
