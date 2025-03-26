@@ -149,7 +149,7 @@ resource "azurerm_storage_blob" "user_group_script" {
   storage_container_name = azurerm_storage_container.scripts.name
   type                   = "Block"
   source                 = "Configure-AD-Users-and-Groups.ps1" # Updated to correct file path
-  #"c:/Users/bsingh/OneDrive - Jetstar Airways Pty Ltd/Balraj_D_Laptop_Drive/DevOps_Master/Azure_DevOps_Projects/AWS-SSO-Integrate-with_Azure_AD/Terraform_Code_Azure_VM/Configure-AD-Users-and-Groups.ps1" # Updated to correct file path
+  
 
 }
 
