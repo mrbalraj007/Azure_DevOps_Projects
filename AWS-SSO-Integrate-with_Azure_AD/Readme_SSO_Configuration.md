@@ -1,17 +1,8 @@
 ```sh
-singh.org.au
-
-DSRM: d0ma!n@2026
-Roro751682
-Roro286157- active
-
-svc_admin_migration
-test@123456
 ============
 #
 # Windows PowerShell script for AD DS Deployment
 #
-
 Import-Module ADDSDeployment
 Install-ADDSForest `
 -CreateDnsDelegation:$false `
@@ -33,3 +24,13 @@ https://www.readandexecute.com/how-to/server-2016/active-directory/how-to-server
 https://www.microsoft.com/en-us/download/details.aspx?id=47594
 https://learn.microsoft.com/en-us/entra/identity/saas-apps/amazon-web-service-tutorial
 
+```sh
+singh.org.au
+
+DSRM: d0ma!n@2026
+Roro751682
+Roro286157- active
+
+svc_ad_admin_migration
+test@123456
+```
