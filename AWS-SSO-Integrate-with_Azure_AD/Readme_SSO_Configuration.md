@@ -2,7 +2,11 @@
 singh.org.au
 
 DSRM: d0ma!n@2026
+Roro751682
+Roro286157- active
 
+svc_admin_migration
+test@123456
 ============
 #
 # Windows PowerShell script for AD DS Deployment
