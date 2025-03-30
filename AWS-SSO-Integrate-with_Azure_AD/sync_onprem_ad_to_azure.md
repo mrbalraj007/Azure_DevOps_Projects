@@ -98,3 +98,5 @@ Write-Output "TLS 1.2 has been enabled. A system restart is recommended for chan
 ### Conclusion
 
 By following these steps, you will have successfully synchronized your on-premises Active Directory with Azure AD. This setup ensures that your users can access both on-premises and cloud resources with a single set of credentials.
+
+
