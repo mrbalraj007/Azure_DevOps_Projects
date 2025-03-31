@@ -69,6 +69,10 @@ Once connected to VM then you can check the status of the ```CustomScript``` scr
 ### Verify `Users, Groups` and `Service account` in Active Directory.
 ![alt text](image-11.png)
 
+### Permission to service account in Active Directory.
+- Below are the permissions need to assign to service account in Active Directory.
+![alt text](image-69.png)
+
 ### Verify `storage account` and `blob`.
 ![alt text](image-12.png)
 
@@ -206,10 +210,29 @@ Write-Output "TLS 1.2 has been enabled. A system restart is recommended for chan
 2. **Single Sign-On (SSO)**:
    - Configure SSO to allow users to sign in once and access both on-premises and cloud resources.
 
+## Error and Troubleshooting.
+
+
+- I was not able to login with user account and noticed that users were getting permission issue.
+
+**Fix**
+- I used service account to configure to migrate the AD but didn't provide permission at domain level.
+
+- So, I have granted the permission to service account at domain level and also initiate the following powershell to sync the delta and verify in service manager.
+![alt text](image-69.png)
+
+```sh
+Start-ADSyncSyncCycle -PolicyType Delta
+Start-ADSyncSyncCycle -PolicyType initial
+```
+
+![alt text](image-70.png)
+
 ### Delete Azure Security Group (Optional)
 ```sh
 az ad group delete --group 'GroupName' --verbose
 ```
+
 
 ### Conclusion
 

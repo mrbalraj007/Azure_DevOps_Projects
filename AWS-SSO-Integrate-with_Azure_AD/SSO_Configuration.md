@@ -104,34 +104,44 @@ This guide provides a detailed step-by-step approach to configuring **Azure AD A
 - Click **Assign**.
 ![alt text](image-58.png)
 > **Note:** Ensure users have **First Name** and **Last Name** attributes populated; otherwise, provisioning may fail.
-- Verify provisioning status
+- Verify provisioning status in Azure
 ![alt text](image-59.png)
+
+- Verify user status in AWS
+![alt text](image-60.png)
 ---
 ## **Step 7: Assigning AWS Permissions to Users**
-- In **AWS IAM Identity Center**, go to **AWS Accounts**.
+- In **AWS IAM Identity Center**, go to **AWS Accounts** under Multi-Account Permissions.
 - Select the account where access is required.
 - Click **Assign Users or Groups**.
+![alt text](image-61.png)
 - Select the user provisioned from Azure AD.
+![alt text](image-62.png)
 - Click **Next**.
 
 ### **7.1 Create a Permission Set**
 - Click **Create Permission Set**.
 - Choose **Predefined Permission Set** or **Custom Permissions**.
 - Select the required permission (e.g., **Administrator Access**).
+![alt text](image-63.png)
+![alt text](image-64.png)
+![alt text](image-65.png)
 - Click **Next** → **Create**.
 - Go back to the previous screen, select the created permission set, and assign it to the user.
+![alt text](image-66.png)
 
----
 ## **Step 8: Verifying Login to AWS Using Azure AD**
 ### **8.1 Access AWS via Azure AD**
-- In **AWS IAM Identity Center**, copy the **AWS Access Portal URL**.
+- In **IAM Identity Center**, copy the **AWS Access Portal URL**.
+![alt text](image-67.png)
 - Open an **Incognito Window** and paste the URL.
 - It will redirect to **login.microsoftonline.com (Azure AD Login Page)**.
 - Enter Azure AD credentials and log in.
+![alt text](image-68.png)
+
 - Choose the assigned AWS account and click **Management Console**.
 - Successfully access AWS using Azure AD authentication.
 
----
 ## **Conclusion**
 By integrating Azure AD with AWS, organizations streamline authentication, enhance security, and simplify user management. Azure AD’s **Conditional Access Policies** further strengthen security, providing a **single entity for identity management** across cloud platforms.
 

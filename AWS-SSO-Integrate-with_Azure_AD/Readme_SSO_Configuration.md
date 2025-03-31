@@ -27,6 +27,7 @@ singh.org.au
 DSRM: d0ma!n@2026
 Roro751682
 Roro286157- active
+P@ssw0rd123 - users
 
 svc_ad_admin_migration
 test@123456
