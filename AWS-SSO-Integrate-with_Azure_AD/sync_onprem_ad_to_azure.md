@@ -182,7 +182,7 @@ Write-Output "TLS 1.2 has been enabled. A system restart is recommended for chan
    ![alt text](image-25.png)
    - Choose the synchronization options that best fit your environment (e.g., password hash synchronization, pass-through authentication).
    ![alt text](image-26.png)
-
+   ![alt text](image-27.png)
 ### Step 3: Verify Synchronization
 
 1. **Initial Sync**:
@@ -192,7 +192,11 @@ Write-Output "TLS 1.2 has been enabled. A system restart is recommended for chan
 2. **Verify Users in Azure AD**:
    - Go to `Azure Active Directory` > `Users` in the Azure Portal.
    - Verify that the on-premises AD users are listed in Azure AD.
-
+   - Users Status
+   ![alt text](image-28.png)
+   - Group Status
+   ![alt text](image-29.png)
+   ![alt text](image-30.png)
 ### Step 4: Configure Additional Settings (Optional)
 
 1. **Password Writeback**:
@@ -202,10 +206,13 @@ Write-Output "TLS 1.2 has been enabled. A system restart is recommended for chan
 2. **Single Sign-On (SSO)**:
    - Configure SSO to allow users to sign in once and access both on-premises and cloud resources.
 
+### Delete Azure Security Group (Optional)
+```sh
+az ad group delete --group 'GroupName' --verbose
+```
+
 ### Conclusion
 
 By following these steps, you will have successfully synchronized your on-premises Active Directory with Azure AD. This setup ensures that your users can access both on-premises and cloud resources with a single set of credentials.
 
-```sh
-az ad group delete --group 'GroupName' --verbose
-```
+
