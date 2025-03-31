@@ -96,11 +96,16 @@ This guide provides a detailed step-by-step approach to configuring **Azure AD A
 ## **Step 6: Assigning Users and Groups in Azure AD**
 - In **Azure AD**, go to **Enterprise Applications** → **AWS IAM Identity Center**.
 - Click **Users and Groups** → **Add User**.
+![alt text](image-54.png)
 - Select users to assign AWS access.
+![alt text](image-55.png)
+![alt text](image-56.png)
+![alt text](image-57.png)
 - Click **Assign**.
-
+![alt text](image-58.png)
 > **Note:** Ensure users have **First Name** and **Last Name** attributes populated; otherwise, provisioning may fail.
-
+- Verify provisioning status
+![alt text](image-59.png)
 ---
 ## **Step 7: Assigning AWS Permissions to Users**
 - In **AWS IAM Identity Center**, go to **AWS Accounts**.
