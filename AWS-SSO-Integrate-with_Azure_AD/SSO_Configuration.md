@@ -1,4 +1,5 @@
 # **Seamless AWS Authentication with Azure AD: A Step-by-Step Integration Guide**
+# Configuring SAML & SCIM: Microsoft Entra ID to AWS IAM Identity Center
 
 ## **Introduction**
 Integrating Azure Active Directory (Azure AD) with Amazon Web Services (AWS) allows organizations to unify authentication, enabling users to log in using their existing Azure AD credentials. This integration eliminates the need for multiple credentials and enhances security through Azure AD’s Conditional Access Policies. The process is achieved using **Security Assertion Markup Language (SAML)**, where Azure AD acts as the **Identity Provider (IdP)** and AWS as the **Service Provider (SP)**.
@@ -109,8 +110,8 @@ By integrating Azure AD with AWS, organizations streamline authentication, enhan
 
 **Ref Link**
 
-[YoutTube- Azure AD Authentication for AWS](https://www.youtube.com/watch?v=R-07SaS1Gig)
-- [installing-active-directory-server](https://www.readandexecute.com/how-to/server-2016/active-directory/)
+- [YoutTube- Azure AD Authentication for AWS](https://www.youtube.com/watch?v=R-07SaS1Gig)
+- [installing active directory server](https://www.readandexecute.com/how-to/server-2016/active-directory/)
 
 - [Download Microsoft Entra Connect](https://www.microsoft.com/en-us/download/details.aspx?id=47594)
 - [Microsoft Entra SSO integration with AWS Single-Account Access](https://learn.microsoft.com/en-us/entra/identity/saas-apps/amazon-web-service-tutorial)
