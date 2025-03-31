@@ -136,11 +136,14 @@ This guide provides a detailed step-by-step approach to configuring **Azure AD A
 ![alt text](image-67.png)
 - Open an **Incognito Window** and paste the URL.
 - It will redirect to **login.microsoftonline.com (Azure AD Login Page)**.
+![alt text](image-72.png)
 - Enter Azure AD credentials and log in.
 ![alt text](image-68.png)
 
 - Choose the assigned AWS account and click **Management Console**.
+![alt text](image-71.png)
 - Successfully access AWS using Azure AD authentication.
+![alt text](image-73.png)
 
 ## **Conclusion**
 By integrating Azure AD with AWS, organizations streamline authentication, enhance security, and simplify user management. Azure AD’s **Conditional Access Policies** further strengthen security, providing a **single entity for identity management** across cloud platforms.
