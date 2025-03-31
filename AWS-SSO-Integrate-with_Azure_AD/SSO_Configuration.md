@@ -105,3 +105,12 @@ This guide provides a detailed step-by-step approach to configuring **Azure AD A
 ## **Conclusion**
 By integrating Azure AD with AWS, organizations streamline authentication, enhance security, and simplify user management. Azure AD’s **Conditional Access Policies** further strengthen security, providing a **single entity for identity management** across cloud platforms.
 
+
+
+**Ref Link**
+
+[YoutTube- Azure AD Authentication for AWS](https://www.youtube.com/watch?v=R-07SaS1Gig)
+- [installing-active-directory-server](https://www.readandexecute.com/how-to/server-2016/active-directory/)
+
+- [Download Microsoft Entra Connect](https://www.microsoft.com/en-us/download/details.aspx?id=47594)
+- [Microsoft Entra SSO integration with AWS Single-Account Access](https://learn.microsoft.com/en-us/entra/identity/saas-apps/amazon-web-service-tutorial)
