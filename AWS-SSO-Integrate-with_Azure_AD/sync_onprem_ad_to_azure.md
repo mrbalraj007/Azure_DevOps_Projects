@@ -16,7 +16,7 @@
 
 ### <span style="color: Yellow;">Setting Up the Infrastructure </span>
 
-I have created a Terraform code to set up the Virtual Machine creations and installation of Active Direcotry, Users, Groups and Service Account automatically created.
+*I have created a Terraform code to set up the Virtual Machine creations and installation of Active Direcotry, Users, Groups and Service Account automatically created.*
 
 > **Note**--> Virtual Machine will take approx 10 to 15 min to install the all required setup.
 
@@ -33,22 +33,11 @@ First, we'll create the necessary virtual machines using ```terraform``` code.
   - Once you [clone repo](https://github.com/mrbalraj007/Azure_DevOps_Projects/tree/main/AWS-SSO-Integrate-with_Azure_AD/Terraform_Code_Azure_VM)</span> and run the terraform command.
     ```bash
     $ ls -l
-    -rw-r--r-- 1 bsingh 1049089   573 Feb 19 15:37 aws_connection.tf       
-    -rw-r--r-- 1 bsingh 1049089   876 Feb 24 15:57 azure_rm_connection.tf  
-    -rw-r--r-- 1 bsingh 1049089   564 Feb 19 13:54 DevOps_UI.tf
-    -rw-r--r-- 1 bsingh 1049089   419 Feb 19 13:55 group_lib.tf
-    -rw-r--r-- 1 bsingh 1049089  3243 Feb 27 10:59 id_rsa
-    -rw-r--r-- 1 bsingh 1049089   725 Feb 27 10:59 id_rsa.pub
-    -rw-r--r-- 1 bsingh 1049089   769 Feb 20 11:27 output.tf
-    -rw-r--r-- 1 bsingh 1049089   528 Feb 18 21:13 provider.tf
-    drwxr-xr-x 1 bsingh 1049089     0 Feb 20 15:59 scripts/
-    -rw-r--r-- 1 bsingh 1049089  6175 Feb 20 15:57 selfthost_agentvm.tf    
-    -rw-r--r-- 1 bsingh 1049089   362 Feb 19 12:35 ssh_key.tf
-    -rw-r--r-- 1 bsingh 1049089  1180 Feb 21 12:44 Storage.tf
-    -rw-r--r-- 1 bsingh 1049089 72270 Feb 27 11:02 terraform.tfstate       
-    -rw-r--r-- 1 bsingh 1049089   183 Feb 27 10:59 terraform.tfstate.backup
-    -rw-r--r-- 1 bsingh 1049089  3654 Feb 21 13:13 terraform.tfvars        
-    -rw-r--r-- 1 bsingh 1049089  3999 Feb 20 11:05 variable.tf
+      -rw-r--r-- 1 bsingh 1049089  2309 Mar 26 20:29 Configure-AD-Users.ps1
+      -rw-r--r-- 1 bsingh 1049089  7705 Mar 31 12:37 Configure-AD-Users-and-Groups.ps1
+      -rw-r--r-- 1 bsingh 1049089  6842 Mar 26 20:29 Install-AD.ps1
+      -rw-r--r-- 1 bsingh 1049089  6912 Mar 31 11:31 main.tf
+      -rw-r--r-- 1 bsingh 1049089   492 Mar 26 17:14 terraform.tfvars
     ```
 
 - You need to run terraform command.
@@ -61,78 +50,24 @@ First, we'll create the necessary virtual machines using ```terraform``` code.
   terraform apply 
   # Optional <terraform apply --auto-approve>
   ```
-![Image](https://github.com/user-attachments/assets/ec2fb16f-d7f5-4de6-9831-b9a64829dc7d)
+![alt text](image-8.png)
 Once you run the terraform command, then we will verify the following things to make sure everything is setup via a terraform.
 
-### <span style="color: Orange;"> Inspect the ```Cloud-Init``` logs</span>: 
-Once connected to VM then you can check the status of the ```user_data``` script by inspecting the log files
-```bash
-# Primary log file for cloud-init
-sudo tail -f /var/log/cloud-init-output.log
-                    or 
-sudo cat /var/log/cloud-init-output.log | more
-```
-- *If the user_data script runs successfully, you will see output logs and any errors encountered during execution.*
-- *If there’s an error, this log will provide clues about what failed.*
+### <span style="color: Orange;"> Inspect the ```C:\WindowsAzure``` logs</span>: 
+Once connected to VM then you can check the status of the ```CustomScript``` script by inspecting the log files
 
-![Image](https://github.com/user-attachments/assets/27233f0b-3fab-49ec-893e-8c24431e0ebb)
-
+![alt text](image-9.png)
+![alt text](image-10.png)
 
 ### <span style="color: cyan;"> Verify the Installation 
 
-- [x] <span style="color: brown;"> Docker version
-```bash
-azureuser@devopsdemovm:~$  docker --version
-Docker version 24.0.7, build 24.0.7-0ubuntu4.1
 
-
-docker ps -a
-azureuser@devopsdemovm:~$  docker ps
-```
-- [x] <span style="color: brown;"> Ansible version
-```bash
-azureuser@devopsdemovm:~$ ansible --version
-ansible [core 2.17.8]
-  config file = /etc/ansible/ansible.cfg
-  configured module search path = ['/home/azureuser/.ansible/plugins/modules', '/usr/share/ansible/plugins/modules']
-  ansible python module location = /usr/lib/python3/dist-packages/ansible
-  ansible collection location = /home/azureuser/.ansible/collections:/usr/share/ansible/collections
-  executable location = /usr/bin/ansible
-  python version = 3.10.12 (main, Feb  4 2025, 14:57:36) [GCC 11.4.0] (/usr/bin/python3)
-  jinja version = 3.0.3
-  libyaml = True
-```
-- [x] <span style="color: brown;"> Azure CLI version
-```bash
-azureuser@devopsdemovm:~$ az version
-{
-  "azure-cli": "2.67.0",
-  "azure-cli-core": "2.67.0",
-  "azure-cli-telemetry": "1.1.0",
-  "extensions": {}
-}
-```
-- [x] <span style="color: brown;"> Project Creation
-![Image](https://github.com/user-attachments/assets/c641826f-9db1-431b-a27c-a0d57669ae37)
-- [x] <span style="color: brown;"> Service Connection
-![Image](https://github.com/user-attachments/assets/a7952cbf-b200-4209-ad5e-732b23647c23)
-- [x] <span style="color: brown;"> Import Repo 
-![Image](https://github.com/user-attachments/assets/eb5e0859-87c7-4cef-8518-f9713b432306)
-- [x] <span style="color: brown;"> Resource Group & Storage account Creation
-![Image](https://github.com/user-attachments/assets/ed3ac689-7877-4128-b85d-80b8aedb51dc)
-
-- Upload the private and public keys in library from a secure files as below.
-![Image](https://github.com/user-attachments/assets/11cae9a2-e347-40d3-81b0-996616a28f7f)
-
-**Note**: It would be the same keys which was created during the provision the infra.
-
-### Verify Virtual Machine Status in Azure Console
+#### Verify Virtual Machine Status in Azure Console
 
 ![alt text](image.png)
 
 ### Verify Users, Groups and Service account in Virtual Machine.
-
-
+![alt text](image-11.png)
 
 
 
