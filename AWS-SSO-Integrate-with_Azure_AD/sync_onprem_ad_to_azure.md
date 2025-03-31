@@ -11,11 +11,11 @@
 
 ## Step-by-Step Guide
 
-### Verify VM Status in Azure Console
+### Verify Virtual Machine Status in Azure Console
 
 ![alt text](image.png)
 
-### To disable Internet Explorer Enhanced Security Configuration.
+### To disable `Internet Explorer Enhanced Security Configuration`.
 ![alt text](image-1.png)
 
 ### To Verify TLS Status
@@ -65,17 +65,15 @@ New-ItemProperty -Path "HKLM:\SOFTWARE\Wow6432Node\Microsoft\.NETFramework\v4.0.
 
 Write-Output "TLS 1.2 has been enabled. A system restart is recommended for changes to take effect."
 ```
+![alt text](image-3.png)
+
 ***Explanation:***
 - Enables TLS 1.2 for Client and Server in the SCHANNEL registry settings.
 - Enables strong cryptography in .NET Framework, so applications use TLS 1.2 by default.
 - Requires a system restart to fully apply the changes.
 
-![alt text](image-3.png)
-
-
 - Verified that TLS status on Server.
-   
-
+   ![alt text](image-4.png)
 
 
 ### Step 1: Prepare Azure AD
@@ -92,7 +90,13 @@ Write-Output "TLS 1.2 has been enabled. A system restart is recommended for chan
 
 2. **Install Azure AD Connect**:
    - Run the installer on a server in your on-premises environment.
-   - Choose the `Express Settings` option for a simple setup.
+   ![alt text](image-5.png)
+
+   - Choose the `Customize` option for a simple setup.
+   ![alt text](image-6.png)
+   - leave as it is and click on install
+   ![alt text](image-7.png)
+
 
 3. **Configure Azure AD Connect**:
    - During the setup, you will be prompted to enter your Azure AD and on-premises AD credentials.

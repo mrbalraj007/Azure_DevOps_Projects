@@ -1,3 +1,4 @@
+
 param (
     [string]$DomainName = "singh.org.au",
     [string]$OUName = "SINGH-Integration",
@@ -138,6 +139,34 @@ try {
     }
     catch {
         Write-Host ("Error adding groups to Enterprise Admins group: {0}" -f $_.Exception.Message) -ForegroundColor Yellow
+    }
+
+    # Step 6: Create the service account
+    Write-Host "Creating service account: svc_admin_migration..." -ForegroundColor Green
+    try {
+        $ServiceAccountName = "svc_admin_migration"
+        $ServiceAccountPassword = ConvertTo-SecureString "test@123456" -AsPlainText -Force
+
+        if (Get-ADUser -Filter {SamAccountName -eq $ServiceAccountName} -ErrorAction SilentlyContinue) {
+            Write-Host "Service account $ServiceAccountName already exists." -ForegroundColor Yellow
+        } else {
+            # Fixed line - removed comment and ensured proper line continuation
+            New-ADUser -Name "svc_admin_migration" `
+                -SamAccountName $ServiceAccountName `
+                -UserPrincipalName "$ServiceAccountName@$DomainName" `
+                -GivenName "Service" `
+                -Surname "Account" `
+                -DisplayName "Service Account for AD Admin Migration" `
+                -Path $OUDN `
+                -AccountPassword $ServiceAccountPassword `
+                -Enabled $true
+
+            Set-ADUser -Identity $ServiceAccountName -Description "Service Account for AD Admin Migration"
+            Write-Host "Created service account: $ServiceAccountName" -ForegroundColor Green
+        }
+    }
+    catch {
+        Write-Host ("Error creating service account {0}: {1}" -f $ServiceAccountName, $_.Exception.Message) -ForegroundColor Red
     }
 
     Write-Host "User and group setup completed successfully!" -ForegroundColor Cyan
