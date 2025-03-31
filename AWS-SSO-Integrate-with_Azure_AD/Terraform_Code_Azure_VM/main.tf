@@ -149,7 +149,7 @@ resource "azurerm_storage_blob" "user_group_script" {
   storage_container_name = azurerm_storage_container.scripts.name
   type                   = "Block"
   source                 = "Configure-AD-Users-and-Groups.ps1" # Updated to correct file path
-  
+
 
 }
 
