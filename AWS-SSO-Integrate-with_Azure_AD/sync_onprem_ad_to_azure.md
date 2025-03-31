@@ -11,14 +11,23 @@
 
 ## Step-by-Step Guide
 
-### To check whether TLS 1.2 is enabled on a Windows system using PowerShell, you can run the following command:
+### Verify VM Status in Azure Console
+
+![alt text](image.png)
+
+### To disable Internet Explorer Enhanced Security Configuration.
+![alt text](image-1.png)
+
+### To Verify TLS Status
+
+#### To check whether TLS 1.2 is enabled on a Windows system using PowerShell, you can run the following command:
 
 ```powershell
 [Net.ServicePointManager]::SecurityProtocol.HasFlag([Net.SecurityProtocolType]::Tls12)
 ```
 If TLS 1.2 is enabled, this will return True. Otherwise, it will return False.
 
-### Alternative Method: Checking the Registry
+#### Alternative Method: Checking the Registry
 You can also check the Windows registry to see if TLS 1.2 is explicitly enabled:
 ```powershell
 $registryPath = "HKLM:\SYSTEM\CurrentControlSet\Control\SecurityProviders\SCHANNEL\Protocols\TLS 1.2\Client"
@@ -31,7 +40,13 @@ if ($enabled -and $enabled.Enabled -eq 1) {
 }
 ```
 
-### To enable TLS 1.2 on both Client and Server in Windows, use the following PowerShell command:
+- Verified that TLS is not enabled on Server.
+   ![alt text](image-2.png)
+
+
+### To enable TLS 1.2 on both Client and Server in Windows
+
+#### To enable TLS 1.2 on both Client and Server in Windows, use the following PowerShell command:
 
 ```powershell
 # Enable TLS 1.2 for Client
@@ -50,10 +65,18 @@ New-ItemProperty -Path "HKLM:\SOFTWARE\Wow6432Node\Microsoft\.NETFramework\v4.0.
 
 Write-Output "TLS 1.2 has been enabled. A system restart is recommended for changes to take effect."
 ```
-**Explanation:**
+***Explanation:***
 - Enables TLS 1.2 for Client and Server in the SCHANNEL registry settings.
 - Enables strong cryptography in .NET Framework, so applications use TLS 1.2 by default.
 - Requires a system restart to fully apply the changes.
+
+![alt text](image-3.png)
+
+
+- Verified that TLS status on Server.
+   
+
+
 
 ### Step 1: Prepare Azure AD
 
