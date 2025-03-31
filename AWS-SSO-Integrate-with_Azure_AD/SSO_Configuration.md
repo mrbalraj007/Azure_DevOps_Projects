@@ -12,40 +12,53 @@ This guide provides a detailed step-by-step approach to configuring **Azure AD A
 ## **Step 1: Enabling AWS SSO**
 ### **1.1 Log into AWS Management Console**
 - Navigate to [AWS Console](https://aws.amazon.com/console/).
-- Search for **AWS IAM Identity Center (SSO)** in the AWS search bar.
+- Search for **IAM Identity Center** in the AWS search bar.
 - Click on **IAM Identity Center** to launch the service.
 - In the IAM Identity Center dashboard, enable the **SSO Feature**.
+
 
 ### **1.2 Configure Identity Source**
 - In the IAM Identity Center dashboard, go to **Settings**.
 - Scroll down to **Identity Source**.
 - Click on **Actions** → **Change Identity Source**.
+![alt text](image-31.png)
 - Choose **External Identity Provider**.
+![alt text](image-32.png)
 - Click **Next**.
 
----
 ## **Step 2: Configuring SAML in AWS**
 ### **2.1 Download AWS SAML Metadata**
 - Under **Identity Provider Configuration**, download the **AWS SAML Metadata file**.
+![alt text](image-33.png)
 - Save this file for later use in Azure AD configuration.
 
----
 ## **Step 3: Configuring Azure AD for AWS SSO**
 ### **3.1 Log into Azure Portal**
 - Navigate to [Azure Portal](https://portal.azure.com/).
-- Select **Azure Active Directory** from the left panel.
+- Select **Miscrosoft Infra ID** from the left panel.
+![alt text](image-34.png)
 - Click on **Enterprise Applications** → **New Application**.
+![alt text](image-35.png)
+![alt text](image-36.png)
 - Search for **AWS IAM Identity Center** and select it.
+![alt text](image-37.png)
 - Click **Create** to add the application.
+![alt text](image-38.png)
 
 ### **3.2 Configure Single Sign-On (SSO)**
 - Open the created **AWS IAM Identity Center** application.
 - Select **Single Sign-On** → **SAML**.
-- Click **Upload Metadata File** and select the AWS SAML metadata file downloaded earlier.
+![alt text](image-39.png)
+![alt text](image-40.png)
+- Click **Upload Metadata File** and select the AWS SAML metadata file downloaded earlier in `steps 2.1`.
+![alt text](image-41.png)
+![alt text](image-42.png)
 - Click **Save**.
+![alt text](image-43.png)
 
 ### **3.3 Download Azure AD Federation Metadata**
 - In the **SAML Certificates** section, download the **Federation Metadata XML** file.
+![alt text](image-44.png)
 - This file will be used in AWS to complete the SAML configuration.
 
 ---
@@ -54,21 +67,30 @@ This guide provides a detailed step-by-step approach to configuring **Azure AD A
 - Go back to **AWS IAM Identity Center**.
 - Click **Upload IdP SAML Metadata**.
 - Select the **Federation Metadata XML** file downloaded from Azure.
+![alt text](image-45.png)
 - Click **Next**, review details, accept terms, and click **Change Identity Source**.
+![alt text](image-46.png)
 
 ---
 ## **Step 5: Enabling Automatic User Provisioning**
 ### **5.1 Retrieve SCIM URL and Token from AWS**
 - In **AWS IAM Identity Center**, navigate to **Settings**.
 - Enable **Automatic Provisioning**.
+![alt text](image-47.png)
 - Copy **SCIM Endpoint URL** and **Access Token**.
+![alt text](image-48.png)
 
 ### **5.2 Configure User Provisioning in Azure AD**
 - In Azure AD, go to **Enterprise Applications** → **AWS IAM Identity Center**.
 - Click on **Provisioning** → **Set Provisioning Mode to Automatic**.
+![alt text](image-49.png)
+![alt text](image-50.png)
 - Paste the **SCIM URL** and **Access Token**.
+![alt text](image-51.png)
 - Click **Test Connection** → If successful, click **Save**.
+![alt text](image-52.png)
 - Click **Start Provisioning**.
+![alt text](image-53.png)
 
 ---
 ## **Step 6: Assigning Users and Groups in Azure AD**
