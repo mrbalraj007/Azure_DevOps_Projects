@@ -62,14 +62,15 @@ Once connected to VM then you can check the status of the ```CustomScript``` scr
 ### <span style="color: cyan;"> Verify the Installation 
 
 
-#### Verify Virtual Machine Status in Azure Console
+#### Verify `Virtual Machine` Status in Azure Console
 
 ![alt text](image.png)
 
-### Verify Users, Groups and Service account in Virtual Machine.
+### Verify `Users, Groups` and `Service account` in Active Directory.
 ![alt text](image-11.png)
 
-
+### Verify `storage account` and `blob`.
+![alt text](image-12.png)
 
 
 ### To disable `Internet Explorer Enhanced Security Configuration`.
@@ -125,11 +126,11 @@ Write-Output "TLS 1.2 has been enabled. A system restart is recommended for chan
 ![alt text](image-3.png)
 
 ***Explanation:***
-- Enables TLS 1.2 for Client and Server in the SCHANNEL registry settings.
+*- Enables TLS 1.2 for Client and Server in the SCHANNEL registry settings.
 - Enables strong cryptography in .NET Framework, so applications use TLS 1.2 by default.
-- Requires a system restart to fully apply the changes.
+- Requires a system restart to fully apply the changes.*
 
-- Verified that TLS status on Server.
+- Verified that `TLS status` on Server.
    ![alt text](image-4.png)
 
 
@@ -137,8 +138,12 @@ Write-Output "TLS 1.2 has been enabled. A system restart is recommended for chan
 
 1. **Login to Azure Portal**: Go to [Azure Portal](https://portal.azure.com) and log in with your Azure account.
 2. **Create Azure AD Tenant**:
-   - Navigate to `Azure Active Directory` > `Create a directory`.
+   - Navigate to `Microsoft Intra ID` > `Create a directory`.
    - Follow the prompts to create a new directory.
+3. **Create new admin user for migration**:
+   - Will create a new user in Azure AD and assign the `global administrator` rights.
+   ![alt text](image-14.png)
+   ![alt text](image-15.png)
 
 ### Step 2: Configure Azure AD Connect
 
@@ -153,11 +158,20 @@ Write-Output "TLS 1.2 has been enabled. A system restart is recommended for chan
    ![alt text](image-6.png)
    - leave as it is and click on install
    ![alt text](image-7.png)
-
-
+   - select the Sign On Method
+   ![alt text](image-13.png)
+   
 3. **Configure Azure AD Connect**:
    - During the setup, you will be prompted to enter your Azure AD and on-premises AD credentials.
-   - Select the `Singh.org.au` domain for synchronization.
+   - Type the user which created in Step 1 which has `global administrator` rights select the Sign On Method
+   ![alt text](image-16.png)
+   ![alt text](image-17.png)
+   - Select the `Singh.org.au` domain for synchronization and click on add directory.
+   ![alt text](image-18.png)
+   - select `use existing AD Account` and type `service account` details.
+   ![alt text](image-19.png)
+   ![alt text](image-20.png)
+   
    - Choose the synchronization options that best fit your environment (e.g., password hash synchronization, pass-through authentication).
 
 ### Step 3: Verify Synchronization
