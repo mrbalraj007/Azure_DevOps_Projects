@@ -149,7 +149,6 @@ This guide provides a detailed step-by-step approach to configuring **Azure AD A
 By integrating Azure AD with AWS, organizations streamline authentication, enhance security, and simplify user management. Azure AD’s **Conditional Access Policies** further strengthen security, providing a **single entity for identity management** across cloud platforms.
 
 
-
 **Ref Link**
 
 - [YoutTube- Azure AD Authentication for AWS](https://www.youtube.com/watch?v=R-07SaS1Gig)
