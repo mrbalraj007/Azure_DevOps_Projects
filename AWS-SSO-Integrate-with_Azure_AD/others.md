@@ -1,4 +1,4 @@
-```sh
+<!-- ```sh
 ============
 #
 # Windows PowerShell script for AD DS Deployment
@@ -31,4 +31,4 @@ P@ssw0rd123 - users
 
 svc_ad_admin_migration
 test@123456
-```
+``` -->
