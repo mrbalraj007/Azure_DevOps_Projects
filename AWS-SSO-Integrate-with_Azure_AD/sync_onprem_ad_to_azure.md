@@ -171,8 +171,17 @@ Write-Output "TLS 1.2 has been enabled. A system restart is recommended for chan
    - select `use existing AD Account` and type `service account` details.
    ![alt text](image-19.png)
    ![alt text](image-20.png)
-   
+   - click on `Continue without matching all UPN suffixes to verified domains`
+   ![alt text](image-21.png)
+
+   - Click on `Sync selected domains and OUs`
+   ![alt text](image-22.png)
+   - leave the default setting and click next.
+   ![alt text](image-23.png)
+   ![alt text](image-24.png)
+   ![alt text](image-25.png)
    - Choose the synchronization options that best fit your environment (e.g., password hash synchronization, pass-through authentication).
+   ![alt text](image-26.png)
 
 ### Step 3: Verify Synchronization
 
