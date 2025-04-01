@@ -21,17 +21,17 @@ This guide provides a detailed step-by-step approach to configuring **Azure AD A
 - In the IAM Identity Center dashboard, go to **Settings**.
 - Scroll down to **Identity Source**.
 - Click on **Actions** → **Change Identity Source**.
-![alt text](image-31.png)
+    ![alt text](image-31.png)
 - Choose **External Identity Provider**.
-![alt text](image-32.png)
+    ![alt text](image-32.png)
 - Click **Next**.
-
+---
 ## **Step 2: Configuring SAML in AWS**
 ### **2.1 Download AWS SAML Metadata**
 - Under **Identity Provider Configuration**, download the **AWS SAML Metadata file**.
 ![alt text](image-33.png)
 - Save this file for later use in Azure AD configuration.
-
+---
 ## **Step 3: Configuring Azure AD for AWS SSO**
 ### **3.1 Log into Azure Portal**
 - Navigate to [Azure Portal](https://portal.azure.com/).
@@ -129,7 +129,7 @@ This guide provides a detailed step-by-step approach to configuring **Azure AD A
 - Click **Next** → **Create**.
 - Go back to the previous screen, select the created permission set, and assign it to the user.
 ![alt text](image-66.png)
-
+---
 ## **Step 8: Verifying Login to AWS Using Azure AD**
 ### **8.1 Access AWS via Azure AD**
 - In **IAM Identity Center**, copy the **AWS Access Portal URL**.
@@ -144,7 +144,7 @@ This guide provides a detailed step-by-step approach to configuring **Azure AD A
 ![alt text](image-71.png)
 - Successfully access AWS using Azure AD authentication.
 ![alt text](image-73.png)
-
+---
 ## **Conclusion**
 By integrating Azure AD with AWS, organizations streamline authentication, enhance security, and simplify user management. Azure AD’s **Conditional Access Policies** further strengthen security, providing a **single entity for identity management** across cloud platforms.
 
