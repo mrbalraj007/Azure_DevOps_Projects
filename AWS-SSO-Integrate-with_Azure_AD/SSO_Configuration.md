@@ -8,7 +8,7 @@ Integrating Azure Active Directory (Azure AD) with Amazon Web Services (AWS) all
 
 This guide provides a detailed step-by-step approach to configuring **Azure AD Authentication for AWS** using SAML.
 
----
+
 ## **Step 1: Enabling AWS SSO**
 ### **1.1 Log into AWS Management Console**
 - Navigate to [AWS Console](https://aws.amazon.com/console/).
@@ -25,13 +25,13 @@ This guide provides a detailed step-by-step approach to configuring **Azure AD A
 - Choose **External Identity Provider**.
     ![alt text](image-32.png)
 - Click **Next**.
----
+
 ## **Step 2: Configuring SAML in AWS**
 ### **2.1 Download AWS SAML Metadata**
 - Under **Identity Provider Configuration**, download the **AWS SAML Metadata file**.
 ![alt text](image-33.png)
 - Save this file for later use in Azure AD configuration.
----
+
 ## **Step 3: Configuring Azure AD for AWS SSO**
 ### **3.1 Log into Azure Portal**
 - Navigate to [Azure Portal](https://portal.azure.com/).
@@ -61,7 +61,7 @@ This guide provides a detailed step-by-step approach to configuring **Azure AD A
 ![alt text](image-44.png)
 - This file will be used in AWS to complete the SAML configuration.
 
----
+
 ## **Step 4: Configuring SAML in AWS**
 ### **4.1 Upload Azure AD Metadata to AWS**
 - Go back to **AWS IAM Identity Center**.
@@ -71,7 +71,7 @@ This guide provides a detailed step-by-step approach to configuring **Azure AD A
 - Click **Next**, review details, accept terms, and click **Change Identity Source**.
 ![alt text](image-46.png)
 
----
+
 ## **Step 5: Enabling Automatic User Provisioning**
 ### **5.1 Retrieve SCIM URL and Token from AWS**
 - In **AWS IAM Identity Center**, navigate to **Settings**.
@@ -92,7 +92,7 @@ This guide provides a detailed step-by-step approach to configuring **Azure AD A
 - Click **Start Provisioning**.
 ![alt text](image-53.png)
 
----
+
 ## **Step 6: Assigning Users and Groups in Azure AD**
 - In **Azure AD**, go to **Enterprise Applications** → **AWS IAM Identity Center**.
 - Click **Users and Groups** → **Add User**.
@@ -109,7 +109,7 @@ This guide provides a detailed step-by-step approach to configuring **Azure AD A
 
 - Verify user status in AWS
 ![alt text](image-60.png)
----
+
 ## **Step 7: Assigning AWS Permissions to Users**
 - In **AWS IAM Identity Center**, go to **AWS Accounts** under Multi-Account Permissions.
 - Select the account where access is required.
@@ -129,7 +129,7 @@ This guide provides a detailed step-by-step approach to configuring **Azure AD A
 - Click **Next** → **Create**.
 - Go back to the previous screen, select the created permission set, and assign it to the user.
 ![alt text](image-66.png)
----
+
 ## **Step 8: Verifying Login to AWS Using Azure AD**
 ### **8.1 Access AWS via Azure AD**
 - In **IAM Identity Center**, copy the **AWS Access Portal URL**.
