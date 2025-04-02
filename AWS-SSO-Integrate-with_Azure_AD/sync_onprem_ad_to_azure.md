@@ -1,4 +1,4 @@
-# Sync On-Premises Active Directory with Azure AD
+# **Seamlessly Integrate On-Premises Active Directory with Azure AD**
 
 ## Prerequisites
 

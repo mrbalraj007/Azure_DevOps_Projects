@@ -38,6 +38,7 @@ This guide provides a detailed step-by-step approach to configuring **Azure AD A
 - Select **Miscrosoft Infra ID** from the left panel.
 ![alt text](image-34.png)
 - Click on **Enterprise Applications** → **New Application**.
+  
 ![alt text](image-35.png)
 ![alt text](image-36.png)
 - Search for **AWS IAM Identity Center** and select it.
