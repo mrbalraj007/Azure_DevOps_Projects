@@ -50,35 +50,35 @@ First, we'll create the necessary virtual machines using ```terraform``` code.
   terraform apply 
   # Optional <terraform apply --auto-approve>
   ```
-![alt text](image-8.png)
+![alt text](All_ScreenShot/image-8.png)
 Once you run the terraform command, then we will verify the following things to make sure everything is setup via a terraform.
 
 ### <span style="color: Orange;"> Inspect the ```C:\WindowsAzure``` logs</span>: 
 Once connected to VM then you can check the status of the ```CustomScript``` script by inspecting the log files
 
-![alt text](image-9.png)
-![alt text](image-10.png)
+![alt text](All_ScreenShot/image-9.png)
+![alt text](All_ScreenShot/image-10.png)
 
 ### <span style="color: cyan;"> Verify the Installation 
 
 
 #### Verify `Virtual Machine` Status in Azure Console
 
-![alt text](image.png)
+![alt text](All_ScreenShot/image.png)
 
 ### Verify `Users, Groups` and `Service account` in Active Directory.
-![alt text](image-11.png)
+![alt text](All_ScreenShot/image-11.png)
 
 ### Permission to service account in Active Directory.
 - Below are the permissions need to assign to service account in Active Directory.
-![alt text](image-69.png)
+![alt text](All_ScreenShot/image-69.png)
 
 ### Verify `storage account` and `blob`.
-![alt text](image-12.png)
+![alt text](All_ScreenShot/image-12.png)
 
 
 ### To disable `Internet Explorer Enhanced Security Configuration`.
-![alt text](image-1.png)
+![alt text](All_ScreenShot/image-1.png)
 
 ### To Verify TLS Status
 
@@ -103,7 +103,7 @@ if ($enabled -and $enabled.Enabled -eq 1) {
 ```
 
 - Verified that TLS is not enabled on Server.
-   ![alt text](image-2.png)
+   ![alt text](All_ScreenShot/image-2.png)
 
 
 ### To enable TLS 1.2 on both Client and Server in Windows
@@ -127,7 +127,7 @@ New-ItemProperty -Path "HKLM:\SOFTWARE\Wow6432Node\Microsoft\.NETFramework\v4.0.
 
 Write-Output "TLS 1.2 has been enabled. A system restart is recommended for changes to take effect."
 ```
-![alt text](image-3.png)
+![alt text](All_ScreenShot/image-3.png)
 
 ***Explanation:***
 *- Enables TLS 1.2 for Client and Server in the SCHANNEL registry settings.
@@ -135,7 +135,7 @@ Write-Output "TLS 1.2 has been enabled. A system restart is recommended for chan
 - Requires a system restart to fully apply the changes.*
 
 - Verified that `TLS status` on Server.
-   ![alt text](image-4.png)
+   ![alt text](All_ScreenShot/image-4.png)
 
 
 ### Step 1: Prepare Azure AD
@@ -146,8 +146,8 @@ Write-Output "TLS 1.2 has been enabled. A system restart is recommended for chan
    - Follow the prompts to create a new directory.
 3. **Create new admin user for migration**:
    - Will create a new user in Azure AD and assign the `global administrator` rights.
-   ![alt text](image-14.png)
-   ![alt text](image-15.png)
+   ![alt text](All_ScreenShot/image-14.png)
+   ![alt text](All_ScreenShot/image-15.png)
 
 ### Step 2: Configure Azure AD Connect
 
@@ -156,37 +156,37 @@ Write-Output "TLS 1.2 has been enabled. A system restart is recommended for chan
 
 2. **Install Azure AD Connect**:
    - Run the installer on a server in your on-premises environment.
-   ![alt text](image-5.png)
+   ![alt text](All_ScreenShot/image-5.png)
 
    - Choose the `Customize` option for a simple setup.
-   ![alt text](image-6.png)
+   ![alt text](All_ScreenShot/image-6.png)
    - leave as it is and click on install
-   ![alt text](image-7.png)
+   ![alt text](All_ScreenShot/image-7.png)
    - select the Sign On Method
-   ![alt text](image-13.png)
+   ![alt text](All_ScreenShot/image-13.png)
    
 3. **Configure Azure AD Connect**:
    - During the setup, you will be prompted to enter your Azure AD and on-premises AD credentials.
    - Type the user which created in Step 1 which has `global administrator` rights select the Sign On Method
-   ![alt text](image-16.png)
-   ![alt text](image-17.png)
+   ![alt text](All_ScreenShot/image-16.png)
+   ![alt text](All_ScreenShot/image-17.png)
    - Select the `Singh.org.au` domain for synchronization and click on add directory.
-   ![alt text](image-18.png)
+   ![alt text](All_ScreenShot/image-18.png)
    - select `use existing AD Account` and type `service account` details.
-   ![alt text](image-19.png)
-   ![alt text](image-20.png)
+   ![alt text](All_ScreenShot/image-19.png)
+   ![alt text](All_ScreenShot/image-20.png)
    - click on `Continue without matching all UPN suffixes to verified domains`
-   ![alt text](image-21.png)
+   ![alt text](All_ScreenShot/image-21.png)
 
    - Click on `Sync selected domains and OUs`
-   ![alt text](image-22.png)
+   ![alt text](All_ScreenShot/image-22.png)
    - leave the default setting and click next.
-   ![alt text](image-23.png)
-   ![alt text](image-24.png)
-   ![alt text](image-25.png)
+   ![alt text](All_ScreenShot/image-23.png)
+   ![alt text](All_ScreenShot/image-24.png)
+   ![alt text](All_ScreenShot/image-25.png)
    - Choose the synchronization options that best fit your environment (e.g., password hash synchronization, pass-through authentication).
-   ![alt text](image-26.png)
-   ![alt text](image-27.png)
+   ![alt text](All_ScreenShot/image-26.png)
+   ![alt text](All_ScreenShot/image-27.png)
 ### Step 3: Verify Synchronization
 
 1. **Initial Sync**:
@@ -197,10 +197,10 @@ Write-Output "TLS 1.2 has been enabled. A system restart is recommended for chan
    - Go to `Azure Active Directory` > `Users` in the Azure Portal.
    - Verify that the on-premises AD users are listed in Azure AD.
    - Users Status
-   ![alt text](image-28.png)
+   ![alt text](All_ScreenShot/image-28.png)
    - Group Status
-   ![alt text](image-29.png)
-   ![alt text](image-30.png)
+   ![alt text](All_ScreenShot/image-29.png)
+   ![alt text](All_ScreenShot/image-30.png)
 ### Step 4: Configure Additional Settings (Optional)
 
 1. **Password Writeback**:
@@ -219,7 +219,7 @@ Write-Output "TLS 1.2 has been enabled. A system restart is recommended for chan
 - I used service account to configure to migrate the AD but didn't provide permission at domain level.
 
 - So, I have granted the permission to service account at domain level and also initiate the following powershell to sync the delta and verify in service manager.
-![alt text](image-69.png)
+![alt text](All_ScreenShot/image-69.png)
 
 ```sh
 Start-ADSyncSyncCycle -PolicyType Delta
