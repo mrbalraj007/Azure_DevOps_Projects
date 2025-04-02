@@ -226,7 +226,7 @@ Start-ADSyncSyncCycle -PolicyType Delta
 Start-ADSyncSyncCycle -PolicyType initial
 ```
 
-![alt text](image-70.png)
+![Alt text](All_ScreenShot/image-70.png)
 
 ### Delete Azure Security Group (Optional)
 ```sh
