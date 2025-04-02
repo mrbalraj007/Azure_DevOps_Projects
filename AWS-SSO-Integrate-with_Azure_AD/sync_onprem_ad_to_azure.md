@@ -239,3 +239,6 @@ az ad group delete --group 'GroupName' --verbose
 By following these steps, you will have successfully synchronized your on-premises Active Directory with Azure AD. This setup ensures that your users can access both on-premises and cloud resources with a single set of credentials.
 
 
+**Ref Link**
+- [sync on-premises Active Directory to Azure Active Directory with Azure AD Connect](https://www.codetwo.com/admins-blog/how-to-sync-on-premises-active-directory-to-azure-active-directory-with-azure-ad-connect/)
+
