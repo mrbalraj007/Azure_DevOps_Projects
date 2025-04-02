@@ -21,45 +21,45 @@ This guide provides a detailed step-by-step approach to configuring **Azure AD A
 - In the IAM Identity Center dashboard, go to **Settings**.
 - Scroll down to **Identity Source**.
 - Click on **Actions** → **Change Identity Source**.
-    ![alt text](image-31.png)
+    ![alt text](All_ScreenShot/image-31.png)
 - Choose **External Identity Provider**.
-    ![alt text](image-32.png)
+    ![alt text](All_ScreenShot/image-32.png)
 - Click **Next**.
 
 ## **Step 2: Configuring SAML in AWS**
 ### **2.1 Download AWS SAML Metadata**
 - Under **Identity Provider Configuration**, download the **AWS SAML Metadata file**.
-![alt text](image-33.png)
+![alt text](All_ScreenShot/image-33.png)
 - Save this file for later use in Azure AD configuration.
 
 ## **Step 3: Configuring Azure AD for AWS SSO**
 ### **3.1 Log into Azure Portal**
 - Navigate to [Azure Portal](https://portal.azure.com/).
 - Select **Miscrosoft Infra ID** from the left panel.
-![alt text](image-34.png)
+![alt text](All_ScreenShot/image-34.png)
 - Click on **Enterprise Applications** → **New Application**.
   
-![alt text](image-35.png)
-![alt text](image-36.png)
+![alt text](All_ScreenShot/image-35.png)
+![alt text](All_ScreenShot/image-36.png)
 - Search for **AWS IAM Identity Center** and select it.
-![alt text](image-37.png)
+![alt text](All_ScreenShot/image-37.png)
 - Click **Create** to add the application.
-![alt text](image-38.png)
+![alt text](All_ScreenShot/image-38.png)
 
 ### **3.2 Configure Single Sign-On (SSO)**
 - Open the created **AWS IAM Identity Center** application.
 - Select **Single Sign-On** → **SAML**.
-![alt text](image-39.png)
-![alt text](image-40.png)
+![alt text](All_ScreenShot/image-39.png)
+![alt text](All_ScreenShot/image-40.png)
 - Click **Upload Metadata File** and select the AWS SAML metadata file downloaded earlier in `steps 2.1`.
-![alt text](image-41.png)
-![alt text](image-42.png)
+![alt text](All_ScreenShot/image-41.png)
+![alt text](All_ScreenShot/image-42.png)
 - Click **Save**.
-![alt text](image-43.png)
+![alt text](All_ScreenShot/image-43.png)
 
 ### **3.3 Download Azure AD Federation Metadata**
 - In the **SAML Certificates** section, download the **Federation Metadata XML** file.
-![alt text](image-44.png)
+![alt text](All_ScreenShot/image-44.png)
 - This file will be used in AWS to complete the SAML configuration.
 
 
@@ -68,83 +68,83 @@ This guide provides a detailed step-by-step approach to configuring **Azure AD A
 - Go back to **AWS IAM Identity Center**.
 - Click **Upload IdP SAML Metadata**.
 - Select the **Federation Metadata XML** file downloaded from Azure.
-![alt text](image-45.png)
+![alt text](All_ScreenShot/image-45.png)
 - Click **Next**, review details, accept terms, and click **Change Identity Source**.
-![alt text](image-46.png)
+![alt text](All_ScreenShot/image-46.png)
 
 
 ## **Step 5: Enabling Automatic User Provisioning**
 ### **5.1 Retrieve SCIM URL and Token from AWS**
 - In **AWS IAM Identity Center**, navigate to **Settings**.
 - Enable **Automatic Provisioning**.
-![alt text](image-47.png)
+![alt text](All_ScreenShot/image-47.png)
 - Copy **SCIM Endpoint URL** and **Access Token**.
-![alt text](image-48.png)
+![alt text](All_ScreenShot/image-48.png)
 
 ### **5.2 Configure User Provisioning in Azure AD**
 - In Azure AD, go to **Enterprise Applications** → **AWS IAM Identity Center**.
 - Click on **Provisioning** → **Set Provisioning Mode to Automatic**.
-![alt text](image-49.png)
-![alt text](image-50.png)
+![alt text](All_ScreenShot/image-49.png)
+![alt text](All_ScreenShot/image-50.png)
 - Paste the **SCIM URL** and **Access Token**.
-![alt text](image-51.png)
+![alt text](All_ScreenShot/image-51.png)
 - Click **Test Connection** → If successful, click **Save**.
-![alt text](image-52.png)
+![alt text](All_ScreenShot/image-52.png)
 - Click **Start Provisioning**.
-![alt text](image-53.png)
+![alt text](All_ScreenShot/image-53.png)
 
 
 ## **Step 6: Assigning Users and Groups in Azure AD**
 - In **Azure AD**, go to **Enterprise Applications** → **AWS IAM Identity Center**.
 - Click **Users and Groups** → **Add User**.
-![alt text](image-54.png)
+![alt text](All_ScreenShot/image-54.png)
 - Select users to assign AWS access.
-![alt text](image-55.png)
-![alt text](image-56.png)
-![alt text](image-57.png)
+![alt text](All_ScreenShot/image-55.png)
+![alt text](All_ScreenShot/image-56.png)
+![alt text](All_ScreenShot/image-57.png)
 - Click **Assign**.
-![alt text](image-58.png)
+![alt text](All_ScreenShot/image-58.png)
 > **Note:** Ensure users have **First Name** and **Last Name** attributes populated; otherwise, provisioning may fail.
 - Verify provisioning status in Azure
-![alt text](image-59.png)
+![alt text](All_ScreenShot/image-59.png)
 
 - Verify user status in AWS
-![alt text](image-60.png)
+![alt text](All_ScreenShot/image-60.png)
 
 ## **Step 7: Assigning AWS Permissions to Users**
 - In **AWS IAM Identity Center**, go to **AWS Accounts** under Multi-Account Permissions.
 - Select the account where access is required.
 - Click **Assign Users or Groups**.
-![alt text](image-61.png)
+![alt text](All_ScreenShot/image-61.png)
 - Select the user provisioned from Azure AD.
-![alt text](image-62.png)
+![alt text](All_ScreenShot/image-62.png)
 - Click **Next**.
 
 ### **7.1 Create a Permission Set**
 - Click **Create Permission Set**.
 - Choose **Predefined Permission Set** or **Custom Permissions**.
 - Select the required permission (e.g., **Administrator Access**).
-![alt text](image-63.png)
-![alt text](image-64.png)
-![alt text](image-65.png)
+![alt text](All_ScreenShot/image-63.png)
+![alt text](All_ScreenShot/image-64.png)
+![alt text](All_ScreenShot/image-65.png)
 - Click **Next** → **Create**.
 - Go back to the previous screen, select the created permission set, and assign it to the user.
-![alt text](image-66.png)
+![alt text](All_ScreenShot/image-66.png)
 
 ## **Step 8: Verifying Login to AWS Using Azure AD**
 ### **8.1 Access AWS via Azure AD**
 - In **IAM Identity Center**, copy the **AWS Access Portal URL**.
-![alt text](image-67.png)
+![alt text](All_ScreenShot/image-67.png)
 - Open an **Incognito Window** and paste the URL.
 - It will redirect to **login.microsoftonline.com (Azure AD Login Page)**.
-![alt text](image-72.png)
+![alt text](All_ScreenShot/image-72.png)
 - Enter Azure AD credentials and log in.
-![alt text](image-68.png)
+![alt text](All_ScreenShot/image-68.png)
 
 - Choose the assigned AWS account and click **Management Console**.
-![alt text](image-71.png)
+![alt text](All_ScreenShot/image-71.png)
 - Successfully access AWS using Azure AD authentication.
-![alt text](image-73.png)
+![alt text](All_ScreenShot/image-73.png)
 
 ## **Conclusion**
 By integrating Azure AD with AWS, organizations streamline authentication, enhance security, and simplify user management. Azure AD’s **Conditional Access Policies** further strengthen security, providing a **single entity for identity management** across cloud platforms.
