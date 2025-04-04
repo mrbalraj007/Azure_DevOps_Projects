@@ -22,12 +22,12 @@ resource "aws_iam_saml_provider" "azure_saml" {
     null_resource.dependency_order
   ]
 
-  name                   = "AzureAD_SAML_Provider"
+  name                   = "AzureAD_SINGH_SAML_Provider"
   saml_metadata_document = data.http.saml_metadata.response_body
 }
 
 resource "aws_iam_role" "sso_role" {
-  name = "AzureAD_SSO_Role"
+  name = "AzureAD_SINGH_SSO_Role"
 
   assume_role_policy = jsonencode({
     Version = "2012-10-17"

@@ -9,7 +9,10 @@ data "azurerm_client_config" "current" {}
 
 # Create the app registration first
 resource "azuread_application" "enterprise_app" {
-  display_name = "AWS_SSO_Enterprise_App"
+  display_name = "AWS_SINGH_SSO"
+
+  # Add identifier URI for SAML
+  identifier_uris = ["https://signin.aws.amazon.com/saml"]
 
   web {
     homepage_url  = "https://signin.aws.amazon.com/saml"
@@ -38,12 +41,10 @@ resource "azuread_application" "enterprise_app" {
   # Required for SAML
   group_membership_claims = ["ApplicationGroup", "SecurityGroup"]
 
-  # Remove the identifier_uris that's causing the problem
-  # Azure will auto-assign an application ID URI 
-
   feature_tags {
     enterprise = true
     gallery    = false
+    custom_single_sign_on = true
   }
 }
 
@@ -55,7 +56,11 @@ resource "azuread_service_principal" "enterprise_app_sp" {
   feature_tags {
     enterprise = true
     gallery    = false
+    custom_single_sign_on = true
   }
+
+  preferred_single_sign_on_mode = "saml"
+  notification_email_addresses  = []
 }
 
 # Add SAML SSO specific attributes for AWS
@@ -78,11 +83,18 @@ resource "azuread_application_optional_claims" "saml_claims" {
 # Create federated credential
 resource "azuread_application_federated_identity_credential" "aws_sso" {
   application_id = azuread_application.enterprise_app.id
-  display_name   = "AWS-SSO-Federation"
+  display_name   = "AWS-SINGH-Federation"
   description    = "Federated identity for AWS SSO integration"
   audiences      = ["https://signin.aws.amazon.com/saml"]
   issuer         = "https://login.microsoftonline.com/${data.azurerm_client_config.current.tenant_id}/v2.0"
   subject        = "aws-federation"
+}
+
+# Add SAML certificate for the enterprise application
+resource "azuread_service_principal_token_signing_certificate" "saml_cert" {
+  service_principal_id = azuread_service_principal.enterprise_app_sp.id
+  display_name         = "CN=AWS SAML Certificate"
+  end_date             = timeadd(timestamp(), "8760h") # Valid for 1 year
 }
 
 # Output the Enterprise Application URL for access
@@ -100,4 +112,9 @@ output "enterprise_app_id" {
 
 output "metadata_endpoint" {
   value = "https://login.microsoftonline.com/${data.azurerm_client_config.current.tenant_id}/federationmetadata/2007-06/federationmetadata.xml"
+}
+
+# Add output for certificate information
+output "saml_certificate_info" {
+  value = "SAML certificate created with display name: ${azuread_service_principal_token_signing_certificate.saml_cert.display_name}, expiring on: ${azuread_service_principal_token_signing_certificate.saml_cert.end_date}"
 }
