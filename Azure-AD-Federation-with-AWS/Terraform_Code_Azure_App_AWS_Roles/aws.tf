@@ -145,11 +145,11 @@ output "azure_sso_provisioner_arn" {
 }
 
 output "azure_sso_provisioner_access_key_id" {
-  value = aws_iam_access_key.azure_sso_provisioner_key.id
+  value     = aws_iam_access_key.azure_sso_provisioner_key.id
   sensitive = true
 }
 
 output "azure_sso_provisioner_secret_access_key" {
-  value = aws_iam_access_key.azure_sso_provisioner_key.secret
+  value     = aws_iam_access_key.azure_sso_provisioner_key.secret
   sensitive = true
 }

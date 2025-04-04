@@ -15,11 +15,11 @@ resource "azuread_application" "enterprise_app" {
 
   # Remove identifier_uris as it must use a verified domain
   # identifier_uris = ["https://signin.aws.amazon.com/saml"]
-  
+
   web {
     homepage_url  = "https://signin.aws.amazon.com/saml"
     redirect_uris = ["https://signin.aws.amazon.com/saml"]
-    
+
     # Configure implicit authentication settings for SAML
     implicit_grant {
       access_token_issuance_enabled = false
@@ -75,7 +75,7 @@ resource "azuread_service_principal" "enterprise_app_sp" {
     gallery               = false
     custom_single_sign_on = true
   }
-  
+
   # Removed conflicting and unconfigurable attributes:
   # - tags (conflicts with feature_tags)
   # - homepage_url (not configurable)
@@ -152,6 +152,7 @@ resource "null_resource" "saml_attributes_configuration" {
     echo "Go to: https://portal.azure.com/#blade/Microsoft_AAD_IAM/ManagedAppMenuBlade/SingleSignOn/appId/${azuread_application.enterprise_app.client_id}/objectId/${azuread_service_principal.enterprise_app_sp.id}"
     echo ""
     echo "** REQUIRED: Set 'Identifier (Entity ID)' to 'https://signin.aws.amazon.com/saml' **"
+    echo "  This identifier cannot be set programmatically without a verified domain"
     echo ""
     echo "Under 'User Attributes & Claims', add the following attribute mappings:"
     echo "1. RoleSessionName - user.userprincipalname - https://aws.amazon.com/SAML/Attributes"
@@ -214,7 +215,7 @@ CRITICAL: After deployment, complete these manual SAML configuration steps:
 
 1. Go to Azure Portal > Enterprise Applications > AWS_SSO_Enterprise_App > Single sign-on
 2. ** REQUIRED: Set 'Identifier (Entity ID)' to 'https://signin.aws.amazon.com/saml' **
-   This field appears in red and must be set manually.
+   This field appears in red and must be set manually due to domain verification requirements.
 3. Reply URL should already be set to 'https://signin.aws.amazon.com/saml'
 4. Under 'User Attributes & Claims', add these attribute mappings:
    - Name: RoleSessionName, Source: user.userprincipalname, Namespace: https://aws.amazon.com/SAML/Attributes
