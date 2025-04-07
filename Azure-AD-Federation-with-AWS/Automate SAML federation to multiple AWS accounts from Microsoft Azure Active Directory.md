@@ -66,7 +66,9 @@ The federation architecture consists of:
 3. in the Search page filter with "`Categories: Developer Services`"
 ![alt text](All_ScreenShot/image-2.png)
 4. Search for "Amazon Web Services" (non-Console version)
+
 ![alt text](All_ScreenShot/image-3.png)
+
 5. Provide a name for the application and add it
 ![alt text](All_ScreenShot/image-4.png)
 
