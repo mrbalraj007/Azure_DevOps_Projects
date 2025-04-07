@@ -141,15 +141,15 @@ First, we'll create the necessary virtual machines using ```terraform``` code.
 
 ***Once you run the terraform command, then we will verify the following things to make sure everything is setup via a terraform.***
 
-### <span style="color: cyan;"> Verify the `Identity providers` 
+### <span style="color: cyan;"> - Verify the `Identity providers` 
 ![alt text](All_ScreenShot/image-12.png)
 ![alt text](All_ScreenShot/image-13.png)
 
-### <span style="color: cyan;"> Verify the `Policy` 
+### <span style="color: cyan;"> - Verify the `Policy` 
 ![alt text](All_ScreenShot/image-14.png)
-### <span style="color: cyan;"> Verify the `Roles`
+### <span style="color: cyan;"> - Verify the `Roles`
 ![alt text](All_ScreenShot/image-15.png)
-### <span style="color: cyan;"> Verify the `Users`
+### <span style="color: cyan;"> - Verify the `Users`
 ![alt text](All_ScreenShot/image-16.png)
 
 #### 5.2.1 Create SAML Identity Provider
