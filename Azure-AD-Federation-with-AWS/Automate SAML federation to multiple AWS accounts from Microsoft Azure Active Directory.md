@@ -3,7 +3,7 @@
 
 ## 0. Introduction to Federation Architecture
 Federation enables centralized user authentication across multiple service providers through a trusted identity provider. This document outlines the implementation of SAML 2.0-based federation between Azure Active Directory (Azure AD) and Amazon Web Services (AWS), allowing users to authenticate to AWS using their Azure AD credentials.
-      ![Image](https://github.com/user-attachments/assets/49fc73dd-db6c-4371-96a4-5dc05ae62703)
+      ![alt text](/All_ScreenShot/image-50.png)
       
 ## 1. Federation Benefits
 
@@ -61,14 +61,14 @@ The federation architecture consists of:
 1. Navigate to Azure Portal > Search for "`Microsoft Entra ID`" > Enterprise applications
 2. Select "`New application`"
 
-   ![Image](https://github.com/user-attachments/assets/6bab757d-5277-4c80-b3b4-04041a9d1a69)
-   ![Image](https://github.com/user-attachments/assets/aa520a97-3d8d-446a-9bf1-268c570d2a63)
+   ![alt text](/All_ScreenShot/image.png)
+   ![alt text](/All_ScreenShot/image-1.png)
 3. in the Search page filter with "`Categories: Developer Services`"
-   ![Image](https://github.com/user-attachments/assets/b5f14ee6-893b-4928-affa-5c84a35e1f61)
+![alt text](/All_ScreenShot/image-2.png)
 4. Search for "Amazon Web Services" (non-Console version)
-   ![Image](https://github.com/user-attachments/assets/e1183b58-f1a9-418a-93ab-11665fdd271d)
+![alt text](/All_ScreenShot/image-3.png)
 5. Provide a name for the application and add it
-   ![alt text](/All_ScreenShot/image-4.png)
+![alt text](/All_ScreenShot/image-4.png)
 
 #### 5.1.2 Configure SAML SSO
 > **Note:** AWS SSO does not support automatic SCIM provisioning from Azure AD.
