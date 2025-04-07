@@ -315,13 +315,13 @@ First, we'll create the necessary virtual machines using ```terraform``` code.
 By implementing this federation architecture, organizations can centralize authentication and authorization while maintaining fine-grained access control to AWS resources.
 
 ## 9. <span style="color: Yellow;"> Environment Cleanup:
-- Azure
+- **Azure**
   1. Navigate to Microsoft Entra ID > App Registrations
    ![alt text](All_ScreenShot/image-48.png)
   2. Select `AWS Single-Account Access` application
   3. Delete application
    ![alt text](All_ScreenShot/image-49.png)
-- AWS
+- **AWS**
   - As we are using Terraform, we will use the following command to delete `AWS Setup`.  
 
   - Run the terraform command.
