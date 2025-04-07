@@ -70,6 +70,7 @@ The federation architecture consists of:
 ![alt text](All_ScreenShot/image-3.png)
 
 5. Provide a name for the application and add it
+
 ![alt text](All_ScreenShot/image-4.png)
 
 #### 5.1.2 Configure SAML SSO
