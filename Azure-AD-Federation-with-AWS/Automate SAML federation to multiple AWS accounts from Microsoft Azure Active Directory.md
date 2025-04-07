@@ -61,8 +61,8 @@ The federation architecture consists of:
 1. Navigate to Azure Portal > Search for "`Microsoft Entra ID`" > Enterprise applications
 2. Select "`New application`"
 
-   ![alt text](/All_ScreenShot/image.png)
-   ![alt text](/All_ScreenShot/image-1.png)
+   ![Image](https://github.com/user-attachments/assets/6bab757d-5277-4c80-b3b4-04041a9d1a69)
+   ![Image](https://github.com/user-attachments/assets/aa520a97-3d8d-446a-9bf1-268c570d2a63)
 3. in the Search page filter with "`Categories: Developer Services`"
 ![alt text](/All_ScreenShot/image-2.png)
 4. Search for "Amazon Web Services" (non-Console version)
