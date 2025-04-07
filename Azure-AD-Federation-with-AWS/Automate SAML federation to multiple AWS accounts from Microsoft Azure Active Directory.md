@@ -85,10 +85,12 @@ The federation architecture consists of:
 > note:: Refresh the page and you will noticed that `identifier (Entity ID)` is auto added.
 ![alt text](All_ScreenShot/image-9.png)
 
-> *If you don't found `Attributes & Claims` is not updated automaticaly then you have to following `steps (5.1.3)`*
 
 4. Download the Federation Metadata XML file for use in AWS configuration
 ![alt text](All_ScreenShot/image-10.png)
+
+
+> *If you don't found `Attributes & Claims` is not updated automaticaly then you have to following `steps (5.1.3)`*
 
 #### 5.1.3 Configure User `Attributes and Claims` (Optional)
 Configure the following SAML attributes & claims:
