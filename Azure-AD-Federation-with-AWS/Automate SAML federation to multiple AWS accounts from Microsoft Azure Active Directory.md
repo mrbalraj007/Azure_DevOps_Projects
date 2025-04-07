@@ -61,31 +61,31 @@ The federation architecture consists of:
 1. Navigate to Azure Portal > Search for "`Microsoft Entra ID`" > Enterprise applications
 2. Select "`New application`"
 
-   ![alt text](image.png)
-   ![alt text](image-1.png)
+   ![alt text](All_ScreenShot/image.png)
+   ![alt text](All_ScreenShot/image-1.png)
 3. in the Search page filter with "`Categories: Developer Services`"
-![alt text](image-2.png)
+![alt text](All_ScreenShot/image-2.png)
 4. Search for "Amazon Web Services" (non-Console version)
-![alt text](image-3.png)
+![alt text](All_ScreenShot/image-3.png)
 5. Provide a name for the application and add it
-![alt text](image-4.png)
+![alt text](All_ScreenShot/image-4.png)
 
 #### 5.1.2 Configure SAML SSO
 > **Note:** AWS SSO does not support automatic SCIM provisioning from Azure AD.
 1. In the enterprise application, navigate to "Single sign-on"
-![alt text](image-5.png)
+![alt text](All_ScreenShot/image-5.png)
 2. Select "SAML" as the authentication method
-![alt text](image-6.png)
+![alt text](All_ScreenShot/image-6.png)
 3. It will prompt for save setting, click on `Yes`. 
-![alt text](image-7.png)
-![alt text](image-8.png)
+![alt text](All_ScreenShot/image-7.png)
+![alt text](All_ScreenShot/image-8.png)
 > note:: Refresh the page and you will noticed that `identifier (Entity ID)` is auto added.
-![alt text](image-9.png)
+![alt text](All_ScreenShot/image-9.png)
 
 > *If you don't found `Attributes & Claims` is not updated automaticaly then you have to following `steps (5.1.3)`*
 
 4. Download the Federation Metadata XML file for use in AWS configuration
-![alt text](image-10.png)
+![alt text](All_ScreenShot/image-10.png)
 
 #### 5.1.3 Configure User `Attributes and Claims` (Optional)
 Configure the following SAML attributes & claims:
@@ -134,20 +134,20 @@ First, we'll create the necessary virtual machines using ```terraform``` code.
         terraform apply 
         # Optional <terraform apply --auto-approve>
         ```
-  ![alt text](image-11.png)
+  ![alt text](All_ScreenShot/image-11.png)
 
 ***Once you run the terraform command, then we will verify the following things to make sure everything is setup via a terraform.***
 
 ### <span style="color: cyan;"> Verify the `Identity providers` 
-![alt text](image-12.png)
-![alt text](image-13.png)
+![alt text](All_ScreenShot/image-12.png)
+![alt text](All_ScreenShot/image-13.png)
 
 ### <span style="color: cyan;"> Verify the `Policy` 
-![alt text](image-14.png)
+![alt text](All_ScreenShot/image-14.png)
 ### <span style="color: cyan;"> Verify the `Roles`
-![alt text](image-15.png)
+![alt text](All_ScreenShot/image-15.png)
 ### <span style="color: cyan;"> Verify the `Users`
-![alt text](image-16.png)
+![alt text](All_ScreenShot/image-16.png)
 
 #### 5.2.1 Create SAML Identity Provider
 
@@ -156,12 +156,12 @@ First, we'll create the necessary virtual machines using ```terraform``` code.
 3. Select existing SAML provider:
    - Provider name: (e.g., `AzureAD-SAML-Provider`)
    - Click on Replace metadata
-   ![alt text](image-18.png)
+   ![alt text](All_ScreenShot/image-18.png)
    - To confirm replacement, type `confirm` in the field.
-   ![alt text](image-19.png)
+   ![alt text](All_ScreenShot/image-19.png)
 
    - Upload the metadata document from Azure AD
-   ![alt text](image-20.png)
+   ![alt text](All_ScreenShot/image-20.png)
 
 
 #### 5.2.2 Create IAM Roles for Federation
@@ -177,10 +177,10 @@ First, we'll create the necessary virtual machines using ```terraform``` code.
 #### 5.2.3 Create `access` and `secret` keys for user `AzureSSOUser`
 
 - User> Security Credentials> `Create Access Key`
-![alt text](image-21.png)
-![alt text](image-22.png)
-![alt text](image-23.png)
-![alt text](image-24.png)
+![alt text](All_ScreenShot/image-21.png)
+![alt text](All_ScreenShot/image-22.png)
+![alt text](All_ScreenShot/image-23.png)
+![alt text](All_ScreenShot/image-24.png)
 
 - Download the `.csv file`
 
@@ -195,17 +195,17 @@ First, we'll create the necessary virtual machines using ```terraform``` code.
 
 #### 5.3.2 Configure Provisioning Role
 1. Navigate to Microsoft Entra ID > Manage > Enterprise Applications >
-![alt text](image-25.png)
+![alt text](All_ScreenShot/image-25.png)
 
 2. Select `Provisioning` from manage.
-![alt text](image-26.png)
-![alt text](image-27.png)
+![alt text](All_ScreenShot/image-26.png)
+![alt text](All_ScreenShot/image-27.png)
 3. Select the provisioning mode to `Automatic` from `Manual`.
-![alt text](image-28.png)
+![alt text](All_ScreenShot/image-28.png)
 4. Select `Admin Credentials` and put `access` and `secret` keys for user which we have created in AWS.
-![alt text](image-29.png)
+![alt text](All_ScreenShot/image-29.png)
 5. Click on `Test Connection`.
-![alt text](image-30.png)
+![alt text](All_ScreenShot/image-30.png)
 > I was getting an error message while validating the connection.
 
 ##### <span style="color: Red;"> **Troubleshooting**:  
@@ -213,16 +213,16 @@ First, we'll create the necessary virtual machines using ```terraform``` code.
       - I noticed that I was using these permission [`s3:ListBucket", "s3:GetObject", "ec2:DescribeInstances`] in custom policy while I should use [`iam:ListRoles`].
       - I have updated the terraform code for updated policy. 
 6. Now, click on the `Test Connection` and `Save`.       
-![alt text](image-31.png)
+![alt text](All_ScreenShot/image-31.png)
 
 7. Refesh the page and change the `provisioning state` to `on` from off.
-![alt text](image-32.png)
+![alt text](All_ScreenShot/image-32.png)
 8. Click on `Save`.
 
 #### 5.3.3 Verify the Role status of Provisioning
 1. Navigate to Microsoft Entra ID > Manage > Enterprise Applications > Provisioning.
    - Click on `Overview` from the `Provisioning` page for Role Sync.
-   ![alt text](image-33.png)
+   ![alt text](All_ScreenShot/image-33.png)
 
 
 #### 5.3.4 Configure Application Role Assignments
@@ -253,40 +253,40 @@ First, we'll create the necessary virtual machines using ```terraform``` code.
 
 1. Assign users or groups to these roles in the enterprise application:
    - Navigate to Enterprise application > Users and groups
-   ![alt text](image-34.png)
-   ![alt text](image-35.png)
+   ![alt text](All_ScreenShot/image-34.png)
+   ![alt text](All_ScreenShot/image-35.png)
    - Add users/groups and assign appropriate roles
-   ![alt text](image-36.png)
-   ![alt text](image-37.png)
-   ![alt text](image-38.png)
-   ![alt text](image-39.png)
+   ![alt text](All_ScreenShot/image-36.png)
+   ![alt text](All_ScreenShot/image-37.png)
+   ![alt text](All_ScreenShot/image-38.png)
+   ![alt text](All_ScreenShot/image-39.png)
 ### 5.4 Testing the Federation
 
 1. Access the User Access URL from Enterprise Application properties
-![alt text](image-40.png)
+![alt text](All_ScreenShot/image-40.png)
  or try with following URL
 [`https://myapplications.microsoft.com/`] 
 2. Sign in with Azure AD credentials
-![alt text](image-41.png)
-![alt text](image-42.png)
+![alt text](All_ScreenShot/image-41.png)
+![alt text](All_ScreenShot/image-42.png)
 3. If assigned multiple roles, select the desired role
-![alt text](image-43.png)
+![alt text](All_ScreenShot/image-43.png)
 > I am getting the above error.
 
 ##### <span style="color: Red;"> **Troubleshooting**:  
    - **Fixed**:  
       - I noticed that I was using the following `Trusted Entities` in Role and I removed it. 
-         ![alt text](image-44.png)
+         ![alt text](All_ScreenShot/image-44.png)
 
       Now `Trusted Entities` in Role as below
-      ![alt text](image-45.png)   
+      ![alt text](All_ScreenShot/image-45.png)   
       - I have updated the terraform code for updated policy. 
 
 4. I retied to access the page again and issue got resolved. assigned multiple roles are visible, select the desired role
-![alt text](image-47.png)
+![alt text](All_ScreenShot/image-47.png)
 
 5. Verify successful redirection to AWS Management Console with appropriate permissions.
-![alt text](image-46.png)
+![alt text](All_ScreenShot/image-46.png)
 
 ## 6. License Requirements
 
@@ -314,10 +314,10 @@ By implementing this federation architecture, organizations can centralize authe
 ## 9. <span style="color: Yellow;"> Environment Cleanup:
 - Azure
   1. Navigate to Microsoft Entra ID > App Registrations
-   ![alt text](image-48.png)
+   ![alt text](All_ScreenShot/image-48.png)
   2. Select `AWS Single-Account Access` application
   3. Delete application
-   ![alt text](image-49.png)
+   ![alt text](All_ScreenShot/image-49.png)
 - AWS
   - As we are using Terraform, we will use the following command to delete `AWS Setup`.  
 
