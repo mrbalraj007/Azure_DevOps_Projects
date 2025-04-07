@@ -64,11 +64,11 @@ The federation architecture consists of:
    ![Image](https://github.com/user-attachments/assets/6bab757d-5277-4c80-b3b4-04041a9d1a69)
    ![Image](https://github.com/user-attachments/assets/aa520a97-3d8d-446a-9bf1-268c570d2a63)
 3. in the Search page filter with "`Categories: Developer Services`"
-![alt text](/All_ScreenShot/image-2.png)
+   ![Image](https://github.com/user-attachments/assets/b5f14ee6-893b-4928-affa-5c84a35e1f61)
 4. Search for "Amazon Web Services" (non-Console version)
-![alt text](/All_ScreenShot/image-3.png)
+   ![Image](https://github.com/user-attachments/assets/e1183b58-f1a9-418a-93ab-11665fdd271d)
 5. Provide a name for the application and add it
-![alt text](/All_ScreenShot/image-4.png)
+   ![alt text](/All_ScreenShot/image-4.png)
 
 #### 5.1.2 Configure SAML SSO
 > **Note:** AWS SSO does not support automatic SCIM provisioning from Azure AD.
