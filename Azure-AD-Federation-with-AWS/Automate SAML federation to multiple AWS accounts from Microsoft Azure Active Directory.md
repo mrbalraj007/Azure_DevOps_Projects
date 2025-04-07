@@ -3,7 +3,6 @@
 
 ## 0. Introduction to Federation Architecture
 Federation enables centralized user authentication across multiple service providers through a trusted identity provider. This document outlines the implementation of SAML 2.0-based federation between Azure Active Directory (Azure AD) and Amazon Web Services (AWS), allowing users to authenticate to AWS using their Azure AD credentials.
-      ![alt text](/All_ScreenShot/image-50.png)
       ![Image](https://github.com/user-attachments/assets/49fc73dd-db6c-4371-96a4-5dc05ae62703)
       
 ## 1. Federation Benefits
