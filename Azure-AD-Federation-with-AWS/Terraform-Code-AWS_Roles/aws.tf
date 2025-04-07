@@ -1,10 +1,10 @@
 resource "aws_iam_saml_provider" "saml_provider" {
-  name                   = "AzureAD-SAML-Provider"
-  saml_metadata_document = file("saml_metadata.xml") // Replace with the path to your SAML metadata file
+  name                   = var.saml_provider_name
+  saml_metadata_document = file(var.saml_metadata_file_path)
 }
 
 resource "aws_iam_role" "aws_admin" {
-  name               = "AWS-Admin"
+  name               = var.admin_role_name
   assume_role_policy = <<EOF
 {
   "Version": "2012-10-17",
@@ -18,9 +18,6 @@ resource "aws_iam_role" "aws_admin" {
       "Condition": {
         "StringEquals": {
           "SAML:aud": "https://signin.aws.amazon.com/saml"
-        },
-        "StringLike": {
-          "SAML:sub": "admin@example.com"
         }
       }
     }
@@ -35,7 +32,7 @@ resource "aws_iam_role_policy_attachment" "admin_policy_attachment" {
 }
 
 resource "aws_iam_role" "aws_ro" {
-  name               = "AWS-RO"
+  name               = var.readonly_role_name
   assume_role_policy = <<EOF
 {
   "Version": "2012-10-17",
@@ -49,9 +46,6 @@ resource "aws_iam_role" "aws_ro" {
       "Condition": {
         "StringEquals": {
           "SAML:aud": "https://signin.aws.amazon.com/saml"
-        },
-        "StringLike": {
-          "SAML:sub": "readonly@example.com"
         }
       }
     }
@@ -67,23 +61,19 @@ resource "aws_iam_role_policy_attachment" "readonly_policy_attachment" {
 
 
 resource "aws_iam_user" "new_user" {
-  name = "NewUser"
+  name = var.iam_user_name
 }
 
 resource "aws_iam_policy" "custom_permission_policy" {
-  name        = "CustomPermissionPolicy"
-  description = "Custom policy for NewUser"
+  name        = var.custom_policy_name
+  description = var.custom_policy_description
   policy      = <<EOF
 {
   "Version": "2012-10-17",
   "Statement": [
     {
       "Effect": "Allow",
-      "Action": [
-        "s3:ListBucket",
-        "s3:GetObject",
-        "ec2:DescribeInstances"
-      ],
+      "Action": ${jsonencode(var.custom_policy_actions)},
       "Resource": "*"
     }
   ]

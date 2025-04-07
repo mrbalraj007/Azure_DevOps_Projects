@@ -1,0 +1,12 @@
+saml_provider_name        = "AzureAD-SAML-Provider"
+saml_metadata_file_path   = "saml_metadata.xml"
+admin_role_name           = "AWS-M-Administrator"
+readonly_role_name        = "AWS-M-ReadOnly"
+admin_email               = "admin@example.com"
+readonly_email            = "readonly@example.com"
+iam_user_name             = "AzureSSOUser"
+custom_policy_name        = "CustomPermissionPolicy"
+custom_policy_description = "Custom policy for AzureSSOUser"
+#custom_policy_actions     = ["s3:ListBucket", "s3:GetObject", "ec2:DescribeInstances"]
+#custom_policy_actions     = ["iam:ListRoles", "iam:GetRole", "iam:ListUsers", "iam:GetUser"]
+custom_policy_actions     = ["iam:ListRoles"]
