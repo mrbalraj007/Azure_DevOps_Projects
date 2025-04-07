@@ -48,7 +48,7 @@ The federation architecture consists of:
 
 ## 4. Prerequisites
 
-- [x] [Terraform code](https://github.com/mrbalraj007/Azure_DevOps_Projects/tree/main/Azure_DevOps_All_Projects/13_Real-Time-DevOps-Project_CI-CD_Terraform_Multi-Cloud_Automation/Terraform_Code)<br>
+- [x] [Terraform code](https://github.com/mrbalraj007/Azure_DevOps_Projects/tree/main/Azure-AD-Federation-with-AWS/Terraform-Code-AWS_Roles)<br>
   __Note__: Replace resource names and variables as per your requirement in terraform code
     - Update ```terraform.tfvars```
     
@@ -71,7 +71,7 @@ The federation architecture consists of:
 ![alt text](/All_ScreenShot/image-4.png)
 
 #### 5.1.2 Configure SAML SSO
-
+> **Note:** AWS SSO does not support automatic SCIM provisioning from Azure AD.
 1. In the enterprise application, navigate to "Single sign-on"
 ![alt text](/All_ScreenShot/image-5.png)
 2. Select "SAML" as the authentication method
@@ -114,7 +114,7 @@ First, we'll create the necessary virtual machines using ```terraform``` code.
 
   - Below is a terraform Code:
 
-    - Once you [clone repo](https://github.com/mrbalraj007/Azure_DevOps_Projects/tree/main/Azure_DevOps_All_Projects/13_Real-Time-DevOps-Project_CI-CD_Terraform_Multi-Cloud_Automation/Terraform_Code)</span> and run the terraform command.
+    - Once you [clone repo](https://github.com/mrbalraj007/Azure_DevOps_Projects/tree/main/Azure-AD-Federation-with-AWS/Terraform-Code-AWS_Rolese)</span> and run the terraform command.
         ```bash
         $ ls -l
            -rw-r--r-- 1 bsingh 1049089  2200 Apr  7 09:00 aws.tf
