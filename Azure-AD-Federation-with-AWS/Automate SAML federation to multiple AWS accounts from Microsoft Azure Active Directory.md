@@ -32,6 +32,7 @@ The federation architecture consists of:
 6. AWS STS issues temporary security credentials for the mapped IAM role
 7. User is redirected to AWS Management Console with appropriate permissions -->
 
+![Image](https://github.com/user-attachments/assets/bbacc5ee-6bf6-4215-8a18-0a24f8190906)
 
 **Detailed Workflow Steps**:
 01. **User Initiates Login:** The user starts the login process, typically by accessing an application or service that requires authentication.
